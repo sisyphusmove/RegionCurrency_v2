@@ -3,7 +3,6 @@
 
 {% block head %}
 
-{% comment %} <link href="{% static 'css/account.css' %}" rel="stylesheet"> {% endcomment %}
 <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 <link href="{% static 'css/myinfo.css' %}" rel="stylesheet">
 
@@ -435,7 +434,7 @@
 {% block content %}
 
 <section id="content">
-   <input type="text" id="from" value="{{ user.id }}" hidden />
+   <input type="text" id="from" value="{{ user.username }}" hidden />
     <div class="container">
         <div class="submitbox">
                         
@@ -501,80 +500,15 @@
                     <div class="tab-content profile-tab" id="myTabContent">
 
                         <div class="tab-pane fade show active" id="myHistory" role="tabpanel" aria-labelledby="myHistory-tab">
-                        <div class="pull-right">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-danger btn-filter" data-target="cancelado">발행</button>
-                                            <button type="button" class="btn btn-success btn-filter" data-target="pagado">송금</button>
-                                            <button type="button" class="btn btn-warning btn-filter" data-target="pendiente">결제</button>
-                                            <button type="button" class="btn btn-primary custom-btn btn-filter" data-target="all">종합</button>
-                                        </div>
-                                    </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>User Id</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>거래내역</p>
-                                    <div class="table-container">
-                                <table class="table table-filter">
-                                    <tbody>
-
-                                    {{ data }}for문{% for withdraw in withdraws %}
-                                        <tr data-status="{{ withdraw.type}}">
-                                            <td>
-                                                <div class="ckbox">
-                                                    {{ withdraw.no}}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:;" class="star">
-                                                    <i class="glyphicon glyphicon-star"></i>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <div class="media">
-                                                    <div class="media-body">
-                                                        <span class="media-meta pull-right">{{withdraw.date}}</span>
-                                                        <h4 class="title">
-                                                            {{ withdraw.name}}
-                                                            <span class="pull-right {{ withdraw.type}}">{{withdraw.typekor}}</span>
-                                                        </h4>
-                                                        <p class="summary">{{ withdraw.name}}님에게 {{withdraw.price}} RC {{withdraw.typekor}}</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-
-                                    </tbody>                            
-                                </table>
-								 {% comment %} {% if withdraws.has_other_pages %}
-                                <ul class="pagination pagination-lg pager">
-                                    {% if withdraws.has_previous %}
-                                      <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
-                                    {% else %}
-                                      <li class="disabled"><span>&laquo;</span></li>
-                                    {% endif %}
-                                    {% for i in withdraws.paginator.page_range %}
-                                      {% if withdraws.number == i %}
-                                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-                                      {% else %}
-                                        <li><a href="?page={{ i }}">{{ i }}</a></li>
-                                      {% endif %}
-                                    {% endfor %}
-                                    {% if withdraws.has_next %}
-                                      <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
-                                    {% else %}
-                                      <li class="disabled"><span>&raquo;</span></li>
-                                    {% endif %}
-                                    </ul>
-							
-                                {% endif %} {% endcomment %}
-                            </div>
-                            {% comment %} <ul class="pagination pagination-lg pager" id="myPager"></ul> {% endcomment %}
-                                </div>
-                            </div>
-                        </div>
+                        	<div class="pull-right">
+								<div class="btn-group">
+									<button type="button" class="btn btn-danger btn-filter" data-target="cancelado">발행</button>
+									<button type="button" class="btn btn-success btn-filter" data-target="pagado">송금</button>
+									<button type="button" class="btn btn-warning btn-filter" data-target="pendiente">결제</button>
+									<button type="button" class="btn btn-primary custom-btn btn-filter" data-target="all">종합</button>
+								</div>
+							</div>
+						</div>
 
                         <div class="tab-pane fade show" id="myBoard" role="tabpanel" aria-labelledby="myBoard-tab">
                             <div class="row card">

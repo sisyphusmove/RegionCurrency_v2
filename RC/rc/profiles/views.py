@@ -94,7 +94,7 @@ def account_edit(request, account_id=None):
         
         if isSignup:
             target = get_object_or_404(User, username=request.POST.get("username"))
-            url = host + "init_wallet/" + str(target.pk)
+            url = host + "init_wallet/" + str(target.username)
             res = requests.get(url)
             print(res)
             if res == "fail":
@@ -113,7 +113,8 @@ def account_edit(request, account_id=None):
 def my_info(request, account_id=None):
     template_name = "registration/profile_myInfo.html"
     context = getContext(account_id)
-    url = host +"get_account/" + str(account_id)
+    user = get_object_or_404(User, pk=account_id)
+    url = host +"get_account/" + user.username
     response = requests.get(url)
     res = json.loads(response.text)
     data = {
