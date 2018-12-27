@@ -23,6 +23,8 @@ function check_username() {
             alert("status: " + textStatus + "\nerror: " + jqXHR.error )
         }
     });
+
+    return toId;
 }
 
 function check_password() {
@@ -65,8 +67,11 @@ $(function() {
 function withdraw_submit() {
     var transfer = "transfer"
     var from_id = $("#from").val();
-    var to_id = toId
+    var to_id = check_username();
     var amount = $("#point").val();
+	amount = parseInt(amount.replace(/,/g, ''));
+	
+
     var type = 5;
     var current = new Date().toISOString().slice(0,10); 
  
@@ -74,7 +79,7 @@ function withdraw_submit() {
     var urls = "http://210.107.78.166:8000/transfer/"+from_id+"/"+to_id+"/"+amount+"/"+type+"/"+current
     $.ajax({
         url: urls, // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-        method: "POST",
+        method: "GET",
         dataType: "json",
         success: function(data) {
             if ( data["result"] ){
@@ -95,5 +100,6 @@ function withdraw_submit() {
 $(function() {
     $("#btn_submit").click(function() {
         withdraw_submit();
+
     });
 });
