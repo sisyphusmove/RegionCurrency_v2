@@ -36,74 +36,74 @@ $(document).ready(function () {
 
 <br><br><br><br>
 <style>
-/*    --------------------------------------------------
+	/*    --------------------------------------------------
 	:: General
 	-------------------------------------------------- */
-body {
+	body {
 	font-family: 'Open Sans', sans-serif;
 	color: #353535;
-}
-.content h1 {
+	}
+	.content h1 {
 	text-align: center;
 	color: #71c55d;
-}
-.content .content-footer p {
+	}
+	.content .content-footer p {
 	color: #6d6d6d;
-    font-size: 12px;
-    text-align: center;
-}
-.content .content-footer p a {
+	font-size: 12px;
+	text-align: center;
+	}
+	.content .content-footer p a {
 	color: inherit;
 	font-weight: bold;
-}
-/*	--------------------------------------------------
+	}
+	/*	--------------------------------------------------
 	:: Table Filter
 	-------------------------------------------------- */
-.panel {
+	.panel {
 	border: none;
 	background-color: #fff;
-}
-.panel .btn-group {
+	}
+	.panel .btn-group {
 	margin: 15px 0 30px;
-}
-.panel .btn-group .btn {
+	}
+	.panel .btn-group .btn {
 	transition: background-color .3s ease;
-}
-.table-filter {
+	}
+	.table-filter {
 	background-color: #fff;
 	border-bottom: 1px solid #eee;
-}
-.table-filter tbody tr:hover {
+	}
+	.table-filter tbody tr:hover {
 	cursor: pointer;
 	background-color: #eee;
-}
-.table-filter tbody tr td {
+	}
+	.table-filter tbody tr td {
 	padding: 10px;
 	vertical-align: middle;
 	border-top-color: #eee;
-}
-.table-filter tbody tr.selected td {
+	}
+	.table-filter tbody tr.selected td {
 	background-color: #eee;
-}
-.table-filter tr td:first-child {
+	}
+	.table-filter tr td:first-child {
 	width: 38px;
-}
-.table-filter tr td:nth-child(2) {
+	}
+	.table-filter tr td:nth-child(2) {
 	width: 35px;
-}
-.ckbox {
+	}
+	.ckbox {
 	position: relative;
-}
-.ckbox input[type="checkbox"] {
+	}
+	.ckbox input[type="checkbox"] {
 	opacity: 0;
-}
-.ckbox label {
+	}
+	.ckbox label {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-}
-.ckbox label:before {
+	}
+	.ckbox label:before {
 	content: '';
 	top: 1px;
 	left: 0;
@@ -114,12 +114,12 @@ body {
 	border-radius: 2px;
 	border: 1px solid #bbb;
 	background-color: #fff;
-}
-.ckbox input[type="checkbox"]:checked + label:before {
+	}
+	.ckbox input[type="checkbox"]:checked + label:before {
 	border-color: #2BBCDE;
 	background-color: #2BBCDE;
-}
-.ckbox input[type="checkbox"]:checked + label:after {
+	}
+	.ckbox input[type="checkbox"]:checked + label:after {
 	top: 3px;
 	left: 3.5px;
 	content: '\e013';
@@ -127,94 +127,94 @@ body {
 	font-size: 11px;
 	font-family: 'Glyphicons Halflings';
 	position: absolute;
-}
-.table-filter .star {
+	}
+	.table-filter .star {
 	color: #ccc;
 	text-align: center;
 	display: block;
-}
-.table-filter .star.star-checked {
+	}
+	.table-filter .star.star-checked {
 	color: #F0AD4E;
-}
-.table-filter .star:hover {
+	}
+	.table-filter .star:hover {
 	color: #ccc;
-}
-.table-filter .star.star-checked:hover {
+	}
+	.table-filter .star.star-checked:hover {
 	color: #F0AD4E;
-}
-.table-filter .media-photo {
+	}
+	.table-filter .media-photo {
 	width: 35px;
-}
-.table-filter .media-body {
-    display: block;
-    /* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
-}/*    --------------------------------------------------
+	}
+	.table-filter .media-body {
+	display: block;
+	/* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
+	}/*    --------------------------------------------------
 	:: General
 	-------------------------------------------------- */
-body {
+	body {
 	font-family: 'Open Sans', sans-serif;
 	color: #353535;
-}
-.content h1 {
+	}
+	.content h1 {
 	text-align: center;
-}
-.content .content-footer p {
+	}
+	.content .content-footer p {
 	color: #6d6d6d;
-    font-size: 12px;
-    text-align: center;
-}
-.content .content-footer p a {
+	font-size: 12px;
+	text-align: center;
+	}
+	.content .content-footer p a {
 	color: inherit;
 	font-weight: bold;
-}
-/*	--------------------------------------------------
+	}
+	/*	--------------------------------------------------
 	:: Table Filter
 	-------------------------------------------------- */
-.panel {
+	.panel {
 	border: 1px solid #ddd;
 	background-color: #fcfcfc;
-}
-.panel .btn-group {
+	}
+	.panel .btn-group {
 	margin: 15px 0 30px;
-}
-.panel .btn-group .btn {
+	}
+	.panel .btn-group .btn {
 	transition: background-color .3s ease;
-}
-.table-filter {
+	}
+	.table-filter {
 	background-color: #fff;
 	border-bottom: 1px solid #eee;
-}
-.table-filter tbody tr:hover {
+	}
+	.table-filter tbody tr:hover {
 	cursor: pointer;
 	background-color: #eee;
-}
-.table-filter tbody tr td {
+	}
+	.table-filter tbody tr td {
 	padding: 10px;
 	vertical-align: middle;
 	border-top-color: #eee;
-}
-.table-filter tbody tr.selected td {
+	}
+	.table-filter tbody tr.selected td {
 	background-color: #eee;
-}
-.table-filter tr td:first-child {
+	}
+	.table-filter tr td:first-child {
 	width: 38px;
-}
-.table-filter tr td:nth-child(2) {
+	}
+	.table-filter tr td:nth-child(2) {
 	width: 35px;
-}
-.ckbox {
+	}
+	.ckbox {
 	position: relative;
-}
-.ckbox input[type="checkbox"] {
+	}
+	.ckbox input[type="checkbox"] {
 	opacity: 0;
-}
-.ckbox label {
+	}
+	.ckbox label {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-}
-.ckbox label:before {
+	}
+	.ckbox label:before {
 	content: '';
 	top: 1px;
 	left: 0;
@@ -225,12 +225,12 @@ body {
 	border-radius: 2px;
 	border: 1px solid #bbb;
 	background-color: #fff;
-}
-.ckbox input[type="checkbox"]:checked + label:before {
+	}
+	.ckbox input[type="checkbox"]:checked + label:before {
 	border-color: #2BBCDE;
 	background-color: #2BBCDE;
-}
-.ckbox input[type="checkbox"]:checked + label:after {
+	}
+	.ckbox input[type="checkbox"]:checked + label:after {
 	top: 3px;
 	left: 3.5px;
 	content: '\e013';
@@ -238,90 +238,90 @@ body {
 	font-size: 11px;
 	font-family: 'Glyphicons Halflings';
 	position: absolute;
-}
-.table-filter .star {
+	}
+	.table-filter .star {
 	color: #ccc;
 	text-align: center;
 	display: block;
-}
-.table-filter .star.star-checked {
+	}
+	.table-filter .star.star-checked {
 	color: #F0AD4E;
-}
-.table-filter .star:hover {
+	}
+	.table-filter .star:hover {
 	color: #ccc;
-}
-.table-filter .star.star-checked:hover {
+	}
+	.table-filter .star.star-checked:hover {
 	color: #F0AD4E;
-}
-.table-filter .media-photo {
+	}
+	.table-filter .media-photo {
 	width: 35px;
-}/*    --------------------------------------------------
+	}/*    --------------------------------------------------
 	:: General
 	-------------------------------------------------- */
-body {
+	body {
 	font-family: 'Open Sans', sans-serif;
 	color: #353535;
-}
-.content h1 {
+	}
+	.content h1 {
 	text-align: center;
-}
-.content .content-footer p {
+	}
+	.content .content-footer p {
 	color: #6d6d6d;
-    font-size: 12px;
-    text-align: center;
-}
-.content .content-footer p a {
+	font-size: 12px;
+	text-align: center;
+	}
+	.content .content-footer p a {
 	color: inherit;
 	font-weight: bold;
-}
-/*	--------------------------------------------------
+	}
+	/*	--------------------------------------------------
 	:: Table Filter
 	-------------------------------------------------- */
-.panel {
+	.panel {
 	border: none;
 	background-color: #fff;
-}
-.panel .btn-group {
+	}
+	.panel .btn-group {
 	margin: 15px 0 30px;
-}
-.panel .btn-group .btn {
+	}
+	.panel .btn-group .btn {
 	transition: background-color .3s ease;
-}
-.table-filter {
+	}
+	.table-filter {
 	background-color: #fff;
 	border-bottom: 1px solid #eee;
-}
-.table-filter tbody tr:hover {
+	}
+	.table-filter tbody tr:hover {
 	cursor: pointer;
 	background-color: #eee;
-}
-.table-filter tbody tr td {
+	}
+	.table-filter tbody tr td {
 	padding: 10px;
 	vertical-align: middle;
 	border-top-color: #eee;
-}
-.table-filter tbody tr.selected td {
+	}
+	.table-filter tbody tr.selected td {
 	background-color: #eee;
-}
-.table-filter tr td:first-child {
+	}
+	.table-filter tr td:first-child {
 	width: 38px;
-}
-.table-filter tr td:nth-child(2) {
+	}
+	.table-filter tr td:nth-child(2) {
 	width: 35px;
-}
-.ckbox {
+	}
+	.ckbox {
 	position: relative;
-}
-.ckbox input[type="checkbox"] {
+	}
+	.ckbox input[type="checkbox"] {
 	opacity: 0;
-}
-.ckbox label {
+	}
+	.ckbox label {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-}
-.ckbox label:before {
+	}
+	.ckbox label:before {
 	content: '';
 	top: 1px;
 	left: 0;
@@ -332,12 +332,12 @@ body {
 	border-radius: 2px;
 	border: 1px solid #bbb;
 	background-color: #fff;
-}
-.ckbox input[type="checkbox"]:checked + label:before {
+	}
+	.ckbox input[type="checkbox"]:checked + label:before {
 	border-color: #2BBCDE;
 	background-color: #2BBCDE;
-}
-.ckbox input[type="checkbox"]:checked + label:after {
+	}
+	.ckbox input[type="checkbox"]:checked + label:after {
 	top: 3px;
 	left: 3.5px;
 	content: '\e013';
@@ -345,141 +345,126 @@ body {
 	font-size: 11px;
 	font-family: 'Glyphicons Halflings';
 	position: absolute;
-}
-.table-filter .star {
+	}
+	.table-filter .star {
 	color: #ccc;
 	text-align: center;
 	display: block;
-}
-.table-filter .star.star-checked {
+	}
+	.table-filter .star.star-checked {
 	color: #F0AD4E;
-}
-.table-filter .star:hover {
+	}
+	.table-filter .star:hover {
 	color: #ccc;
-}
-.table-filter .star.star-checked:hover {
+	}
+	.table-filter .star.star-checked:hover {
 	color: #F0AD4E;
-}
-.table-filter .media-photo {
+	}
+	.table-filter .media-photo {
 	width: 35px;
-}
-.table-filter .media-body {
-    display: block;
-    /* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
-}
-.table-filter .media-meta {
+	}
+	.table-filter .media-body {
+	display: block;
+	/* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
+	}
+	.table-filter .media-meta {
 	font-size: 11px;
 	color: #999;
-}
-.table-filter .media .title {
+	}
+	.table-filter .media .title {
 	color: #71c55d;
 	font-size: 14px;
 	font-weight: bold;
 	line-height: normal;
 	margin: 0;
-}
-.table-filter .media .title span {
+	}
+	.table-filter .media .title span {
 	font-size: .8em;
 	margin-right: 20px;
-}
-.table-filter .media .title span.pagado {
+	}
+	.table-filter .media .title span.pagado {
 	color: #5cb85c;
-}
-.table-filter .media .title span.pendiente {
+	}
+	.table-filter .media .title span.pendiente {
 	color: #f0ad4e;
-}
-.table-filter .media .title span.cancelado {
+	}
+	.table-filter .media .title span.cancelado {
 	color: #d9534f;
-}
-.table-filter .media .summary {
+	}
+	.table-filter .media .summary {
 	font-size: 14px;
-}
-.table-filter .media-body {
-    display: block;
-    /* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
-}
-.table-filter .media-meta {
+	}
+	.table-filter .media-body {
+	display: block;
+	/* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
+	}
+	.table-filter .media-meta {
 	font-size: 11px;
 	color: #999;
-}
-.table-filter .media .title {
+	}
+	.table-filter .media .title {
 	color: #2BBCDE;
 	font-size: 14px;
 	font-weight: bold;
 	line-height: normal;
 	margin: 0;
-}
-.table-filter .media .title span {
+	}
+	.table-filter .media .title span {
 	font-size: .8em;
 	margin-right: 20px;
-}
-.table-filter .media .title span.pagado {
+	}
+	.table-filter .media .title span.pagado {
 	color: #5cb85c;
-}
-.table-filter .media .title span.pendiente {
+	}
+	.table-filter .media .title span.pendiente {
 	color: #f0ad4e;
-}
-.table-filter .media .title span.cancelado {
+	}
+	.table-filter .media .title span.cancelado {
 	color: #d9534f;
-}
-.table-filter .media .summary {
+	}
+	.table-filter .media .summary {
 	font-size: 14px;
-}
-.table-filter .media-meta {
+	}
+	.table-filter .media-meta {
 	font-size: 11px;
 	color: #999;
-}
-.table-filter .media .title {
+	}
+	.table-filter .media .title {
 	color: #2BBCDE;
 	font-size: 14px;
 	font-weight: bold;
 	line-height: normal;
 	margin: 0;
-}
-.table-filter .media .title span {
+	}
+	.table-filter .media .title span {
 	font-size: .8em;
 	margin-right: 20px;
-}
-.table-filter .media .title span.pagado {
+	}
+	.table-filter .media .title span.pagado {
 	color: #5cb85c;
-}
-.table-filter .media .title span.pendiente {
+	}
+	.table-filter .media .title span.pendiente {
 	color: #f0ad4e;
-}
-.table-filter .media .title span.cancelado {
+	}
+	.table-filter .media .title span.cancelado {
 	color: #d9534f;
-}
-.table-filter .media .summary {
+	}
+	.table-filter .media .summary {
 	font-size: 14px;
-}
-.btn-primary.custom-btn.btn-filter {
+	}
+	.btn-primary.custom-btn.btn-filter {
 	background-color: #17a2b8;
 	border-color: #17a2b8;
-}
+	}
 </style>
 
-<div class="side_bar" style="float: left; border-top: 1px solid #71c55d; border-bottom: 1px solid #71c55d; margin-left: 40px; background-color: white">
-<div style="padding: 20px; background-color: #71c55d;"><div class="" href="{% url 'board:list' %}" style="text-align: center; color: white; font-weight: bold;"> 마이페이지</div></div>
-<div style="border: 1px solid white;"></div>
-<div id="btn_board_type_2" style="padding: 20px;"><a class="btn_board_type_3" href="{% url 'profile:account_myInfo' user.id %}" value="3" onclick="chg_board( 3, 1 )" style="text-align: center; font-weight: bold;">계정관리</a></div>
-<div style="border: 1px solid white;"></div>
-<div id="btn_board_type_1" style="padding: 20px; background-color: #71c55d;"><a class="btn_board_type_1" value="1" href="{% url 'payment:withdraw' %}" onclick="chg_board( 1, 1 )" style="text-align: center; font-weight: bold;">송금/결제</a></div>
-<div style="border: 1px solid white;"></div>
-<div id="btn_board_type_2" style="padding: 20px;"><a class="btn_board_type_2" href="{% url 'payment:history' %}" value="2" onclick="chg_board( 2, 1 )" style="text-align: center; font-weight: bold;">거래내역</a></div>
-<div style="border: 1px solid white;"></div>
-<div id="btn_board_type_2" style="padding: 20px;"><a class="btn_board_type_4" href="{% url 'logout' %}" value="4" onclick="chg_board( 4, 1 )" style="text-align: center; font-weight: bold;">로그아웃</a></div>
-</div>
-
-
 <section class="content">
-
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-md-offset-3">
                 <div class="panel panel-default">
                     <h1 align="center">거래 내역</h1>
 					<br>
-                       
                             <div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-danger btn-filter" data-target="cancelado">발행</button>
@@ -545,10 +530,9 @@ body {
                                 {% endif %}
                             </div>
                         </div>
-                </div>
-            </div>
-
-                <ul class="pagination pagination-lg pager" id="myPager"></ul>
+               	 	</div>
+            	</div>
+	<ul class="pagination pagination-lg pager" id="myPager"></ul>
 
         </div>
     </div>
