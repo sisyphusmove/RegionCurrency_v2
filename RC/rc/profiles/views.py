@@ -6,7 +6,7 @@ from django.http import JsonResponse, HttpResponse
 from django.core.mail import send_mail
 from .forms import ProfileForm
 from docx import Document
-import json, requests
+import json, requests, datetime
 
 # Create your views here.
 
@@ -94,9 +94,9 @@ def account_edit(request, account_id=None):
         
         if isSignup:
             target = get_object_or_404(User, username=request.POST.get("username"))
-            url = host + "init_wallet/" + str(target.username)
+            today = (datetime.datetime.now()).strftime('%Y-%m-%d')
+            url = host + "init_wallet/" + str(target.username) + "/관리자/" + today
             res = requests.get(url)
-            print(res)
             if res == "fail":
                 context['messages'] = ['계좌 생성에 실패했습니다.', '관리자에게 문의하세요.', '메인화면으로 이동합니다.', '로그인을 해주세요.']
         
