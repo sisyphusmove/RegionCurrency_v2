@@ -18,12 +18,8 @@ function get_history() {
                 let exp1;
                 let exp2;
                 let text;
-                
-                if( data.txType == '' ) {
-                    data.txType = 9;
-                }
 
-                if( data.txType == 0 || data.txType == 9 || data.txType % 2 == 0) {
+                if( data.txType == 0 || data.txType % 2 == 0) {
                     exp1 = '으로부터';
                     exp2 = '받음';
                 } else {

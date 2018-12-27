@@ -19,17 +19,17 @@ from . import views
 app_name = 'profile'
 
 urlpatterns = [
+    path('agreement/', views.agreement, name='agreement'),
     path('signup/', views.account_edit, name='signup'),
+    path('signup/check_username/', views.check_username, name='check_username'),
     path('myInfo/<int:account_id>/', views.my_info, name='account_myInfo'),
     path('myInfo/<int:account_id>/edit', views.account_edit, name='account_edit'),
-    path('signup/check_username/', views.check_username, name='check_username'),
-    path('check_username2/', views.check_username2, name='check_username2'),
     path('myInfo/<int:account_id>/check_password/', views.check_password, name='check_password'),
+    path('check_username2/', views.check_username2, name='check_username2'),
     path('check_password2', views.check_password2, name='check_password2'),
     path('search_username/', views.search_username, name='search_username'),
     path('search_username/getUserList/', views.getUserList, name='getUserList'),
     path('search_password/', views.search_password, name='search_password'),
     path('search_password/initPassword/', views.initPassword, name='initPassword'),
-    path('done/', views.done, name='done'),
-    path('agreement/', views.agreement, name='agreement')
+    path('done/', views.done, name='done')
 ]
