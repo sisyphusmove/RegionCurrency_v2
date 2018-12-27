@@ -10,17 +10,55 @@ function get_history() {
         async: false
     }).done( function(res) {
         if ( res ) {
-            console.log(res);
-            let type = ['발행', '결제', '결제', '결제취소', '결제취소', '송금', '송금', '송금취소', '송금취소']
+            res.reverse();
+            let type = ['발행', '결제', '결제', '결제', '결제', '송금', '송금', '송금', '송금', '계좌생성']
             let seq = res.length;
-            let text = '';
-            let trader
-            let amount
-            let txType
             
             res.forEach(function(data) {
+                let exp1;
+                let exp2;
+                let text;
+                
+                if( data.txType == '' ) {
+                    data.txType = 9;
+                }
 
-            })
+                if( data.txType == 0 || data.txType == 9 || data.txType % 2 == 0) {
+                    exp1 = '으로부터';
+                    exp2 = '받음';
+                } else {
+                    exp1 = '에게'
+                    exp2 = '보냄';
+                }
+            
+                text = `
+                <tr data-status="${type[data.txType]}">
+                    <td>
+                        <div class="ckbox">
+                            ${seq--}
+                        </div>
+                    </td>
+                    <td>
+                        <a href="javascript:;" class="star">
+                            <i class="glyphicon glyphicon-star"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <div class="media">
+                            <div class="media-body">
+                                <span class="media-meta pull-right">${data.date}</span>
+                                <h4 class="title">
+                                    ${data.trader}
+                                    <span class="pull-right ${type[data.txType]}">${type[data.txType]}</span>
+                                </h4>
+                                <p class="summary">${data.trader}님${exp1} ${data.amount} RC를 ${type[data.txType]}${exp2}</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                `;
+                $("#history").append(text);
+            });
         }
     });
 }
