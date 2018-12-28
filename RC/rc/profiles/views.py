@@ -185,7 +185,7 @@ def check_username2(request):
 
     if res:
         user = get_object_or_404(User, username=username)
-        to_id = user.pk
+        to_id = user.username
     data = {
         'result' : to_id
     }
