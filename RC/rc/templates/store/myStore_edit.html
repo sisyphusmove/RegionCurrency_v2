@@ -129,11 +129,10 @@
                         <div class="col-sm align-center">
                             {% if store.id %}
                             <a id="btn_modify" href="" class="one_green">수정</a>
-                            <a href="{% url 'store:myList' %}" class="one_gray">취소</a>
                             {% else %}
                             <a id="btn_modify" href="" class="one_green">등록</a>
-                            <a href="{% url 'profile:account_myInfo' user.id %}" class="one_gray">취소</a>
                             {% endif %}
+                            <a href="{% url 'profile:account_myInfo' user.id %}" class="one_gray">취소</a>
                         </div>
                     </div>
                 </div>

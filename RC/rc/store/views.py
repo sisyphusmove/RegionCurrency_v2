@@ -132,7 +132,7 @@ def store_edit(request, store_id=None):
                 photo = Photo(store=store, image=request.FILES['image'])
                 photo.save()
 
-        return redirect('store:myList')
+        return redirect('profile:account_myInfo', request.user.pk)
 
     else:
         form = StoreForm(instance=store)
@@ -146,24 +146,35 @@ def store_remove(request, store_id=None):
     store = get_object_or_404(Store, pk=store_id)
     store.status = "d"
     store.save()
-    return redirect('store:myList')
+    return redirect('profile:account_myInfo', request.user.pk)
 
 
 def get_myStore(request):
     userid = request.GET.get('userid', None)
-    res = Store.objects.filter(representative_id=userid).order_by('-id')
-
+    this_page_num = request.GET.get('this_page', None)
+    res = Store.objects.filter(Q(representative_id=userid) & (Q(status='a') | Q(status='w'))).order_by('-id')
+    
     store_list = []
-    for store in res:
-        temp = {}
-        temp['name'] = store.name
-        temp['category'] = get_object_or_404(Category, id=store.category_id).domain
-        temp['location'] = get_object_or_404(Location, id=store.location_id).loc
-        temp['registered_date'] = (store.registered_date).strftime('%Y-%m-%d')
-        temp['status'] = store.status
+    page_size = 5
+    
+    p = Paginator(res, page_size)
+    for store in p.page(this_page_num):
+        temp = {
+            'id'        : store.id,
+            'name'      : store.name,
+            'category'  : get_object_or_404(Category, id=store.category_id).domain,
+            'location'  : get_object_or_404(Location, id=store.location_id).loc,
+            'registered_date'   : (store.registered_date).strftime('%Y-%m-%d'),
+            'status'    : store.status
+        }
         store_list.append(temp)
+
+    start_seq = p.count - (page_size * (int(this_page_num) - 1))
     data = {
-        'store_list' : store_list
+        'start_seq' : start_seq,
+        'store_list' : store_list,
+        'current_page_num' : this_page_num,
+        'max_page_num' : p.num_pages
     }
     json_data = json.dumps(data)
     return HttpResponse(json_data, content_type="application/json;charset=UTF-8")

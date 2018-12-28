@@ -6,14 +6,12 @@ function get_history() {
     $.ajax({
         type: "GET",
         url: urls,
-        dataType : "json",
-        async: false
+        dataType : "json"
     }).done( function(res) {
         if ( res ) {
             res.reverse();
             let type = ['발행', '결제', '결제', '결제', '결제', '송금', '송금', '송금', '송금', '','계좌생성']
             let seq = res.length;
-            
             res.forEach(function(data) {
                 let exp1;
                 let exp2;
@@ -59,22 +57,62 @@ function get_history() {
     });
 }
 
-function get_myStore() {
+function get_myStore(this_page) {
     var userid = $("#user").val();
     var urls = "/store/getMyStore/"
     $.ajax({
         type: "GET",
         url: urls,
         data: {
-            userid : userid
+            userid : userid,
+            this_page : this_page
         },
         dataType : "json",
-        async: false
+        async: true
     }).done( function(res) {
         if ( res['store_list'] ) {
+            var current_page_num = parseInt(res['current_page_num']);
+            var max_page_num = parseInt(res['max_page_num']);
+            var start_seq = parseInt(res['start_seq']);
+            var text = '';
+            $("#myStoreList").empty();
             res['store_list'].forEach(function(data) {
-                console.log(data);
+                var status = (data.status) == "a" ? '승인됨' : ((data.status == "w") ? "승인대기" : "삭제됨");
+                text = `
+                    <tr>
+                        <td><a href="/store/read/${data.id}/">${start_seq--}</a></td>
+                        <td><a href="/store/read/${data.id}/">${data.name}</a></td>
+                        <td><a href="/store/read/${data.id}/">${data.category}</a></td>
+                        <td><a href="/store/read/${data.id}/">${data.location}</a></td>
+                        <td><a href="/store/read/${data.id}/">${data.registered_date}</a></td>
+                        <td><a href="/store/read/${data.id}/">${status}</a></td>
+                        <td><a href="/store/delete/${data.id}/">삭제</a></td>
+                    </tr>
+                    `
+                $("#myStoreList").append(text);
             });
+            $("#page-area").empty();
+            if (current_page_num != 1) {
+                $("#page-area").append(`<a onclick="get_myStore(${1})" style="cursor: pointer;">\<\<</a>`);
+            }
+            if (current_page_num - 3 > 1) {
+                $("#page-area").append(`...`);    
+            }
+            for (let i = current_page_num-3 ; i <= current_page_num+3; i++) {
+                if (i > 0 && i <= max_page_num) {
+                    if (i == current_page_num) {
+                        $("#page-area").append(` '${i}' `);        
+                    } else {
+                        $("#page-area").append(`<a onclick="get_myStore(${i})" style="cursor: pointer;">${i}</a>`);
+                    }
+                }
+            }
+            if (current_page_num + 3 < max_page_num) {
+                $("#page-area").append(`...`);    
+            }
+            if (current_page_num != max_page_num) {
+                $("#page-area").append(`<a onclick="get_myStore(${max_page_num})" style="cursor: pointer;">\>\></a>`);
+            }
         }
     });
 }
@@ -83,13 +121,11 @@ $(function() {
     get_history();
     
     $("#myHistory-tab").on('click', function () {
-        $("#history").empty();
         get_history();
     });
 
     $("#myStore-tab").on('click', function () {
-        // $("#history").empty();
-        get_myStore();
+        get_myStore(1);
     });
 
     $('.ckbox label').on('click', function () {
