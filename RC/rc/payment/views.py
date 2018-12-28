@@ -1,7 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 import random
 from django.contrib.auth.models import User
 import json, requests
+from datetime import date
+
 # Create your views here.
 
 host = "http://210.107.78.166:8000/"
@@ -16,6 +18,17 @@ def withdraw(request,account_id=None):
          "balance" : res['value']
     }
     return render(request, template_name, data)
+
+def transfer(request):
+    fromId = request.POST.get("from")
+    toId = request.POST.get("target") 
+    amount = request.POST.get("point")
+    today = str(date.today())
+    url = host + "transfer/" + fromId +"/"+toId+"/"+amount+"/5/"+today
+    response = requests.get(url)
+    return redirect ('profile:account_myInfo', account_id = request.user.pk)
+
+    
 
 # def history(request):
 #     print("#############################")

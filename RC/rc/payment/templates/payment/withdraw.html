@@ -296,32 +296,34 @@
 </div> {% endcomment %}z
 
 <div class="tabs">
-  <input type="text" id="from" value="{{ user.username }}" hidden />
+  
   <div id="tab01" class="tab-contents">
         <div class="row">
         <div class="col-sm-13 col-sm-offset-3 mobile-pull">
             <article role="login">
             <h2 class="text-center" style="color:#23bab5"><i class="glyphicon glyphicon-qrcode"></i> 송금 시스템</h2><br>
-            <form class="signup" action="index.html" method="post">
+            <form action="{% url 'payment:transfer' %}" method="post" onSubmit="return validationCheck();" >
+              {% csrf_token %}
                 <div class="form-group">
+                <input type="text" name="from" id="from" value="{{ user.username }}" hidden />
                 <h5 class="font-weight-bold" style="color:#23bab5">잔액</h5>
                 <p class="form-control">
-                  <input type="text" id="balance" style="border:none;" class="point" value="{{ balance }}" readonly />rc
+                  <input type="text" id="balance" style="border:none;" class="point" value="{{ balance }}" readonly /><strong>RC</strong>
                 </p>
                 <div class="form-group">
                 <h5 class="font-weight-bold" style="color:#23bab5" >보낼금액</h5>
                 <p class="form-control">
-                  <input style="border:none;"type="text" name="point" id="point" class="point" placeholder="소숫점 사용불가"/>rc
+                  <input style="border:none;"type="text" name="point" id="point" class="point" placeholder="소숫점 사용불가"/><strong>RC</strong>
                 </p>
                 </div>
                 <div class="form-group">
                 <h5 class="font-weight-bold" style="color:#23bab5" >남는금액</h5>
                 <p class="form-control">
-                <input style="border:none;"type="text" id="rest_balance" value="0" readonly />rc
+                <input style="border:none;"type="text" id="rest_balance" value="0" readonly /><strong>RC</strong>
                 </p>
                 <div class="form-group">
                 <h5 class="font-weight-bold" style="color:#23bab5" >송금할계정</h5>
-                <input type="text" id="target" class="form-control" placeholder="ex) RegionCurrency"/>
+                <input type="text" name="target" id="target" class="form-control" placeholder="ex) RegionCurrency"/>
                 <button type="button" id="btn_chk_id" class="btn-default btn-sm btn-success float-right">조회</button>
                 </div><br>
                 <div class="form-group">
@@ -331,12 +333,12 @@
                 <div class="form-group">
                 <div class="checkbox">
                     <label>
-                    <div style="color:blanchedalmond"><input type="checkbox"> 송금시 책임은 전적으로 본인에게 있음에 동의합니다.</div>
+                    <div style="color:blanchedalmond"><input type="checkbox" id="agree" name="agree"> 송금시 책임은 전적으로 본인에게 있음에 동의합니다.</div>
                     </label>
                 </div>
                 </div>
                 <div class="form-group">
-                <input type="submit" id="btn_submit" class="btn btn-success btn-block"  value="송금하기"><br>
+                <input type="submit" id="btn_transfer" class="btn btn-success btn-block"  value="송금하기"><br>
                 <a href="{% url 'profile:account_myInfo' user.id %}"><input class="btn btn-success btn-block"  value="취소하기"></a>
                 </div>
             </form>
@@ -350,28 +352,6 @@
 </div>
 
 <br><br><br><br>
-
-
-<script type="text/javascript">
-
-function getRestBalance() {
-  var balance = $("#balance").val();
-  var amount = parseInt($("#point").val().replace(/[^0-9]/g, '')) || 0;
-  var restBalance = balance - amount;
-  console.log(balance)
-  $("#rest_balance").empty();
-  $("#rest_balance").attr("value", restBalance);
-}
-
-$(function() {
-  $("#point").change(function() {
-    console.log($("#point").val());
-    getRestBalance();
-  });
-
-})
-
-</script>
 
 <script src="{% static 'js/withdraw.js' %}"></scirpt>
 {% endblock content %}

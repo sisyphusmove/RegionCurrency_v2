@@ -445,7 +445,7 @@
                 <div class="card margin-left">
                     <img src="{% static 'img/account/wallet.png' %}" class="margin-left" alt="보유잔액">
                     <div class="top-right">보유 금액</div>
-                    <div class="centered-right">{{ balance }}&nbsp;rc</div>
+                    <div class="centered-right">{{ balance }}&nbsp;RC</div>
                     <div class="bottom-right">
                         <a href="">결제하기</a>&nbsp;/&nbsp;
                         <a href="{% url 'payment:withdraw' user.id %}">송금하기</a>
@@ -463,6 +463,7 @@
                                 <img src="{% static 'img/account/email.png' %}" class="icon" alt="email"/>
                                 <span class="icon_txt">{{ context.email }}</span>
                             </div>
+							<br>
                             <div class="row margin-left margin-right margin-top">
                                 <img src="{% static 'img/account/gender.png' %}" class="icon" alt="성별"/>
                                 <span class="icon_txt">
@@ -473,6 +474,7 @@
                                 {% endif %}
                                 </span>
                             </div>
+							<br>
                             <div class="row margin-left margin-right margin-top">
                                 <img src="{% static 'img/account/birthday.png' %}" class="icon" alt="생년월일"/>
                                 <span class="icon_txt">{{ context.birth_year }}.{{ context.birth_month }}.{{ context.birth_date }}</span>
@@ -499,16 +501,14 @@
             <div class="row margin-left margin-right">
                 <div class="col-md-8">
                     <div class="tab-content profile-tab" id="myTabContent">
-
                         <div class="tab-pane fade show active" id="myHistory" role="tabpanel" aria-labelledby="myHistory-tab">
-                        	<div class="pull-right">
-								<div class="btn-group">
+								<div class="btn-group" >
 									<button type="button" class="btn btn-danger btn-filter" data-target="발행">발행</button>
 									<button type="button" class="btn btn-success btn-filter" data-target="송금">송금</button>
 									<button type="button" class="btn btn-warning btn-filter" data-target="결제">결제</button>
 									<button type="button" class="btn btn-primary custom-btn btn-filter" data-target="all">종합</button>
 								</div>
-							</div>
+							<br>
 							<div class="table-container">
                                 <table class="table table-filter">
                                     <tbody id="history"></tbody>                            

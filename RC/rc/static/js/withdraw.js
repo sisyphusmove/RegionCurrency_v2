@@ -1,4 +1,42 @@
-var toId = 0;
+// validation
+
+var idCheck = 0;
+var pwCheck = 0;
+var agreeCheck = 0;
+var restBalanceCheck = 0;
+
+function getRestBalance() {
+    var balance = $("#balance").val();
+    var amount = parseInt($("#point").val().replace(/[^0-9]/g, '')) || 0;
+    var restBalance = balance - amount;
+    // console.log("balance:",balance,"amount:",amount,"restBalance:",restBalance)
+    if (restBalance < 0 ){
+      alert("송금액이 잔액을 초과하였습니다. 다시 입력해주세요.") 
+      restBalanceCheck = 0;
+    //   console.log("restBalanceCheck:",restBalanceCheck)
+    }
+    else {
+      $("#rest_balance").empty();
+      $("#rest_balance").attr("value", restBalance);
+      restBalanceCheck = 1;
+    //   console.log("restBalanceCheck:",restBalanceCheck)
+    }
+  }
+  
+  $(function() {
+    $("#point").change(function() {
+    //   console.log($("#point").val());
+      getRestBalance();
+    });
+  
+  })
+
+
+$(function() {
+    $("#btn_chk_id").click(function() {
+        check_username();
+    });
+})
 
 function check_username() {
     var username = $("#target").val();
@@ -13,18 +51,20 @@ function check_username() {
         success: function(data) {
             if ( data["result"] != 0 ){
                 // $("#msg").text("이미 등록된 아이디 입니다.");
-                alert("확인되었습니다.");
-                toId = data["result"];
+                alert("아이디가 확인되었습니다.");
+                idCheck = 1;
             } else {
-                alert("아이디를 다시 확인해주세요. 존재하지 않는 아이디입니다.");
+                alert("존재하지 않는 아이디입니다. 아이디를 다시 확인해주세요.");
+                idCheck = 0;
             }
         },
         error: function( jqXHR, textStatus, errorThrown ){
             alert("status: " + textStatus + "\nerror: " + jqXHR.error )
         }
     });
-
-    return toId;
+    // console.log("idCheck:",idCheck);
+    return idCheck;
+    
 }
 
 function check_password() {
@@ -40,66 +80,39 @@ function check_password() {
         success: function(data) {
             if ( data["result"] ){
                 // $("#msg").text("이미 등록된 아이디 입니다.");
-                alert("확인되었습니다.");
+                alert("비밀번호가 확인되었습니다.");
+                pwCheck = 1;
             } else {
                 alert("비밀번호가 일치하지 않습니다.");
+                pwCheck = 0;
             }
         },
         error: function( jqXHR, textStatus, errorThrown ){
             alert("status: " + textStatus + "\nerror: " + jqXHR.error )
         }
     });
+    // console.log("pwCheck:",pwCheck);
+    return pwCheck;
 }
 
-$(function() {
-    $("#btn_chk_id").click(function() {
-        check_username();
-    });
+function agree() {
+    if ($('#agree').is(":checked")) {
+        agreeCheck = 1;
+        // console.log("argeeCheck:",agreeCheck);
+    }
+    else {
+        agreeCheck = 0;
+        // console.log("argeeCheck:",agreeCheck);
+    }
 
-    $("#btn_submit").click(function() {
-        if ( check_password() ) {
-            return true;
-        }
-        return false;
-    });
-})
-
-function withdraw_submit() {
-    var transfer = "transfer"
-    var from_id = $("#from").val();
-    var to_id = check_username();
-    var amount = $("#point").val();
-	amount = parseInt(amount.replace(/,/g, ''));
-	
-
-    var type = 5;
-    var current = new Date().toISOString().slice(0,10); 
- 
-    console.log(transfer,from_id,to_id,amount,type,current);
-    var urls = "http://210.107.78.166:8000/transfer/"+from_id+"/"+to_id+"/"+amount+"/"+type+"/"+current
-    $.ajax({
-        url: urls, // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-        method: "GET",
-        dataType: "json",
-        success: function(data) {
-            if ( data["result"] ){
-                // $("#msg").text("이미 등록된 아이디 입니다.");
-                alert("확인되었습니다.");
-            } else {
-                alert("비밀번호가 일치하지 않습니다.");
-            }
-        },
-        error: function( jqXHR, textStatus, errorThrown ){
-            alert("status: " + textStatus + "\nerror: " + jqXHR.error )
-        }
-    })
-    
 }
 
-
-$(function() {
-    $("#btn_submit").click(function() {
-        withdraw_submit();
-
-    });
-});
+function validationCheck() {
+    // console.log("test")
+    check_password();
+    agree();
+    if (idCheck==1&&pwCheck==1&&restBalanceCheck==1&&agreeCheck==1) {
+        return true;
+    }
+    return false;
+}
