@@ -11,7 +11,7 @@ function get_history() {
     }).done( function(res) {
         if ( res ) {
             res.reverse();
-            let type = ['발행', '결제', '결제', '결제', '결제', '송금', '송금', '송금', '송금', '계좌생성']
+            let type = ['발행', '결제', '결제', '결제', '결제', '송금', '송금', '송금', '송금', '','계좌생성']
             let seq = res.length;
             
             res.forEach(function(data) {
@@ -59,12 +59,43 @@ function get_history() {
     });
 }
 
+function get_myStore() {
+    var userid = $("#user").val();
+    var urls = "/store/getMyStore/"
+    $.ajax({
+        type: "GET",
+        url: urls,
+        data: {
+            userid : userid
+        },
+        dataType : "json",
+        async: false
+    }).done( function(res) {
+        if ( res['store_list'] ) {
+            res['store_list'].forEach(function(data) {
+                console.log(data);
+            });
+        }
+    });
+}
+
 $(function() {
     get_history();
+    
+    $("#myHistory-tab").on('click', function () {
+        $("#history").empty();
+        get_history();
+    });
+
+    $("#myStore-tab").on('click', function () {
+        // $("#history").empty();
+        get_myStore();
+    });
 
     $('.ckbox label').on('click', function () {
         $(this).parents('tr').toggleClass('selected');
     });
+
     $('.btn-filter').on('click', function () {
         var $target = $(this).data('target');
         $('input[name=filter]').val($target);

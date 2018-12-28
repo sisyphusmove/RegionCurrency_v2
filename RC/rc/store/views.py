@@ -7,18 +7,9 @@ from .forms import StoreForm, PhotoForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.template import loader
+import json
 
 # Create your views here.
-
-class StoreMyLV(ListView):
-    paginate_by = 10
-    context_object_name = 'stores'
-    template_name = 'store/myStore_list.html'
-
-    def get_queryset(self):
-        queryset = Store.objects.filter(representative=self.request.user.id).order_by('-id')
-        return queryset
-
 
 class StoreDV(DetailView):
     model = Store
@@ -29,6 +20,7 @@ class StoreDV(DetailView):
         context = super(StoreDV, self).get_context_data(**kwargs)
         return context
         
+
 class StorePV(ListView):
     model=Photo
     paginate_by = 12
@@ -52,6 +44,7 @@ class StorePV(ListView):
         page_range = paginator.page_range[start_index:end_index]
         context['page_range'] = page_range
         return context
+
 
 class filteredStoresPV(ListView):
     model=Photo
@@ -86,13 +79,12 @@ class filteredStoresPV(ListView):
             queryset = Photo.objects.filter(location=loc)
         return queryset
 
+
 def detailView (request, store_id=None):
     store = get_object_or_404(Store, pk=store_id)
     photo = get_object_or_404(Photo, store_id=store.pk)
     return render(request, 'store_list_detail.html', dict(store=store, photo=photo))
     
-
-
     # def store_list(request):
     #     photo_list = User.objects.all()
     #     print("##########################")
@@ -113,7 +105,6 @@ def detailView (request, store_id=None):
 class StoreDPV(DetailView):
     model = Photo
     context_object_name = 'photo'
-
 
 
 def store_edit(request, store_id=None):
@@ -158,3 +149,21 @@ def store_remove(request, store_id=None):
     return redirect('store:myList')
 
 
+def get_myStore(request):
+    userid = request.GET.get('userid', None)
+    res = Store.objects.filter(representative_id=userid).order_by('-id')
+
+    store_list = []
+    for store in res:
+        temp = {}
+        temp['name'] = store.name
+        temp['category'] = get_object_or_404(Category, id=store.category_id).domain
+        temp['location'] = get_object_or_404(Location, id=store.location_id).loc
+        temp['registered_date'] = (store.registered_date).strftime('%Y-%m-%d')
+        temp['status'] = store.status
+        store_list.append(temp)
+    data = {
+        'store_list' : store_list
+    }
+    json_data = json.dumps(data)
+    return HttpResponse(json_data, content_type="application/json;charset=UTF-8")
