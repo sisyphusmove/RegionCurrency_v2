@@ -160,9 +160,9 @@
     right: 10%;
     color: #fff;
 }
-a, a:hover {
+/* a, a:hover {
     color: #fff;
-}
+} */
 /* Centered text */
 .centered-right {
     position: absolute;
