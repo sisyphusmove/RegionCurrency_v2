@@ -96,11 +96,9 @@ function get_myStore() {
         data: { u_id : u_id },
         dataType : "json"
     }).done( function(res) {
-<<<<<<< HEAD
         if ( res.name ) {
-            console.log(res);
             $("#btn_add").hide();
-=======
+        }
         if ( res['store_list'] ) {
             var current_page_num = parseInt(res['current_page_num']);
             var max_page_num = parseInt(res['max_page_num']);
@@ -160,7 +158,6 @@ function get_myStore() {
             if (current_page_num != max_page_num) {
                 $("#page-area").append(`<li class="page-item"><a class="page-link" onclick="get_myStore(${max_page_num})" style="cursor: pointer;">\>\></a></li>`);
             }
->>>>>>> 2a801fa566ee9f2a1276f9ae9c375dec3062078d
         }
     });
 }
@@ -169,12 +166,8 @@ $(function() {
     get_history(1, 0);
     
     $("#myHistory-tab").on('click', function () {
-<<<<<<< HEAD
-        $("#history").empty();
-        get_history();
-=======
+        $("history").empty();
         get_history(1, 0);
->>>>>>> 2a801fa566ee9f2a1276f9ae9c375dec3062078d
     });
 
     $("#myStore-tab").on('click', function () {
