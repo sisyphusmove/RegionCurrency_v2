@@ -156,7 +156,6 @@ def get_myStore(request):
     
     store_list = []
     page_size = 5
-    
     p = Paginator(res, page_size)
     for store in p.page(this_page_num):
         temp = {

@@ -56,79 +56,18 @@ function get_history() {
     });
 }
 
-function get_myStore(this_page) {
-    var userid = $("#userid").val();
-    var urls = "/store/getMyStore/"
+function get_myStore() {
+    var u_id = $("#u_id").val();
+    var urls = "/store/getMyStore"
     $.ajax({
         type: "GET",
         url: urls,
-        data: {
-            userid : userid,
-            this_page : this_page
-        },
-        dataType : "json",
-        async: true
+        data: { u_id : u_id },
+        dataType : "json"
     }).done( function(res) {
-        if ( res['store_list'] ) {
-            var current_page_num = parseInt(res['current_page_num']);
-            var max_page_num = parseInt(res['max_page_num']);
-            var start_seq = parseInt(res['start_seq']);
-            var text = '';
-            $("#myStoreList").empty();
-            res['store_list'].forEach(function(data) {
-                console.log(data)
-                text = `
-                    <tr data-status="pagado">
-                        <td>
-                            ${start_seq--}
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                            <div class="media">
-                                <div class="media-body">
-                                    <span class="media-meta pull-right">${data.registered_date}</span>
-                                    <h4 class="title">
-                                        [${data.corporate_number}]&nbsp;${data.name}
-                                        <span class="pull-right cancelado"><a href="/store/delete/${data.id}">삭제</a></span>
-                                        <span class="pull-right primary"><a href="/store/read/${data.id}">상세보기</a></span>`;
-                                    
-                if (data.status == "a") {
-                    text += `                    <span class="pull-right pagado">(승인)</span>`;
-                } else if (data.status == "w") {
-                    text += `                    <span class="pull-right pendiente">(승인대기)</span>`;
-                }
-                text += `           </h4>
-                                    <p class="summary">등록지역&nbsp;:&nbsp;[${data.category}]&nbsp;,&nbsp;등록업종&nbsp;:&nbsp;[${data.location}]</p>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    `;
-                $("#myStoreList").append(text);
-            });
-            $("#page-area").empty();
-            if (current_page_num != 1) {
-                $("#page-area").append(`<li class="page-item"><a class="page-link" onclick="get_myStore(${1})" style="cursor: pointer;">\<\<</a></li>`);
-            }
-            if (current_page_num - 2 > 1) {
-                $("#page-area").append(`<li class="page-item"><a class="page-link">...</a></li>`);    
-            }
-            for (let i = current_page_num-2 ; i <= current_page_num+2; i++) {
-                if (i > 0 && i <= max_page_num) {
-                    if (i == current_page_num) {
-                        $("#page-area").append(`<li class="page-item"><a class="page-link"><u>${i}</u></a></li>`);        
-                    } else {
-                        $("#page-area").append(`<li class="page-item"><a class="page-link" onclick="get_myStore(${i})" style="cursor: pointer;">${i}</a></li>`);
-                    }
-                }
-            }
-            if (current_page_num + 2 < max_page_num) {
-                $("#page-area").append(`<li class="page-item"><a class="page-link">...</a></li>`);    
-            }
-            if (current_page_num != max_page_num) {
-                $("#page-area").append(`<li class="page-item"><a class="page-link" onclick="get_myStore(${max_page_num})" style="cursor: pointer;">\>\></a></li>`);
-            }
+        if ( res.name ) {
+            console.log(res);
+            $("#btn_add").hide();
         }
     });
 }
@@ -137,11 +76,12 @@ $(function() {
     get_history();
     
     $("#myHistory-tab").on('click', function () {
+        $("#history").empty();
         get_history();
     });
 
     $("#myStore-tab").on('click', function () {
-        get_myStore(1);
+        get_myStore();
     });
 
     $('.ckbox label').on('click', function () {

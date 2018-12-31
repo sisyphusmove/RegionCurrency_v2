@@ -150,31 +150,33 @@ def store_remove(request, store_id=None):
 
 
 def get_myStore(request):
-    userid = request.GET.get('userid', None)
-    this_page_num = request.GET.get('this_page', None)
-    res = Store.objects.filter(Q(representative_id=userid) & (Q(status='a') | Q(status='w'))).order_by('-id')
+    u_id = request.GET.get('u_id', None)
+    result = Store.objects.filter(Q(representative=u_id))
     
-    store_list = []
-    page_size = 5
-    p = Paginator(res, page_size)
-    for store in p.page(this_page_num):
-        temp = {
-            'id'        : store.id,
-            'name'      : store.name,
-            'corporate_number' : store.corporate_number,
-            'category'  : get_object_or_404(Category, id=store.category_id).domain,
-            'location'  : get_object_or_404(Location, id=store.location_id).loc,
+    data={}
+    for store in result:
+        try:
+            photo = get_object_or_404(store_id=store.id)
+        except:
+            photo = ""
+        print(photo)
+        data = {
+            'id'                : store.id,
+            'name'              : store.name,
+            'corporate_number'  : store.corporate_number,
+            'category'          : get_object_or_404(Category, id=store.category_id).domain,
+            'location'          : get_object_or_404(Location, id=store.location_id).loc,
+            'address'           : store.address,
+            'phone_number'      : store.phone_number,
+            'url'               : store.url,
+            'opening_time'      : store.opening_hour + " : " + store.opening_minute,
+            'closing_time'      : store.closing_hour + " : " + store.closing_minute,
+            'description'       : store.description,
             'registered_date'   : (store.registered_date).strftime('%Y-%m-%d'),
-            'status'    : store.status
+            'modified_date'     : (store.modified_date).strftime('%Y-%m-%d'),
+            'status'            : store.status,
+            'photo'             : photo
         }
-        store_list.append(temp)
 
-    start_seq = p.count - (page_size * (int(this_page_num) - 1))
-    data = {
-        'start_seq' : start_seq,
-        'store_list' : store_list,
-        'current_page_num' : this_page_num,
-        'max_page_num' : p.num_pages
-    }
     json_data = json.dumps(data)
     return HttpResponse(json_data, content_type="application/json;charset=UTF-8")
