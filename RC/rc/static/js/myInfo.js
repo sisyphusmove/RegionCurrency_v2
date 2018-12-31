@@ -57,7 +57,7 @@ function get_history() {
 }
 
 function get_myStore(this_page) {
-    var userid = $("#user").val();
+    var userid = $("#userid").val();
     var urls = "/store/getMyStore/"
     $.ajax({
         type: "GET",
@@ -76,6 +76,7 @@ function get_myStore(this_page) {
             var text = '';
             $("#myStoreList").empty();
             res['store_list'].forEach(function(data) {
+                console.log(data)
                 text = `
                     <tr data-status="pagado">
                         <td>
