@@ -20,7 +20,7 @@ class PhotoForm(forms.ModelForm):
 
 class StoreForm(ModelForm):
 
-    name = forms.CharField(widget=forms.TextInput(attrs={'id':'name', 'class':'form-control'}))
+    name = forms.CharField()
     corporate_number = forms.CharField(widget=forms.TextInput(attrs={'id':'corporate_number', 'class':'form-control'}))
     representative = forms.ModelChoiceField(queryset=User.objects.all().order_by('id'), required=False)
     category = forms.ModelChoiceField(queryset =Category.objects.all().order_by('id'),
