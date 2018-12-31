@@ -167,7 +167,7 @@ $(function() {
     get_history(1, 0);
     
     $("#myHistory-tab").on('click', function () {
-        get_history(1, $(this).val());
+        get_history(1, 0);
     });
 
     $("#myStore-tab").on('click', function () {
