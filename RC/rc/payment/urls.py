@@ -21,5 +21,6 @@ app_name = 'payment'
 urlpatterns = [
     path('withdraw/<int:account_id>/', views.withdraw, name='withdraw'),
     path('transfer/', views.transfer, name="transfer"),
+    path('get_history/',views.get_history, name="get_history")
     # path('history/', views.history, name='history'),
 ]
