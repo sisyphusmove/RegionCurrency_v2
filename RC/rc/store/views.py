@@ -142,7 +142,8 @@ def store_edit(request, store_id=None):
         return render(request, 'store/myStore_edit.html', dict(form=form, photo_form=photo_form, categorys=category, locations=location, store=store))
 
 
-def store_remove(request, store_id=None):
+def store_remove(request):
+    store_id = request.POST.get("del_id")
     store = get_object_or_404(Store, pk=store_id)
     store.status = "d"
     store.save()
@@ -151,32 +152,25 @@ def store_remove(request, store_id=None):
 
 def get_myStore(request):
     u_id = request.GET.get('u_id', None)
-    result = Store.objects.filter(Q(representative=u_id))
-    
-    data={}
-    for store in result:
-        try:
-            photo = get_object_or_404(store_id=store.id)
-        except:
-            photo = ""
-        print(photo)
-        data = {
-            'id'                : store.id,
-            'name'              : store.name,
-            'corporate_number'  : store.corporate_number,
-            'category'          : get_object_or_404(Category, id=store.category_id).domain,
-            'location'          : get_object_or_404(Location, id=store.location_id).loc,
-            'address'           : store.address,
-            'phone_number'      : store.phone_number,
-            'url'               : store.url,
-            'opening_time'      : store.opening_hour + " : " + store.opening_minute,
-            'closing_time'      : store.closing_hour + " : " + store.closing_minute,
-            'description'       : store.description,
-            'registered_date'   : (store.registered_date).strftime('%Y-%m-%d'),
-            'modified_date'     : (store.modified_date).strftime('%Y-%m-%d'),
-            'status'            : store.status,
-            'photo'             : photo
-        }
+    store = Store.objects.filter(Q(representative=u_id) & ~Q(status='d'))
+    photo = Photo.objects.filter(Q(store_id=store[0].id))
+
+    data = {
+        'id'                : store[0].id,
+        'name'              : store[0].name,
+        'corporate_number'  : store[0].corporate_number,
+        'category'          : get_object_or_404(Category, id=store[0].category_id).domain,
+        'location'          : get_object_or_404(Location, id=store[0].location_id).loc,
+        'address'           : store[0].address,
+        'phone_number'      : store[0].phone_number,
+        'url'               : store[0].url,
+        'opening_time'      : store[0].opening_hour + " : " + store[0].opening_minute,
+        'closing_time'      : store[0].closing_hour + " : " + store[0].closing_minute,
+        'registered_date'   : (store[0].registered_date).strftime('%Y-%m-%d'),
+        'modified_date'     : (store[0].modified_date).strftime('%Y-%m-%d'),
+        'status'            : store[0].status,
+        'photo'             : photo[0].image.thumb_url
+    }
 
     json_data = json.dumps(data)
     return HttpResponse(json_data, content_type="application/json;charset=UTF-8")

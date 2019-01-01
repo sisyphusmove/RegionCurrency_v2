@@ -10,8 +10,8 @@ app_name = 'store'
 urlpatterns = [
     path('apply/', store_edit, name='add'),
     path('read/<int:pk>/',StoreDV.as_view(), name='read'),
-    path('edit/<int:store_id>/', store_edit, name='edit'),
-    path('delete/<int:store_id>/', store_remove, name='delete'),
+    path('edit/', store_edit, name='edit'),
+    path('delete/', store_remove, name='delete'),
     path('getMyStore', get_myStore),
     path('store_list/', StorePV.as_view(), name='store_list'),
     path('store_list/filter/<int:loc>/',filteredStoresPV.as_view(), name='filteredStores'),

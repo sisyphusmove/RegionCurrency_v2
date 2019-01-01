@@ -58,7 +58,6 @@ def get_history(request):
     elif query_type == '0':
         filtered_list = res
 
-    print(filtered_list)
     history_list = []
     page_size = 5
     p = Paginator(filtered_list, page_size)

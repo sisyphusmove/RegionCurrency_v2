@@ -117,72 +117,77 @@
             
 			<div class="row col-sm tab-pane fade" id="myStore" role="tabpanel" aria-labelledby="myStore-tab">
                 <div class="row margin-top">
-                <div class="card margin-left">
-                    {% comment %} <img src="{% static 'media/store/store.id/aaa.png' %}" class="margin-left" alt=""> {% endcomment %}
-                    <div class="top-right">보유 금액</div>
-                    <div class="centered-right">{{ balance }}&nbsp;RC</div>
-                    <div class="bottom-right">
-                        <a href="" class="font-white">결제하기</a>&nbsp;/&nbsp;
-                        <a href="{% url 'payment:withdraw' user.id %}" class="font-white">송금하기</a>
+                    <div class="card margin-left">
+                        <img src="" id="image" class="margin-left" alt="">
                     </div>
-                </div>
 
-                <div class="col-md">
-                    <div class="profile-head">
-                        <h5 id="store_name">
-                            울릉피자
-                        </h5>
-                        <p class="proile-rating">
-                            <div class="row margin-left margin-right margin-top">
-                                <span class="icon_txt">사업자등록번호&nbsp;:&nbsp;</span>
-                                <span id="corp_num" class="icon_txt">111-22-33333</span>
-                            </div>
-                            <div class="row margin-left margin-right margin-top">
-                                <span class="icon_txt">등록업종&nbsp;:&nbsp;</span>
-                                <span id="category" class="icon_txt">숙박업</span>
-                            </div>
-                            <div class="row margin-left margin-right margin-top">
-                                <span class="icon_txt">등록지역&nbsp;:&nbsp;</span>
-                                <span id="location" class="icon_txt">울릉읍</span>
-                            </div>
-                            <div class="row margin-left margin-right margin-top">
-                                <span class="icon_txt">연락처&nbsp;:&nbsp;</span>
-                                <span id="phone_num" class="icon_txt">035-243-5522</span>
-                            </div>
-                        </p>
+                    <div class="col-md">
+                        <div class="profile-head">
+                            <h5 id="store_name"></h5>
+                            <p class="proile-rating">
+                                <div class="row margin-left margin-right margin-top">
+                                    <span class="icon_txt">사업자등록번호&nbsp;:&nbsp;</span>
+                                    <span id="corp_num" class="icon_txt"></span>
+                                </div>
+                                <div class="row margin-left margin-right margin-top">
+                                    <span class="icon_txt">등록업종&nbsp;:&nbsp;</span>
+                                    <span id="category" class="icon_txt"></span>
+                                </div>
+                                <div class="row margin-left margin-right margin-top">
+                                    <span class="icon_txt">등록지역&nbsp;:&nbsp;</span>
+                                    <span id="location" class="icon_txt"></span>
+                                </div>
+                                <div class="row margin-left margin-right margin-top">
+                                    <span class="icon_txt">연락처&nbsp;:&nbsp;</span>
+                                    <span id="phone_num" class="icon_txt"></span>
+                                </div>
+                                <div class="row margin-left margin-right margin-top">
+                                    <span class="icon_txt">홈페이지&nbsp;:&nbsp;</span>
+                                    <span id="url" class="icon_txt"></span>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="profile-head">
+                            <h5 id="store_name">
+                                <a href="" class="profile-edit-btn">QR CODE 보기</a>
+                                <a href="" class="profile-edit-btn">정보수정</a>
+                                <form action="{% url 'store:delete' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="text" id="del_id" name="del_id" hidden></input>
+                                    <button type="submit" class="profile-edit-btn">삭제</button>
+                                </form>
+                            </h5>
+                            <p class="profile-rating">
+                                <div class="row margin-left margin-right margin-top">
+                                    <span class="icon_txt">주소&nbsp;:&nbsp;</span>
+                                    <span id="address" class="icon_txt"></span>
+                                </div>
+                                <div class="row margin-left margin-right margin-top">
+                                    <span class="icon_txt">영업시간&nbsp;:&nbsp;</span>
+                                    <span id="opening_hours" class="icon_txt"></span>
+                                </div>
+                                <div class="row margin-left margin-right margin-top">
+                                    <span class="icon_txt">등록일&nbsp;:&nbsp;</span>
+                                    <span id="registered_date" class="icon_txt"></span>
+                                </div>
+                                <div class="row margin-left margin-right margin-top">
+                                    <span class="icon_txt">수정일&nbsp;:&nbsp;</span>
+                                    <span id="modified_date" class="icon_txt"></span>
+                                </div>
+                                <div class="row margin-left margin-right margin-top">
+                                    <span class="icon_txt">승인상태&nbsp;:&nbsp;</span>
+                                    <span id="status" class="icon_txt"></span>
+                                </div>
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md">
-                    <div class="profile-head">
-                        <h5 id="store_name">
-                            <a href="{% url 'profile:check_password' user.id %}" class="profile-edit-btn" name="btnAddMore">QR CODE 보기</a>
-                            <a href="{% url 'profile:check_password' user.id %}" class="profile-edit-btn" name="btnAddMore">정보수정</a>
-                            <a href="{% url 'profile:check_password' user.id %}" class="profile-edit-btn" name="btnAddMore">삭제</a>
-                        </h5>
-                        <p class="proile-rating">
-                            <div class="row margin-left margin-right margin-top">
-                                <span class="icon_txt">주소&nbsp;:&nbsp;</span>
-                                <span id="address" class="icon_txt">울릉읍 울릉로 2732-2</span>
-                            </div><div class="row margin-left margin-right margin-top">
-                                <span class="icon_txt">홈페이지&nbsp;:&nbsp;</span>
-                                <span id="url" class="icon_txt">http://www.울릉피자.com/</span>
-                            </div>
-                            <div class="row margin-left margin-right margin-top">
-                                <span class="icon_txt">영업시간&nbsp;:&nbsp;</span>
-                                <span id="opening_hours" class="icon_txt">9:00 ~ 23:00</span>
-                            </div>
-                            <div class="row margin-left margin-right margin-top">
-                                <span class="icon_txt">승인상태&nbsp;:&nbsp;</span>
-                                <span id="status" class="icon_txt">승인됨</span>
-                            </div>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            {% comment %} <center>
-                <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
-            </center> {% endcomment %}
+                
+                {% comment %} <center>
+                    <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
+                </center> {% endcomment %}
             </div>
 
 

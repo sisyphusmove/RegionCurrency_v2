@@ -95,69 +95,26 @@ function get_myStore() {
         url: urls,
         data: { u_id : u_id },
         dataType : "json"
-    }).done( function(res) {
-        if ( res.name ) {
+    }).done( function(data) {
+        status = (data.status == "a") ? "승인됨" : ((data.status == "w") ? "승인대기중" : "삭제됨");
+        if ( data.name ) {
             $("#btn_add").hide();
-        }
-        if ( res['store_list'] ) {
-            var current_page_num = parseInt(res['current_page_num']);
-            var max_page_num = parseInt(res['max_page_num']);
-            var start_seq = parseInt(res['start_seq']);
+            $("#del_id").attr("value", data.id);
+            $("#image").attr("src", data.photo);
+            $("#store_name").text(data.name);
+            $("#corp_num").text(data.corporate_number);
+            $("#category").text(data.category);
+            $("#location").text(data.location);
+            $("#phone_num").text(data.phone_number);
+            $("#url").text(data.url);
+            $("#address").text(data.address);
+            $("#registered_date").text(data.registered_date);
+            $("#modified_date").text(data.modified_date);
+            $("#opening_hours").text(data.opening_time + " ~ " + data.closing_time);
+            $("#status").text(status);
+        } else {
             var text = '';
-            $("#myStoreList").empty();
-            res['store_list'].forEach(function(data) {
-                text = `
-                    <tr data-status="pagado">
-                        <td>
-                            ${start_seq--}
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                            <div class="media">
-                                <div class="media-body">
-                                    <span class="media-meta pull-right">${data.registered_date}</span>
-                                    <h4 class="title">
-                                        [${data.corporate_number}]&nbsp;${data.name}
-                                        <span class="pull-right cancelado"><a href="/store/delete/${data.id}">삭제</a></span>
-                                        <span class="pull-right primary"><a href="/store/read/${data.id}">상세보기</a></span>`;
-                                    
-                if (data.status == "a") {
-                    text += `                    <span class="pull-right pagado">(승인)</span>`;
-                } else if (data.status == "w") {
-                    text += `                    <span class="pull-right pendiente">(승인대기)</span>`;
-                }
-                text += `           </h4>
-                                    <p class="summary">등록지역&nbsp;:&nbsp;[${data.category}]&nbsp;,&nbsp;등록업종&nbsp;:&nbsp;[${data.location}]</p>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    `;
-                $("#myStoreList").append(text);
-            });
-            $("#page-area").empty();
-            if (current_page_num != 1) {
-                $("#page-area").append(`<li class="page-item"><a class="page-link" onclick="get_myStore(${1})" style="cursor: pointer;">\<\<</a></li>`);
-            }
-            if (current_page_num - 2 > 1) {
-                $("#page-area").append(`<li class="page-item"><a class="page-link">...</a></li>`);    
-            }
-            for (let i = current_page_num-2 ; i <= current_page_num+2; i++) {
-                if (i > 0 && i <= max_page_num) {
-                    if (i == current_page_num) {
-                        $("#page-area").append(`<li class="page-item"><a class="page-link"><u>${i}</u></a></li>`);        
-                    } else {
-                        $("#page-area").append(`<li class="page-item"><a class="page-link" onclick="get_myStore(${i})" style="cursor: pointer;">${i}</a></li>`);
-                    }
-                }
-            }
-            if (current_page_num + 2 < max_page_num) {
-                $("#page-area").append(`<li class="page-item"><a class="page-link">...</a></li>`);    
-            }
-            if (current_page_num != max_page_num) {
-                $("#page-area").append(`<li class="page-item"><a class="page-link" onclick="get_myStore(${max_page_num})" style="cursor: pointer;">\>\></a></li>`);
-            }
+               
         }
     });
 }
