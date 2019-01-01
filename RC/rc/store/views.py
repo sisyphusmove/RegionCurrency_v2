@@ -153,24 +153,27 @@ def store_remove(request):
 def get_myStore(request):
     u_id = request.GET.get('u_id', None)
     store = Store.objects.filter(Q(representative=u_id) & ~Q(status='d'))
-    photo = Photo.objects.filter(Q(store_id=store[0].id))
+    photo = None
 
-    data = {
-        'id'                : store[0].id,
-        'name'              : store[0].name,
-        'corporate_number'  : store[0].corporate_number,
-        'category'          : get_object_or_404(Category, id=store[0].category_id).domain,
-        'location'          : get_object_or_404(Location, id=store[0].location_id).loc,
-        'address'           : store[0].address,
-        'phone_number'      : store[0].phone_number,
-        'url'               : store[0].url,
-        'opening_time'      : store[0].opening_hour + " : " + store[0].opening_minute,
-        'closing_time'      : store[0].closing_hour + " : " + store[0].closing_minute,
-        'registered_date'   : (store[0].registered_date).strftime('%Y-%m-%d'),
-        'modified_date'     : (store[0].modified_date).strftime('%Y-%m-%d'),
-        'status'            : store[0].status,
-        'photo'             : photo[0].image.thumb_url
-    }
+    data = {}
+    if len(store) != 0:
+        photo = Photo.objects.filter(Q(store_id=store[0].id))
+        data = {
+            'id'                : store[0].id,
+            'name'              : store[0].name,
+            'corporate_number'  : store[0].corporate_number,
+            'category'          : get_object_or_404(Category, id=store[0].category_id).domain,
+            'location'          : get_object_or_404(Location, id=store[0].location_id).loc,
+            'address'           : store[0].address,
+            'phone_number'      : store[0].phone_number,
+            'url'               : store[0].url,
+            'opening_time'      : store[0].opening_hour + " : " + store[0].opening_minute,
+            'closing_time'      : store[0].closing_hour + " : " + store[0].closing_minute,
+            'registered_date'   : (store[0].registered_date).strftime('%Y-%m-%d'),
+            'modified_date'     : (store[0].modified_date).strftime('%Y-%m-%d'),
+            'status'            : store[0].status,
+            'photo'             : photo[0].image.thumb_url
+        }
 
     json_data = json.dumps(data)
     return HttpResponse(json_data, content_type="application/json;charset=UTF-8")

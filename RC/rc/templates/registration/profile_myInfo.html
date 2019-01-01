@@ -116,7 +116,7 @@
 			
             
 			<div class="row col-sm tab-pane fade" id="myStore" role="tabpanel" aria-labelledby="myStore-tab">
-                <div class="row margin-top">
+                <div id="myStore" class="row margin-top">
                     <div class="card margin-left">
                         <img src="" id="image" class="margin-left" alt="">
                     </div>
@@ -185,9 +185,18 @@
                     </div>
                 </div>
                 
-                {% comment %} <center>
-                    <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
-                </center> {% endcomment %}
+                <div class="table-container">
+					<table class="table table-filter">
+						<tbody id="history"></tbody>                            
+					</table>
+                    <div class="row col-sm">
+						<nav aria-label="page navigation">
+							<ul id="page-area-2" class="pagination"></ul>
+						</nav>
+					</div>
+				</div>
+                
+                <center id="page-area"></center>
             </div>
 
 

@@ -96,8 +96,8 @@ function get_myStore() {
         data: { u_id : u_id },
         dataType : "json"
     }).done( function(data) {
-        status = (data.status == "a") ? "승인됨" : ((data.status == "w") ? "승인대기중" : "삭제됨");
         if ( data.name ) {
+            status = (data.status == "a") ? "승인됨" : ((data.status == "w") ? "승인대기중" : "삭제됨");
             $("#btn_add").hide();
             $("#del_id").attr("value", data.id);
             $("#image").attr("src", data.photo);
@@ -113,8 +113,8 @@ function get_myStore() {
             $("#opening_hours").text(data.opening_time + " ~ " + data.closing_time);
             $("#status").text(status);
         } else {
-            var text = '';
-               
+            $("#myStore").empty();
+            $("#myStore").append(`<center>등록된 가맹점이 없습니다. <a href="/store/apply">[가맹점 신청하기]</a></center>`);
         }
     });
 }
