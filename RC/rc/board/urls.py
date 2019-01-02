@@ -33,4 +33,5 @@ urlpatterns = [
     path('write_comment/', write_comment, name='write_comment'),
     path('add_like/', add_like, name='add_like'),
     path('test/', test, name='test'),
+    path('board_search/',board_search),
 ]

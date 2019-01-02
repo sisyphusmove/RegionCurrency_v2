@@ -120,6 +120,7 @@ function get_myStore() {
     });
 }
 
+<<<<<<< HEAD
 function openQRCamera(node) {
     var reader = new FileReader();
     reader.onload = function() {
@@ -134,11 +135,65 @@ function openQRCamera(node) {
         qrcode.decode(reader.result);
     };
     reader.readAsDataURL(node.files[0]);
+=======
+function get_myboard(this_page) {
+    var userid = $("#userid").val();
+    var urls = "/board/board_search/"
+    $.ajax({
+        type: 'GET',
+        url: urls,
+        dataType : 'json',
+        data: {
+            userid : userid,
+            this_page : this_page
+        },
+    }).done(function(res) {
+        if ( res['a'] ) {
+            let seq = res["start_seq"]
+            var current_page_num = parseInt(res['current_page_num']);
+            var max_page_num = parseInt(res['max_page_num']);
+            $("#myboard").empty();
+            res['a'].forEach(function(data) {
+                text = `
+                    <tr>
+                        <td>${data.id}</td>
+                        <td style="max-width:500px"><a href="/board/read/${data.id}/" style="color:#000">${data.title}</a></td>
+                        <td>${data.create_date}</td>
+                        <td>${data.count}</td>
+                    </tr>
+                    `;
+                    $("#myboard").append(text); 
+            })
+            $("#page-area-3").empty();
+            if (current_page_num != 1) {
+                $("#page-area-3").append(`<li class="page-item"><a class="page-link" onclick="get_myboard(1)" style="cursor: pointer;">\<\<</a></li>`);
+            }
+            if (current_page_num - 2 > 1) {
+                $("#page-area-3").append(`<li class="page-item"><a class="page-link">...</a></li>`);    
+            }
+            for (let i = current_page_num-2 ; i <= current_page_num+2; i++) {
+                if (i > 0 && i <= max_page_num) {
+                    if (i == current_page_num) {
+                        $("#page-area-3").append(`<li class="page-item"><a class="page-link"><u>${i}</u></a></li>`);        
+                    } else {
+                        $("#page-area-3").append(`<li class="page-item"><a class="page-link" onclick="get_myboard(${i})" style="cursor: pointer;">${i}</a></li>`);
+                    }
+                }
+            }
+            if (current_page_num + 2 < max_page_num) {
+                $("#page-area-3").append(`<li class="page-item"><a class="page-link">...</a></li>`);    
+            }
+            if (current_page_num != max_page_num) {
+                $("#page-area-3").append(`<li class="page-item"><a class="page-link" onclick="get_myboard(${max_page_num})" style="cursor: pointer;">\>\></a></li>`);
+            }
+        }
+    });
+>>>>>>> ff6c93e7e12563026a5b89bce22d5be0af234d1d
 }
 
 $(function() {
     get_history(1, 0);
-    
+
     $("#myHistory-tab").on('click', function () {
         $("history").empty();
         get_history(1, 0);
@@ -146,6 +201,10 @@ $(function() {
 
     $("#myStore-tab").on('click', function () {
         get_myStore();
+    });
+
+    $("#myBoard-tab").on('click', function () {
+        get_myboard(1);
     });
 
     $('.ckbox label').on('click', function () {
@@ -163,4 +222,9 @@ $(function() {
             $('.table tr').css('display', 'none').fadeIn('slow');
         }
     });
+<<<<<<< HEAD
 })
+=======
+})
+
+>>>>>>> ff6c93e7e12563026a5b89bce22d5be0af234d1d
