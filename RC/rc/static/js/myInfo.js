@@ -10,8 +10,7 @@ function get_history(this_page, query_type) {
             this_page : this_page,
             type : query_type
         },
-        dataType : "json",
-        async: true
+        dataType : "json"
     }).done( function(res) {
         if ( res['history_list'] ) {
             let type = ['발행', '결제', '결제', '결제취소', '결제취소', '송금', '송금', '송금취소', '송금취소', '','계좌생성']
@@ -120,22 +119,6 @@ function get_myStore() {
     });
 }
 
-<<<<<<< HEAD
-function openQRCamera(node) {
-    var reader = new FileReader();
-    reader.onload = function() {
-        node.value = "";
-        qrcode.callback = function(res) {
-            if(res instanceof Error) {
-                alert("QR Code를 읽는데 실패했습니다. 다시 시도하세요.");
-            } else {
-                node.parentNode.previousElementSibling.value = res;
-            }
-        };
-        qrcode.decode(reader.result);
-    };
-    reader.readAsDataURL(node.files[0]);
-=======
 function get_myboard(this_page) {
     var userid = $("#userid").val();
     var urls = "/board/board_search/"
@@ -188,8 +171,23 @@ function get_myboard(this_page) {
             }
         }
     });
->>>>>>> ff6c93e7e12563026a5b89bce22d5be0af234d1d
 }
+
+function openQRCamera(node) {
+    var reader = new FileReader();
+    reader.onload = function() {
+        node.value = "";
+        qrcode.callback = function(res) {
+            if(res instanceof Error) {
+                alert("QR Code를 읽는데 실패했습니다. 다시 시도하세요.");
+            } else {
+                node.parentNode.previousElementSibling.value = res;
+            }
+        };
+        qrcode.decode(reader.result);
+    };
+    reader.readAsDataURL(node.files[0]);
+}    
 
 $(function() {
     get_history(1, 0);
@@ -214,7 +212,6 @@ $(function() {
     $('.btn-filter').on('click', function () {
         var $target = $(this).data('target');
         $('input[name=filter]').val($target);
-        // $('form').submit();
         if ($target != 'all') {
             $('.table tr').css('display', 'none');
             $('.table tr[data-status="' + $target + '"]').fadeIn('slow');
@@ -222,9 +219,4 @@ $(function() {
             $('.table tr').css('display', 'none').fadeIn('slow');
         }
     });
-<<<<<<< HEAD
 })
-=======
-})
-
->>>>>>> ff6c93e7e12563026a5b89bce22d5be0af234d1d
