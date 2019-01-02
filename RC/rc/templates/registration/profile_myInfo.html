@@ -25,11 +25,10 @@
                     <div class="top-right">보유 금액</div>
                     <div class="centered-right">{{ balance }}&nbsp;RC</div>
                     <div class="bottom-right">
-                        <a href="" class="font-white">결제하기</a>&nbsp;/&nbsp;
-                        <a href="{% url 'payment:withdraw' user.id %}" class="font-white">송금하기</a>
+                        <label class="qrcode-text-btn" style="width: 160px; text-align: right;"><input type=file accept="image/*" capture=environment onchange="openQRCamera(this);">결제하기</label>
+                        &nbsp;/&nbsp;<a href="{% url 'payment:withdraw' user.id %}" class="font-white">송금하기</a>
                     </div>
                 </div>
-
                 <div class="col-md-6">
                     <div class="profile-head">
                         <h5>
@@ -60,6 +59,10 @@
                         </p>
                     </div>
                 </div>
+            </div>
+
+            <div>
+                <input type=text size=16 placeholder="Tracking Code" class=qrcode-text> 
             </div>
 
             <div class="row profile-head margin-left margin-right">
@@ -151,13 +154,19 @@
                     <div class="col-md">
                         <div class="profile-head">
                             <h5 id="store_name">
-                                <a href="" class="profile-edit-btn">QR CODE 보기</a>
-                                <a href="" class="profile-edit-btn">정보수정</a>
-                                <form action="{% url 'store:delete' %}" method="POST">
-                                    {% csrf_token %}
-                                    <input type="text" id="del_id" name="del_id" hidden></input>
-                                    <button type="submit" class="profile-edit-btn">삭제</button>
-                                </form>
+                                <div class="row col-sm">
+                                    <a href="" class="profile-edit-btn">정보수정</a>
+                                    <form action="{% url 'store:delete' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="text" id="del_id" name="del_id" hidden></input>
+                                        <button type="submit" class="profile-edit-btn">삭제</button>
+                                    </form>
+                                    <form action="{% url 'store:get_QRcode' %}" method="POST" target="_blank">
+                                        {% csrf_token %}
+                                        <input type="text" id="s_id" name="s_id" hidden></input>
+                                        <button type="submit" class="profile-edit-btn">QR코드보기</button>
+                                    </form>    
+                                </div>
                             </h5>
                             <p class="profile-rating">
                                 <div class="row margin-left margin-right margin-top">

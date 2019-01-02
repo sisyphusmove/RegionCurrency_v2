@@ -5,6 +5,7 @@ import json, requests
 from datetime import date
 from django.http import JsonResponse, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from store.models import Store
 # Create your views here.
 
 host = "http://210.107.78.166:8000/"
@@ -36,8 +37,8 @@ def get_history(request):
     url = host + "get_txList/" + fro
     response = requests.get(url)
     res = json.loads(response.text)
-    fullLength = len(res);
-    result = res.reverse();
+    fullLength = len(res)
+    result = res.reverse()
 
     filtered_list = []
     # 송금 (txType:5,6,7,8)
@@ -82,3 +83,16 @@ def get_history(request):
     }
     json_data = json.dumps(data)
     return HttpResponse(json_data, content_type="application/json;charset=UTF-8")
+
+def payment(request):
+    s_id = request.GET.get('s_id')
+    s_name = request.GET.get('s_name')
+    u_name = request.user.username
+    try:
+        store = get_object_or_404(Store, pk=s_id)
+        if s_name == store.name:
+            print("결제")
+    except:
+        print("에러")
+
+    return render (request, 'payment/templates/payment/payment.html', dict(s_id=s_id, s_name=s_name, u_name=u_name))

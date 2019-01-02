@@ -177,3 +177,9 @@ def get_myStore(request):
 
     json_data = json.dumps(data)
     return HttpResponse(json_data, content_type="application/json;charset=UTF-8")
+
+def get_QRcode(request):
+    s_id = request.POST.get('s_id')
+    store = get_object_or_404(Store, pk=s_id)
+    print(store.name)
+    return render(request, 'store/myStoreQRcode.html', dict(s_id=store.id, s_name=store.name)) 

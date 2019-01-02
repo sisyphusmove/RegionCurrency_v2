@@ -168,6 +168,7 @@
 }
 .font-white, .font-white:hover{
     color: #fff;
+    cursor: pointer;
 }
 a, a:hover{
     color: #495057;
@@ -464,3 +465,6 @@ body {
     background-color: #17a2b8;
     border-color: #17a2b8;
 }
+
+.qrcode-text-btn {display:inline-block; background:url(//dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg) 50% 50% no-repeat; height:1em; width:1.7em; margin-left:-2em; cursor:pointer}
+.qrcode-text-btn > input[type=file] {position:absolute; overflow:hidden; width:1px; height:1px; opacity:0}

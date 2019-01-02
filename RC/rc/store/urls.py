@@ -13,6 +13,7 @@ urlpatterns = [
     path('edit/', store_edit, name='edit'),
     path('delete/', store_remove, name='delete'),
     path('getMyStore', get_myStore),
+    path('QRcode', get_QRcode, name='get_QRcode'),
     path('store_list/', StorePV.as_view(), name='store_list'),
     path('store_list/filter/<int:loc>/',filteredStoresPV.as_view(), name='filteredStores'),
     path('store_list/detail/<int:store_id>/', detailView, name='filteredStoresDetail')

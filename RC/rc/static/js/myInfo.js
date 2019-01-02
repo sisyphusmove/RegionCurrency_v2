@@ -100,6 +100,7 @@ function get_myStore() {
             status = (data.status == "a") ? "승인됨" : ((data.status == "w") ? "승인대기중" : "삭제됨");
             $("#btn_add").hide();
             $("#del_id").attr("value", data.id);
+            $("#s_id").attr("value", data.id);
             $("#image").attr("src", data.photo);
             $("#store_name").text(data.name);
             $("#corp_num").text(data.corporate_number);
@@ -117,6 +118,22 @@ function get_myStore() {
             $("#myStore").append(`<center>등록된 가맹점이 없습니다. <a href="/store/apply">[가맹점 신청하기]</a></center>`);
         }
     });
+}
+
+function openQRCamera(node) {
+    var reader = new FileReader();
+    reader.onload = function() {
+        node.value = "";
+        qrcode.callback = function(res) {
+            if(res instanceof Error) {
+                alert("QR Code를 읽는데 실패했습니다. 다시 시도하세요.");
+            } else {
+                node.parentNode.previousElementSibling.value = res;
+            }
+        };
+        qrcode.decode(reader.result);
+    };
+    reader.readAsDataURL(node.files[0]);
 }
 
 $(function() {
@@ -147,5 +164,3 @@ $(function() {
         }
     });
 })
-
-
