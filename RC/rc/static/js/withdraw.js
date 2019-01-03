@@ -40,6 +40,7 @@ $(function() {
 
 function check_username() {
     var username = $("#target").val();
+    var from = $("#from").val();
     $.ajax({
         type: "GET",
         url: "/accounts/check_username2",
@@ -49,7 +50,10 @@ function check_username() {
         dataType : "json",
         async: false,
         success: function(data) {
-            if ( data["result"] != 0 ){
+            if ( username == from ){
+                alert("자신에게 송금할 수 없습니다.");
+                idCheck = 0;
+            } else if ( data["result"] != 0 ){
                 // $("#msg").text("이미 등록된 아이디 입니다.");
                 alert("아이디가 확인되었습니다.");
                 idCheck = 1;
