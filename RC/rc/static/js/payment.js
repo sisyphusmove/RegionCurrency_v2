@@ -52,21 +52,25 @@ function payment() {
     var u_id = $("#u_id").val();
     var s_id = $("#s_id").val();
     var amount = $("#amount").val();
+    var rediect_url = `/accounts/myInfo/${ u_id }`
+
     $.ajax({
         type: "POST",
         url: "/payment/payment",
         dataType : "json",
         data: { u_id : u_id, s_id : s_id, amount : amount, csrfmiddlewaretoken : csrf_token },
         async: false
-    }).done(function(res) {
-        var res = res['result'];
-        alert(res);
-        if (res) {
-            alert("결제가 완료 되었습니다.");
-            document.location.href = `"{% url 'profile:account_myInfo' ${ u_id }"`;
-        } else {
+    }).done(function(data) {
+        $("#payment").empty();
+        $("#payment").text("결제 중입니다..");
+        
+        var res = data["result"]["result"];
+
+        if (res != "success") {
             alert("결제 실패... 다시 시도해주세요.");
         }
+    }).always(function() {
+        window.location.replace(rediect_url);
     });
 }
 

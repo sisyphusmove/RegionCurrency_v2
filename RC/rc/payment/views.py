@@ -115,5 +115,6 @@ def payment(request):
     data = {
         "result" : res
     }
+    print(data)
     json_data = json.dumps(data)
     return HttpResponse(json_data, content_type="application/json;charset=UTF-8")
