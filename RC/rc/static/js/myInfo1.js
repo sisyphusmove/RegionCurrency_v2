@@ -120,7 +120,7 @@ function get_myStore() {
 }
 
 function get_myboard(this_page) {
-    var userid = $("#u_id").val();
+    var userid = $("#userid").val();
     var urls = "/board/board_search/"
     $.ajax({
         type: 'GET',
@@ -131,12 +131,12 @@ function get_myboard(this_page) {
             this_page : this_page
         },
     }).done(function(res) {
-        if ( res['board_list'] ) {
+        if ( res['a'] ) {
             let seq = res["start_seq"]
             var current_page_num = parseInt(res['current_page_num']);
             var max_page_num = parseInt(res['max_page_num']);
             $("#myboard").empty();
-            res['board_list'].forEach(function(data) {
+            res['a'].forEach(function(data) {
                 text = `
                     <tr>
                         <td>${data.id}</td>
@@ -175,20 +175,21 @@ function get_myboard(this_page) {
 
 
 function openQRCamera(node) {
-  var reader = new FileReader();
-  reader.onload = function() {
-    node.value = "";
-    qrcode.callback = function(res) {
-      if(res instanceof Error) {
-        alert("QR code를 찾을 수 없습니다. 다시 시도해주세요.");
-      } else {
-        //node.parentNode.previousElementSibling.value = res;
-	alert(res);
-      }
+    var reader = new FileReader();
+    reader.onload = function() {
+        node.value = "";
+        qrcode.callback = function(res) {
+            if(res instanceof Error) {
+                alert("No QR code found. Please make sure the QR code is within the camera's frame and try again.");
+            } else {
+                node.parentNode.previousElementSibling.value = res;
+                alert("a:"+res);
+            }
+        };
+        qrcode.decode(reader.result);
     };
-    qrcode.decode(reader.result);
-  };
-  reader.readAsDataURL(node.files[0]);
+    reader.readAsDataURL(node.files[0]);
+    alert(node.files[0]);
 }
 
 
