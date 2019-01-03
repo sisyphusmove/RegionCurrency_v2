@@ -282,7 +282,7 @@ def board_search(request):
     start_seq = p.count - (page_size * (int(this_page_num) - 1))
     res = {
         'start_seq' : start_seq,
-        'a': board_list,
+        'board_list': board_list,
         'current_page_num' : this_page_num,
         'max_page_num' : p.num_pages
     }
