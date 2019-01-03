@@ -72,13 +72,12 @@ function check_username() {
 }
 
 function check_password() {
+    var csrf_token = $('meta[name="csrf-token"]').attr("content");
     var password = $("#password").val();
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "/accounts/check_password2",
-        data: {
-            password : password
-        },
+        data: { password : password, "csrfmiddlewaretoken" : csrf_token },
         dataType : "json",
         async: false,
         success: function(data) {

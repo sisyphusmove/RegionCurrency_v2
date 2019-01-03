@@ -124,6 +124,18 @@ def my_info(request, account_id=None):
     return render(request, template_name, data)
 
 
+def get_balance(request):
+    u_id = request.POST.get("u_id", None)
+    user = get_object_or_404(User, pk=u_id)
+    url = host + "get_account/" + user.username
+    response = requests.get(url)
+    res = json.loads(response.text)
+    data = {
+        "balance" : res['value']
+    }
+    json_data = json.dumps(data)
+    return HttpResponse(json_data, content_type="application/json;charset=UTF-8")
+
 
 def getUserList(request):
     user_queryset = User.objects.filter(email=request.GET.get("email"))
@@ -197,8 +209,6 @@ def check_password(request, account_id=None):
     context = {}
     if request.method == 'POST':
         user = request.user.check_password(request.POST.get('password'))
-        print(request.POST.get('password'))
-        print(user)
         if user:
             return redirect('profile:account_edit', account_id=account_id)
         else:
@@ -207,7 +217,7 @@ def check_password(request, account_id=None):
 
 
 def check_password2(request):
-    password = request.GET.get('password', None)
+    password = request.POST.get('password', None)
     res = request.user.check_password(password)
     data = {
         'result' : res

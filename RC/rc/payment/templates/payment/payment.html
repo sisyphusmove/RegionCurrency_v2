@@ -3,6 +3,8 @@
 
 {% block head %}
 
+<meta name="csrf-token" content="{{ csrf_token }}" />
+
 <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 <link href="{% static 'css/account.css' %}" rel="stylesheet">
 
@@ -22,10 +24,12 @@
                 <div>가맹점&nbsp;</div>
                 <div>"<strong>{{ s_name }}</strong>"에서&nbsp;</div>
                 <div>결제를&nbsp;진행합니다.</div>
+                <input id="s_id" value="{{ s_id }}" hidden />
+                <input id="u_id" value="{{ u_id }}" hidden />
             </div>
             
             <br/>
-
+        
             <div class="row col-sm justify-content-center">
                 <div>-&nbsp;결제금액&nbsp;&nbsp;(RC)&nbsp;&nbsp;</div>
                 <div><input type="text"  id="amount" name="amount" class="form-control" styple="width:100%;" placeholder="결제 금액" required autocomplete="off" autofocus="true"></div>
@@ -41,9 +45,10 @@
             <br/>
             
             <div class="row col-sm">
-                <a href="" id="btn_submit" class="col-sm btn submitButton">확인</a>
+                <button type="submit" id="btn_submit" onClick="check_validation()" class="col-sm btn submitButton">결제</button>
                 <a href="{% url 'profile:account_myInfo' u_id %}" class="col-sm btn cancelButton">취소</a>
             </div>
+        
         </div>
     </div>
 <br>
@@ -51,5 +56,6 @@
 
 <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/payment.js' %}"></script>
 
 {% endblock content %}
