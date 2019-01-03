@@ -87,7 +87,9 @@ def get_history(request):
 def payment(request):
     s_id = request.GET.get('s_id')
     s_name = request.GET.get('s_name')
+    u_id = request.user.pk
     u_name = request.user.username
+
     try:
         store = get_object_or_404(Store, pk=s_id)
         if s_name == store.name:
@@ -95,4 +97,4 @@ def payment(request):
     except:
         print("에러")
 
-    return render (request, 'payment/templates/payment/payment.html', dict(s_id=s_id, s_name=s_name, u_name=u_name))
+    return render (request, 'payment/payment.html', dict(s_id=s_id, s_name=s_name, u_id=u_id, u_name=u_name))

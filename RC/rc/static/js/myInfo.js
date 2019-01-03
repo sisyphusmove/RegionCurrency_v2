@@ -175,41 +175,24 @@ function get_myboard(this_page) {
 
 
 function openQRCamera(node) {
-<<<<<<< HEAD
     var reader = new FileReader();
+    var url = "";
     reader.onload = function() {
         node.value = "";
         qrcode.callback = function(res) {
             if(res instanceof Error) {
-                alert("No QR code found. Please make sure the QR code is within the camera's frame and try again.");
+                alert("QR code를 찾을 수 없습니다. 다시 시도해주세요.");
             } else {
-                node.parentNode.previousElementSibling.value = res;
-                $("#url").attr("value", res);
-                alert(res);
+                //node.parentNode.previousElementSibling.value = res;
+                url = res;
+                window.location.replace(url);
             }
         };
         qrcode.decode(reader.result);
     };
     reader.readAsDataURL(node.files[0]);
 }
-=======
-  var reader = new FileReader();
-  reader.onload = function() {
-    node.value = "";
-    qrcode.callback = function(res) {
-      if(res instanceof Error) {
-        alert("QR code를 찾을 수 없습니다. 다시 시도해주세요.");
-      } else {
-        //node.parentNode.previousElementSibling.value = res;
-	alert(res);
-      }
-    };
-    qrcode.decode(reader.result);
-  };
-  reader.readAsDataURL(node.files[0]);
-}
 
->>>>>>> a1896e484c9dab1e06b1fa6a63cc7ea200bc2fe7
 
 $(function() {
     get_history(1, 0);

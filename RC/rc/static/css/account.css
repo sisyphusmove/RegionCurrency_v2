@@ -1,7 +1,7 @@
 /*bootstrap class override for login page only*/
 .form-control{
-    border-radius: 0px;
-    margin: 12px 3px;
+    border-radius: 5px;
+    /* margin: 12px 3px; */
     height: 40px;
 }
 #hero img {
@@ -50,7 +50,7 @@ input[submit], .confirmButton, .submitButton{
     width: 100%;
     margin-left: 2px;
     font-size: 16px;
-    border-radius: 0px;
+    /* border-radius: 0px; */
     outline: none;
 }
 input[submit], .confirmButton:hover, .confirmButton:focus, .submitButton:hover,.submitButton:focus{
@@ -66,7 +66,7 @@ input[submit], .confirmButton:hover, .confirmButton:focus, .submitButton:hover,.
     width: 100%;
     margin-left: 2px;
     font-size: 16px;
-    border-radius: 0px;
+    /* border-radius: 0px; */
     outline: none;
 }
 .cancelButton:hover, .cancelButton:focus{

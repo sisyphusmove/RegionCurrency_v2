@@ -4,22 +4,50 @@
 {% block head %}
 
 <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-<link href="{% static 'css/myinfo.css' %}" rel="stylesheet">
+<link href="{% static 'css/account.css' %}" rel="stylesheet">
 
 {% endblock head %}
 
 {% block content %}
 
 <section id="content">
-    가맹점 "{{ s_name }}" 에서 결제를 진행합니다.
-    
-    결제자 "{{ u_name }}"
-    <input type="number" id="amount"></input>
-    비밀번호
-    <input type="password" id="password"></input>
-    결제 / 취소
-</section>
+<br/>
+    <div class="container" align="center">
+        <div class="submitbox" style="max-width: 500px;">
+            <div class="col-sm">
+                <span class="boxtitle" >결제</span>   
+            </div>
+            <br/>
+            <div class="row col-sm justify-content-center">
+                <div>가맹점&nbsp;</div>
+                <div>"<strong>{{ s_name }}</strong>"에서&nbsp;</div>
+                <div>결제를&nbsp;진행합니다.</div>
+            </div>
+            
+            <br/>
+
+            <div class="row col-sm justify-content-center">
+                <div>-&nbsp;결제금액&nbsp;&nbsp;(RC)&nbsp;&nbsp;</div>
+                <div><input type="text"  id="amount" name="amount" class="form-control" styple="width:100%;" placeholder="결제 금액" required autocomplete="off" autofocus="true"></div>
+            </div>
+
+            <br/>
+
+            <div class="row col-sm justify-content-center">
+                <div>-&nbsp;비밀번호 입력&nbsp;&nbsp;</div>
+                <div><input type="password"  id="password" name="password" class="form-control" placeholder="비밀번호" required autocomplete="off"></div>
+            </div>
+            
+            <br/>
+            
+            <div class="row col-sm">
+                <a href="" id="btn_submit" class="col-sm btn submitButton">확인</a>
+                <a href="{% url 'profile:account_myInfo' u_id %}" class="col-sm btn cancelButton">취소</a>
+            </div>
+        </div>
+    </div>
 <br>
+</section>
 
 <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
