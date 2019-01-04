@@ -122,14 +122,31 @@
 			
             
 			<div class="row col-sm tab-pane fade" id="myStore" role="tabpanel" aria-labelledby="myStore-tab">
-                <div id="myStore" class="row margin-top">
-                    <div class="card margin-left">
-                        <img src="" id="image" class="margin-left" alt="">
+                <div class="row col-sm profile-head">
+                    <h5 id="store_name"></h5>
+                </div>
+                <div id="myStore" class="row margin-top" style="margin-top:0">
+                    <div class="col-md" align="center" height="500px">
+                        <img src="" id="image" width="250px">
+                        <h5 id="store_name">
+                            <div class="justify-content-center row">
+                                <form style="margin:2%"><button class="btn" style="background-color:#71c55d">수정</button></form>
+                                <form id="del_form" action="{% url 'store:delete' %}" method="POST" style="margin:2%">
+                                    {% csrf_token %}
+                                    <input type="text" id="del_id" name="del_id" hidden></input>
+                                    <input type="button" class="btn" style="background-color:#71c55d" data-toggle="modal" data-target="#myModal" value="삭제" />
+                                </form>
+                                <form action="{% url 'store:get_QRcode' %}" method="POST" target="_blank" style="margin:2%">
+                                    {% csrf_token %}
+                                    <input type="text" id="s_id" name="s_id" hidden></input>
+                                    <button type="submit" id="btn_qr" class="btn" style="background-color:#71c55d">QR코드</button>
+                                </form>    
+                            </div>
+                        </h5>
                     </div>
 
-                    <div class="col-md">
+                    <div class="col-md" style="margin-top:20px">
                         <div class="profile-head">
-                            <h5 id="store_name"></h5>
                             <p class="proile-rating">
                                 <div class="row margin-left margin-right margin-top">
                                     <span class="icon_txt">사업자등록번호&nbsp;:&nbsp;</span>
@@ -154,23 +171,8 @@
                             </p>
                         </div>
                     </div>
-                    <div class="col-md">
+                    <div class="col-md" style="margin-top:20px">
                         <div class="profile-head">
-                            <h5 id="store_name">
-                                <div class="row col-sm">
-                                    <a href="" class="profile-edit-btn" style="min-width: 40px;">수정</a>
-                                    <form id="del_form" action="{% url 'store:delete' %}" method="POST">
-                                        {% csrf_token %}
-                                        <input type="text" id="del_id" name="del_id" hidden></input>
-                                        <input type="button" class="profile-edit-btn" style="min-width: 40px;" data-toggle="modal" data-target="#myModal" value="삭제" />
-                                    </form>
-                                    <form action="{% url 'store:get_QRcode' %}" method="POST" target="_blank">
-                                        {% csrf_token %}
-                                        <input type="text" id="s_id" name="s_id" hidden></input>
-                                        <button type="submit" id="btn_qr" class="profile-edit-btn" style="min-width: 60px;">QR코드</button>
-                                    </form>    
-                                </div>
-                            </h5>
                             <p class="profile-rating">
                                 <div class="row margin-left margin-right margin-top">
                                     <span class="icon_txt">주소&nbsp;:&nbsp;</span>
