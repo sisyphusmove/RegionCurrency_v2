@@ -468,3 +468,37 @@ body {
 
 .qrcode-text-btn {display:inline-block; background:url(//dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg) 50% 50% no-repeat; height:1em; width:1.7em; margin-left:-2em; cursor:pointer}
 .qrcode-text-btn > input[type=file] {position:absolute; overflow:hidden; width:1px; height:1px; opacity:0}
+
+
+.confirmButton, .submitButton{
+    background-color: #7ac55d;
+    color: #fff;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px 0px;
+    width: 100%;
+    margin-left: 2px;
+    font-size: 16px;
+    /* border-radius: 0px; */
+    outline: none;
+}
+.confirmButton:hover, .confirmButton:focus, .submitButton:hover,.submitButton:focus{
+    color: #000;
+    outline: none;
+}
+.cancelButton{
+    background-color: #f2f2f2;
+    color: #000;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px 0px;
+    width: 100%;
+    margin-left: 2px;
+    font-size: 16px;
+    /* border-radius: 0px; */
+    outline: none;
+}
+.cancelButton:hover, .cancelButton:focus{
+    color: #7ac55d;
+    outline: none;
+}

@@ -5,6 +5,7 @@
 
 <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 <link href="{% static 'css/myinfo.css' %}" rel="stylesheet">
+<link href="{% static 'css/modal.css' %}" rel="stylesheet">
 
 {% endblock head %}
 
@@ -158,15 +159,15 @@
                             <h5 id="store_name">
                                 <div class="row col-sm">
                                     <a href="" class="profile-edit-btn" style="min-width: 40px;">수정</a>
-                                    <form action="{% url 'store:delete' %}" method="POST">
+                                    <form id="del_form" action="{% url 'store:delete' %}" method="POST">
                                         {% csrf_token %}
                                         <input type="text" id="del_id" name="del_id" hidden></input>
-                                        <button type="submit" class="profile-edit-btn" style="min-width: 40px;">삭제</button>
+                                        <input type="button" class="profile-edit-btn" style="min-width: 40px;" data-toggle="modal" data-target="#myModal" value="삭제" />
                                     </form>
                                     <form action="{% url 'store:get_QRcode' %}" method="POST" target="_blank">
                                         {% csrf_token %}
                                         <input type="text" id="s_id" name="s_id" hidden></input>
-                                        <button type="submit" class="profile-edit-btn" style="min-width: 60px;">QR코드</button>
+                                        <button type="submit" id="btn_qr" class="profile-edit-btn" style="min-width: 60px;">QR코드</button>
                                     </form>    
                                 </div>
                             </h5>
@@ -212,6 +213,23 @@
 
 
 		</div>
+    </div>
+
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="boxtitle">가맹점 삭제</h4>
+                </div>
+                <div id="msg" class="modal-body" align="center">
+                    가맹점을 삭제하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn_submit" class="btn submitButton">확인</button>
+                    <button type="button" class="btn cancelButton" data-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 <br>

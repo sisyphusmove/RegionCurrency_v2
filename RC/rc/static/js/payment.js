@@ -26,20 +26,25 @@ function check_amount() {
     var u_id = $("#u_id").val();
     var amount = $("#amount").val();
     var validated_amount = false;
-    $.ajax({
-        type: "POST",
-        url: "/accounts/myBalance",
-        dataType : "json",
-        data: { u_id : u_id, "csrfmiddlewaretoken" : csrf_token },
-        async: false
-    }).done(function(res) {
-        var balance = parseInt(res['balance']);
-        if ( balance && (balance >= amount) ) {
-            validated_amount = true;
-        } else {
-            alert("보유 잔액이 부족합니다.");
-        }
-    });
+    
+    if ( amount < 1 ) {
+        alert("거래 금액이 올바르지 않습니다.");
+    } else {
+        $.ajax({
+            type: "POST",
+            url: "/accounts/myBalance",
+            dataType : "json",
+            data: { u_id : u_id, "csrfmiddlewaretoken" : csrf_token },
+            async: false
+        }).done(function(res) {
+            var balance = parseInt(res['balance']);
+            if ( balance && (balance >= amount) ) {
+                validated_amount = true;
+            } else {
+                alert("보유 잔액이 부족합니다.");
+            }
+        });
+    }
     if (validated_amount) {
         return true;
     }
@@ -65,7 +70,6 @@ function payment() {
         $("#payment").text("결제 중입니다..");
         
         var res = data["result"]["result"];
-
         if (res != "success") {
             alert("결제 실패... 다시 시도해주세요.");
         }

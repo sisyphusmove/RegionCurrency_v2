@@ -13,7 +13,7 @@
 {% block content %}
 
 <section id="content">
-<br/>
+
     <div class="container" align="center">
         <div id="payment" class="submitbox" style="max-width: 500px;">
             <div class="col-sm">
@@ -32,7 +32,7 @@
         
             <div class="row col-sm justify-content-center">
                 <div>-&nbsp;결제금액&nbsp;&nbsp;(RC)&nbsp;&nbsp;</div>
-                <div><input type="text"  id="amount" name="amount" class="form-control" styple="width:100%;" placeholder="결제 금액" required autocomplete="off" autofocus="true"></div>
+                <div><input type="number" min="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57" id="amount" name="amount" class="form-control" styple="width:100%;" placeholder="결제 금액" required autocomplete="off" autofocus="true"></div>
             </div>
 
             <br/>

@@ -14,7 +14,7 @@ function get_history(this_page, query_type) {
     }).done( function(res) {
         if ( res['history_list'] ) {
             var type = ['발행', '결제', '결제취소', '송금', '송금취소', '계좌발급'];
-            var exp1 = ['으로부터', '에게'];
+            var exp1 = ['님으로부터', '에서', '님이', '에서', '님이', '에게', '으로부터', '에게', '으로부터', '', '으로부터'];
             var exp2 = ['받음', '보냄'];
             var seq = res["fullLength"];
             var css = ['cancelado', 'pendiente', 'pendiente', 'pagado', 'pagado', ''];
@@ -41,10 +41,10 @@ function get_history(this_page, query_type) {
                                 <div class="media-body">
                                     <span class="media-meta pull-right">${data.date}</span>
                                     <h4 class="title">
-                                        잔액: ${data.balance}   RC
-                                        <span class="pull-right ${css[idx]}">${type[idx]}</span>
+                                        <span class="${css[idx]}">${type[idx]}</span>
+                                        <span class="pull-right">잔액: ${(data.balance).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
                                     </h4>
-                                    <p class="summary"><u>${data.trader}</u>님${exp1[parseInt(data.txType)%2]} <u>${data.amount}</u> RC를 <u>${type[idx]}</u>${exp2[parseInt(data.txType)%2]}</p>
+                                    <p class="summary">${data.trader}${exp1[parseInt(data.txType)]} ${(data.amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} RC ${type[idx]}</p>
                                 </div>
                             </div>
                         </td>
@@ -90,6 +90,9 @@ function get_myStore() {
     }).done( function(data) {
         if ( data.name ) {
             status = (data.status == "a") ? "승인됨" : ((data.status == "w") ? "승인대기중" : "삭제됨");
+            if ( data.status == "w" ) {
+                $("#btn_qr").hide();
+            }
             $("#btn_add").hide();
             $("#del_id").attr("value", data.id);
             $("#s_id").attr("value", data.id);
@@ -167,6 +170,12 @@ function get_myboard(this_page) {
 }
 
 
+function remove_store() {
+    alert(1);
+    $("#del_form").submit();
+}
+
+
 function openQRCamera(node) {
     var reader = new FileReader();
     var url = "";
@@ -216,5 +225,9 @@ $(function() {
         } else {
             $('.table tr').css('display', 'none').fadeIn('slow');
         }
+    });
+
+    $("#btn_submit").on("click", function() {
+        remove_store();
     });
 })
