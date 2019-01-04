@@ -5,6 +5,7 @@ import json, requests, datetime
 from datetime import date
 from django.http import JsonResponse, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 from store.models import Store
 # Create your views here.
 
@@ -60,13 +61,18 @@ def get_history(request):
         filtered_list = res
 
     history_list = []
-    page_size = 5
+    page_size = 10
     p = Paginator(filtered_list, page_size)
 
     for history in p.page(this_page_num):
+        s_name = history['trader']
+        if history['txType'] == '1':
+            user = get_object_or_404(User, username=history['trader'])
+            store = Store.objects.filter(Q(representative=user.id) & ~Q(status='d'))
+            s_name = store[0].name
         temp = {
             'balance':history["balance"],
-            'trader':history["trader"],
+            'trader':s_name,
             'amount':history["amount"],
             'txType':history["txType"],
             'date':history["date"]
@@ -83,6 +89,7 @@ def get_history(request):
     }
     json_data = json.dumps(data)
     return HttpResponse(json_data, content_type="application/json;charset=UTF-8")
+
 
 def progress(request):
     s_id = request.GET.get('s_id')

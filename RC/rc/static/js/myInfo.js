@@ -13,50 +13,43 @@ function get_history(this_page, query_type) {
         dataType : "json"
     }).done( function(res) {
         if ( res['history_list'] ) {
-            let type = ['발행', '결제', '결제', '결제취소', '결제취소', '송금', '송금', '송금취소', '송금취소', '','계좌생성']
-            let seq = res["fullLength"]
+            var type = ['발행', '결제', '결제취소', '송금', '송금취소', '계좌발급'];
+            var exp1 = ['으로부터', '에게'];
+            var exp2 = ['받음', '보냄'];
+            var seq = res["fullLength"];
+            var css = ['cancelado', 'pendiente', 'pendiente', 'pagado', 'pagado', ''];
             var current_page_num = parseInt(res['current_page_num']);
             var max_page_num = parseInt(res['max_page_num']);
+
             $("#history").empty();
             res['history_list'].forEach(function(data) {
-                let exp1;
-                let exp2;
-                let text;
-
-                if( data.txType == 0 || data.txType % 2 == 0) {
-                    exp1 = '으로부터';
-                    exp2 = '받음';
-                } else {
-                    exp1 = '에게'
-                    exp2 = '보냄';
-                }
-            
-                text = `
-                <tr data-status="${type[data.txType]}">
-                    <td>
-                        <div class="ckbox">
-                            ${seq--}
-                        </div>
-                    </td>
-                    <td>
-                        <a href="javascript:;" class="star">
-                            <i class="glyphicon glyphicon-star"></i>
-                        </a>
-                    </td>
-                    <td>
-                        <div class="media">
-                            <div class="media-body">
-                                <span class="media-meta pull-right">${data.date}</span>
-                                <h4 class="title">
-                                    ${data.trader}
-                                    <span class="pull-right ${type[data.txType]}">${type[data.txType]}</span>
-                                </h4>
-                                <p class="summary">${data.trader}님${exp1} ${data.amount} RC를 ${type[data.txType]}${exp2}</p>
+                var idx = Math.floor((parseInt(data.txType)+1)/2);
+                var text = `
+                    <tr data-status="${type[data.txType]}">
+                        <td>
+                            <div class="ckbox">
+                                ${seq--}
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                `;
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="star">
+                                <i class="glyphicon glyphicon-star"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <div class="media">
+                                <div class="media-body">
+                                    <span class="media-meta pull-right">${data.date}</span>
+                                    <h4 class="title">
+                                        잔액: ${data.balance}   RC
+                                        <span class="pull-right ${css[idx]}">${type[idx]}</span>
+                                    </h4>
+                                    <p class="summary"><u>${data.trader}</u>님${exp1[parseInt(data.txType)%2]} <u>${data.amount}</u> RC를 <u>${type[idx]}</u>${exp2[parseInt(data.txType)%2]}</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    `;
                 $("#history").append(text);
             });
             $("#page-area-2").empty();

@@ -157,16 +157,16 @@
                         <div class="profile-head">
                             <h5 id="store_name">
                                 <div class="row col-sm">
-                                    <a href="" class="profile-edit-btn">정보수정</a>
+                                    <a href="" class="profile-edit-btn" style="min-width: 40px;">수정</a>
                                     <form action="{% url 'store:delete' %}" method="POST">
                                         {% csrf_token %}
                                         <input type="text" id="del_id" name="del_id" hidden></input>
-                                        <button type="submit" class="profile-edit-btn">삭제</button>
+                                        <button type="submit" class="profile-edit-btn" style="min-width: 40px;">삭제</button>
                                     </form>
                                     <form action="{% url 'store:get_QRcode' %}" method="POST" target="_blank">
                                         {% csrf_token %}
                                         <input type="text" id="s_id" name="s_id" hidden></input>
-                                        <button type="submit" class="profile-edit-btn">QR코드보기</button>
+                                        <button type="submit" class="profile-edit-btn" style="min-width: 60px;">QR코드</button>
                                     </form>    
                                 </div>
                             </h5>
