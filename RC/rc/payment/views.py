@@ -7,6 +7,8 @@ from django.http import JsonResponse, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from store.models import Store
+from payment.models import Cancellation
+
 # Create your views here.
 
 host = "http://210.107.78.166:8000/"
@@ -91,6 +93,49 @@ def get_history(request):
     return HttpResponse(json_data, content_type="application/json;charset=UTF-8")
 
 
+def get_receipt(request):
+    u_id = request.GET.get('u_id', None)
+    this_page_num = request.GET.get('this_page', None)
+    
+    user = get_object_or_404(User, pk=u_id)
+    url = host + 'get_txList/' + user.username
+    response = requests.get(url)
+    res = json.loads(response.text)
+    res.reverse()
+
+    filtered_list = []
+    for receipt in res:
+        if receipt['txType'] == '2' or receipt['txType'] == '3':
+            filtered_list.append(receipt)
+
+    page_size = 10
+    p = Paginator(filtered_list, page_size)
+
+    history_list = []
+    for receipt in p.page(this_page_num):
+        canceled = Cancellation.objects.filter(Q(txHash=receipt['tx_id'])).exists()
+
+        temp = {
+            'txHash' : str(receipt['tx_id']),
+            'trader' : receipt['trader'],
+            'amount' : receipt['amount'],
+            'txType' : receipt['txType'],
+            'date'  : receipt['date'],
+            'canceled' : canceled
+        }
+        history_list.append(temp)
+
+    start_seq = p.count - (page_size * (int(this_page_num) - 1))
+    data = {
+        'start_seq' : start_seq,
+        'receipt_list' : history_list,
+        'current_page_num' : this_page_num,
+        'max_page_num' : p.num_pages,
+    }
+    json_data = json.dumps(data)
+    return HttpResponse(json_data, content_type="application/json;charset=UTF-8")
+
+
 def progress(request):
     s_id = request.GET.get('s_id')
     s_name = request.GET.get('s_name')
@@ -122,6 +167,6 @@ def payment(request):
     data = {
         "result" : res
     }
-    print(data)
+    
     json_data = json.dumps(data)
     return HttpResponse(json_data, content_type="application/json;charset=UTF-8")

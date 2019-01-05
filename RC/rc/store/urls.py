@@ -11,6 +11,8 @@ urlpatterns = [
     path('apply/', store_edit, name='add'),
     path('read/<int:pk>/',StoreDV.as_view(), name='read'),
     path('edit/', store_edit, name='edit'),
+    path('cancel_payment/', cancel_payment, name='cancel_payment'),
+    path('add_canceled_payment/', add_canceled_payment, name='add_canceled_payment'),
     path('delete/', store_remove, name='delete'),
     path('getMyStore', get_myStore),
     path('QRcode', get_QRcode, name='get_QRcode'),

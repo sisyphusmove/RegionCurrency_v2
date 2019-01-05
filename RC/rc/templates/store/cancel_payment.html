@@ -1,0 +1,62 @@
+{% extends 'index_base.html' %}
+{% load staticfiles %}
+
+{% block head %}
+
+<meta name="csrf-token" content="{{ csrf_token }}" />
+
+<link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/account.css' %}" rel="stylesheet">
+
+{% endblock head %}
+
+{% block content %}
+
+<section id="content">
+
+    <div class="container" align="center">
+        <div id="payment" class="submitbox" style="max-width: 500px;">
+            <div class="col-sm">
+                <span class="boxtitle" >가맹점 삭제</span>   
+            </div>
+            <br/>
+            <div class="row col-sm justify-content-center text-danger">
+                <div><strong>{{ trader }}</strong>님이&nbsp;</div>
+                <div>가맹점&nbsp;</div>
+                <div><strong>"{{ store }}"</strong>에서&nbsp;결제한</div>
+            </div>
+            <div class="row col-sm justify-content-center text-danger">
+                <div><strong>{{ amount }}</strong>RC를&nbsp;</div>
+                <div><strong>"결제취소"</strong>합니다.</div>
+            </div>
+            
+            <br/>
+            
+            <div class="row col-sm justify-content-center">
+                <div><input type="password"  id="password" name="password" class="form-control" placeholder="비밀번호" required autofocus autocomplete="off"></div>
+            </div>
+            
+            <br/>
+            
+            <div class="row col-sm">
+                <button type="submit" id="btn_submit" onClick="cancel()" class="col-sm btn submitButton">결제취소</button>
+                <a href="{% url 'profile:account_myInfo' user.id %}" class="col-sm btn cancelButton">취소</a>
+            </div>
+        
+            <form id="cancel_payment" action="{% url 'store:add_canceled_payment'%}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="trader" value="{{ trader }}" hidden />
+                <input type="text" name="username" value="{{ username }}" hidden />
+                <input type="text" name="amount" value="{{ amount }}" hidden />
+                <input type="text" name="tx" value="{{ tx }}" hidden />
+            </form>
+        </div>
+    </div>
+<br>
+</section>
+
+<script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/cancel_payment.js' %}"></script>
+
+{% endblock content %}

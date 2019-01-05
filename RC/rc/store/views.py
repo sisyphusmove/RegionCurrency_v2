@@ -3,13 +3,16 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, View
 from django.http import JsonResponse, HttpResponse
 from .models import Store, Category, Location, Photo
+from payment.models import Cancellation 
 from .forms import StoreForm, PhotoForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.template import loader
-import json
+import json, requests, datetime
 
 # Create your views here.
+
+host = 'http://210.107.78.166:8000/'
 
 class StoreDV(DetailView):
     model = Store
@@ -87,7 +90,6 @@ def detailView (request, store_id=None):
     
     # def store_list(request):
     #     photo_list = User.objects.all()
-    #     print("##########################")
     #     page = request.GET.get('page', 1)
     #     paginator = Paginator(photo_list, 12)
     #     photos = paginator.page(1)
@@ -136,7 +138,7 @@ def store_edit(request, store_id=None):
 
     else:
         form = StoreForm(instance=store)
-        photo_form = PhotoForm(instance=photo);
+        photo_form = PhotoForm(instance=photo)
         category = Category.objects.all().order_by('id')
         location = Location.objects.all().order_by('id')
         return render(request, 'store/myStore_edit.html', dict(form=form, photo_form=photo_form, categorys=category, locations=location, store=store))
@@ -150,6 +152,35 @@ def store_remove(request):
     return redirect('profile:account_myInfo', request.user.pk)
 
 
+def cancel_payment(request):
+    to = request.POST.get('to', None)
+    amount = request.POST.get('amount', None)
+    tx = request.POST.get('tx', None)
+    me = get_object_or_404(User, username=request.user.username)
+    store = Store.objects.filter(Q(representative=me) & ~Q(status='d'))
+    return render(request, 'store/cancel_payment.html', dict(trader=to, store=store[0].name, username=me.username, amount=amount, tx=tx))
+
+
+def add_canceled_payment(request):
+    to = request.POST.get('trader', None)
+    key = request.POST.get('username', None)
+    amount = request.POST.get('amount', None)
+    tx = request.POST.get('tx', None)
+    today = (datetime.datetime.now()).strftime('%Y-%m-%d')
+
+    url = host +'transfer/' + key + '/' + to + '/' + amount + '/3/' + today
+    response = requests.get(url)
+    res = json.loads(response.text)
+
+    if res['result'] == 'success':
+        canceled = Cancellation()
+        canceled.s_id = Store.objects.filter(Q(representative=request.user.pk))[0]
+        canceled.txHash = tx
+        canceled.save()
+
+    return redirect('profile:account_myInfo', request.user.pk)
+
+
 def get_myStore(request):
     u_id = request.GET.get('u_id', None)
     store = Store.objects.filter(Q(representative=u_id) & ~Q(status='d'))
@@ -159,6 +190,7 @@ def get_myStore(request):
     if len(store) != 0:
         photo = Photo.objects.filter(Q(store_id=store[0].id))
         data = {
+            'u_id'              : u_id,
             'id'                : store[0].id,
             'name'              : store[0].name,
             'corporate_number'  : store[0].corporate_number,
@@ -181,5 +213,4 @@ def get_myStore(request):
 def get_QRcode(request):
     s_id = request.POST.get('s_id')
     store = get_object_or_404(Store, pk=s_id)
-    print(store.name)
-    return render(request, 'store/myStoreQRcode.html', dict(s_id=store.id, s_name=store.name)) 
+    return render(request, 'store/myStoreQRcode.html', dict(s_id=store.id, s_name=store.name))

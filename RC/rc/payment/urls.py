@@ -23,5 +23,6 @@ urlpatterns = [
     path('transfer/', views.transfer, name="transfer"),
     path('progress/', views.progress, name="progress"),
     path('payment', views.payment, name="payment"),
-    path('get_history/',views.get_history, name="get_history")
+    path('get_history/',views.get_history, name="get_history"),
+    path('get_receipt/',views.get_receipt, name="get_receipt")
 ]

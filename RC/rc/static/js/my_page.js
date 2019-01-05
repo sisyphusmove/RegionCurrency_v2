@@ -1,4 +1,3 @@
-
 function get_history(this_page, query_type) {
     var from = $("#from").val();
     var urls = "/payment/get_history/"
@@ -115,6 +114,91 @@ function get_myStore() {
     });
 }
 
+
+function get_receipt(this_page) {
+    var from = $("#u_id").val();
+    var urls = "/payment/get_receipt/"
+    $.ajax({
+        type: "GET",
+        url: urls,
+        data: {
+            u_id : from,
+            this_page : this_page,
+        },
+        dataType : "json"
+    }).done( function(data) {
+        if ( data["receipt_list"] ) {
+            var type = ["결제", "결제취소"];
+            var css = ["pagado", "cancelado"];
+            var seq = parseInt(data["start_seq"]);
+            var current_page_num = parseInt(data["current_page_num"]);
+            var max_page_num = parseInt(data["max_page_num"]);
+
+            $("#receipt").empty();
+            data["receipt_list"].forEach(function(r) {
+                var idx = parseInt(r.txType) % 2;
+                var text = `
+                    <tr data-status="${type[idx]}">
+                        <td>
+                            <div class="ckbox">
+                                ${seq}
+                            </div>
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="star">
+                                <i class="glyphicon glyphicon-star"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <div class="media">
+                                <div class="media-body">
+                                    <span class="media-meta pull-right">${r.date}</span>
+                                    <h4 class="title">
+                                        <span class="${css[idx]}">${type[idx]}</span>`;
+                if ( (r.txType == "2") & !(r.canceled) ) {
+                    text += `                <span class="pull-right"><data${seq} to="${r.trader}" amount="${r.amount}" tx="${r.txHash}" onclick="cancel(${seq});">결제취소</data></span>`;
+                } else if ( r.canceled ) {
+                    text += `                <span class="pull-right cancelado">취소됨</span>`;
+                }
+                text += `                </h4>
+                                    <p class="summary">${r.trader}님이 ${(r.amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} RC ${type[idx]}</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    `;
+                seq--;
+                $("#receipt").append(text);
+            });
+            
+            $("#page-area").empty();
+            if (current_page_num != 1) {
+                $("#page-area").append(`<li class="page-item"><a class="page-link" onclick="get_receipt(${1})" style="cursor: pointer;">\<\<</a></li>`);
+            }
+            if (current_page_num - 2 > 1) {
+                $("#page-area").append(`<li class="page-item"><a class="page-link">...</a></li>`);    
+            }
+            for (let i = current_page_num-2 ; i <= current_page_num+2; i++) {
+                if (i > 0 && i <= max_page_num) {
+                    if (i == current_page_num) {
+                        $("#page-area").append(`<li class="page-item"><a class="page-link"><u>${i}</u></a></li>`);        
+                    } else {
+                        $("#page-area").append(`<li class="page-item"><a class="page-link" onclick="get_receipt(${i})" style="cursor: pointer;">${i}</a></li>`);
+                    }
+                }
+            }
+            if (current_page_num + 2 < max_page_num) {
+                $("#page-area").append(`<li class="page-item"><a class="page-link">...</a></li>`);    
+            }
+            if (current_page_num != max_page_num) {
+                $("#page-area").append(`<li class="page-item"><a class="page-link" onclick="get_receipt(${max_page_num})" style="cursor: pointer;">\>\></a></li>`);
+            }
+        }
+        
+    });
+}
+
+
 function get_myboard(this_page) {
     var userid = $("#u_id").val();
     var urls = "/board/board_search/"
@@ -170,8 +254,24 @@ function get_myboard(this_page) {
 }
 
 
+function cancel(num) {
+    var csrf_token = $('meta[name="csrf-token"]').attr("content");
+    var url = "/store/cancel_payment/";
+    var to = $(`data${num}`).attr("to");
+    var amount = $(`data${num}`).attr("amount");
+    var tx = $(`data${num}`).attr("tx");
+    var form = $(`<form id="test" action="${url}" method="POST">` +
+        `<input type="text" name="csrfmiddlewaretoken" value="${csrf_token}"/>` + 
+        `<input type="text" name="to" value="${to}"/>` + 
+        `<input type="text" name="amount" value="${amount}"/>` + 
+        `<input type="text" name="tx" value="${tx}"/>` + 
+        `</form>`);
+    $("body").append(form);
+    form.submit();
+}
+
+
 function remove_store() {
-    alert(1);
     $("#del_form").submit();
 }
 
@@ -206,6 +306,7 @@ $(function() {
 
     $("#myStore-tab").on('click', function () {
         get_myStore();
+        get_receipt(1);
     });
 
     $("#myBoard-tab").on('click', function () {
