@@ -84,6 +84,7 @@
                 <li class="menu-has-children"><a href="#myInfo">마이페이지</a>
                     <ul>
                         <li><a href="{% url 'profile:account_myInfo' user.id %}">계정관리</a></li>
+                        <li><a href="{% url 'publish:publish'%}">발행</a></li>
                         <li><a href="{% url 'logout' %}">로그아웃</a></li>
                     </ul>
                 </li>
