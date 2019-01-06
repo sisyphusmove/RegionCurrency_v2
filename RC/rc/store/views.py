@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, View
 from django.http import JsonResponse, HttpResponse
 from .models import Store, Category, Location, Photo
-from payment.models import Cancellation 
 from .forms import StoreForm, PhotoForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
@@ -149,35 +148,6 @@ def store_remove(request):
     store = get_object_or_404(Store, pk=store_id)
     store.status = "d"
     store.save()
-    return redirect('profile:account_myInfo', request.user.pk)
-
-
-def cancel_payment(request):
-    to = request.POST.get('to', None)
-    amount = request.POST.get('amount', None)
-    tx = request.POST.get('tx', None)
-    me = get_object_or_404(User, username=request.user.username)
-    store = Store.objects.filter(Q(representative=me) & ~Q(status='d'))
-    return render(request, 'store/cancel_payment.html', dict(trader=to, store=store[0].name, username=me.username, amount=amount, tx=tx))
-
-
-def add_canceled_payment(request):
-    to = request.POST.get('trader', None)
-    key = request.POST.get('username', None)
-    amount = request.POST.get('amount', None)
-    tx = request.POST.get('tx', None)
-    today = (datetime.datetime.now()).strftime('%Y-%m-%d')
-
-    url = host +'transfer/' + key + '/' + to + '/' + amount + '/3/' + today
-    response = requests.get(url)
-    res = json.loads(response.text)
-
-    if res['result'] == 'success':
-        canceled = Cancellation()
-        canceled.s_id = Store.objects.filter(Q(representative=request.user.pk))[0]
-        canceled.txHash = tx
-        canceled.save()
-
     return redirect('profile:account_myInfo', request.user.pk)
 
 

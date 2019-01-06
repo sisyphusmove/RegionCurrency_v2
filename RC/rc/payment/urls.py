@@ -23,6 +23,8 @@ urlpatterns = [
     path('transfer/', views.transfer, name="transfer"),
     path('progress/', views.progress, name="progress"),
     path('payment', views.payment, name="payment"),
+    path('cancel_payment/', views.cancel_payment, name='cancel_payment'),
+    path('add_canceled_payment/', views.add_canceled_payment, name='add_canceled_payment'),
     path('get_history/',views.get_history, name="get_history"),
     path('get_receipt/',views.get_receipt, name="get_receipt")
 ]

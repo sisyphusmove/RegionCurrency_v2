@@ -1,0 +1,17 @@
+1. virtualenv 설치
+sudo apt-get install python3-venv
+python3 -m venv env
+
+2. django 설치
+python3 -m pip install --upgrade pip
+pip install django~=2.1.2
+
+3. PIL 모듈 설치
+sudo apt-get install libjpeg-dev libfreetype6 libfreetype6-dev zlib1g-dev
+pip install Pillow
+
+4. docx 모듈 설치
+pip install python-docx
+
+5. requests 모듈 설치
+pip install requests

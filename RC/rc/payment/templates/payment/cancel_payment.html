@@ -12,12 +12,12 @@
 
 {% block content %}
 
-<section id="content">
 
-    <div class="container" align="center">
-        <div id="payment" class="submitbox" style="max-width: 500px;">
+<section id="content" style="margin-top: 50px; margin-bottom: 50px">
+	<div class="container" align="center">
+        <div class="submitbox" style="max-width:400px">
             <div class="col-sm">
-                <span class="boxtitle" >가맹점 삭제</span>   
+                <span class="boxtitle" >거래 취소</span>   
             </div>
             <br/>
             <div class="row col-sm justify-content-center text-danger">
@@ -43,7 +43,7 @@
                 <a href="{% url 'profile:account_myInfo' user.id %}" class="col-sm btn cancelButton">취소</a>
             </div>
         
-            <form id="cancel_payment" action="{% url 'store:add_canceled_payment'%}" method="POST">
+            <form id="cancel_payment" action="{% url 'payment:add_canceled_payment'%}" method="POST">
                 {% csrf_token %}
                 <input type="text" name="trader" value="{{ trader }}" hidden />
                 <input type="text" name="username" value="{{ username }}" hidden />

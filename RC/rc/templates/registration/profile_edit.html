@@ -11,62 +11,60 @@
 
 {% block content %}
 
-<section id="content">
-    <div class="container" align="center">
-        <div class="row col-sm-6">
-            <div class="submitbox">
-                <span class="boxtitle">
-                    {% if user.is_authenticated %}
-                        정보수정
-                    {% else %}
-                        회원가입
-                    {% endif %}
-                </span>
+<section id="content" style="margin-top: 50px; margin-bottom: 50px">
+	<div class="container" align="center">
+        <div class="submitbox" style="max-width:600px">
+            <span class="boxtitle">
                 {% if user.is_authenticated %}
-                    <form action"{% url 'profile:account_edit' user.id %}" method="POST" onSubmit="return check_validate();">
+                    정보수정
                 {% else %}
-                    <form action"{% url 'profile:signup' %}" method="POST" onSubmit="return check_validate();">
+                    회원가입
                 {% endif %}
-                    {% csrf_token %}
-                    {% if form.errors %}
-                        <input type="text" id="status" value="failed" hidden></input>
+            </span>
+            {% if user.is_authenticated %}
+                <form action"{% url 'profile:account_edit' user.id %}" method="POST" onSubmit="return check_validate();">
+            {% else %}
+                <form action"{% url 'profile:signup' %}" method="POST" onSubmit="return check_validate();">
+            {% endif %}
+                {% csrf_token %}
+                {% if form.errors %}
+                    <input type="text" id="status" value="failed" hidden></input>
+                {% endif %}
+                <div class="row col-sm">
+                    {% if user.is_authenticated %}
+                        <input type="text" id="username" name="username" value="{{ username }}" class="form-control" autocomplete="off" disabled/>
+                        <input type="text" id="_birth_year" value="{{ birth_year }}" hidden></input>
+                        <input type="text" id="_birth_month" value="{{ birth_month }}" hidden></input>
+                        <input type="text" id="_birth_date" value="{{ birth_date }}" hidden></input>
+                        <input type="text" id="_gender" value="{{ gender }}" hidden></input>
+                    {% else %}
+                        <input type="text" id="username" name="username" class="form-control" autocomplete="off" required placeholder="아이디를 입력해주세요." required autofocus="true"/>
                     {% endif %}
-                    <div class="row col-sm">
-                        {% if user.is_authenticated %}
-                            <input type="text" id="username" name="username" value="{{ username }}" class="form-control" autocomplete="off" disabled/>
-                            <input type="text" id="_birth_year" value="{{ birth_year }}" hidden></input>
-                            <input type="text" id="_birth_month" value="{{ birth_month }}" hidden></input>
-                            <input type="text" id="_birth_date" value="{{ birth_date }}" hidden></input>
-                            <input type="text" id="_gender" value="{{ gender }}" hidden></input>
-                        {% else %}
-                            <input type="text" id="username" name="username" class="form-control" autocomplete="off" required placeholder="아이디를 입력해주세요." required autofocus="true"/>
-                        {% endif %}
-                        <input type="password"  id="password1" name="password1" class="form-control" placeholder="비밀번호를 입력해주세요." required autocomplete="off">
-                        <input type="password" id="password2" name="password2" class="form-control" placeholder="비밀번호를 다시 입력해주세요." required autocomplete="off" >
-                        <input type="email"  id="email" name="email" value="{{ email }}" class="form-control" placeholder="이메일 주소를 입력해주세요." required autocomplete="off">
-                        성별&nbsp;
-                        <select id="gender" name="gender" class="form-control">
-                            <option value="m">남성</option>
-                            <option value="f">여성</option>
-                        </select>
-                        생년월일&nbsp;
-                    </div>
-                    <div class="row col-sm">
-                        <select id="birth_year" class="col form-control" name="birth_year" style="max-width:50%; padding:.375rem .45rem"></select>
-                        <select id="birth_month" class="col form-control" name="birth_month" style="max-width:25%; padding:.375rem .45rem"></select>
-                        <select id="birth_date" class="col form-control" name="birth_date" style="max-width:25%; padding:.375rem .45rem"></select>
-                    </div>
-                    <div class="row col-lg-12 col-md-12 col-sm-12">
-                        {% if user.is_authenticated %}
-                            <button type="sumbit" class="btn submitButton">수정</button>
-                            <a href="{% url 'profile:account_myInfo' user.id %}" class="btn cancelButton">취소</a>
-                        {% else %}
-                            <button type="sumbit" class="btn submitButton">등록</button>
-                            <a href="{% url 'index' %}" class="btn cancelButton">취소</a>
-                        {% endif %}
-                    </div>
-                </form>
-            </div>
+                    <input type="password"  id="password1" name="password1" class="form-control" placeholder="비밀번호를 입력해주세요." required autocomplete="off">
+                    <input type="password" id="password2" name="password2" class="form-control" placeholder="비밀번호를 다시 입력해주세요." required autocomplete="off" >
+                    <input type="email"  id="email" name="email" value="{{ email }}" class="form-control" placeholder="이메일 주소를 입력해주세요." required autocomplete="off">
+                    성별&nbsp;
+                    <select id="gender" name="gender" class="form-control">
+                        <option value="m">남성</option>
+                        <option value="f">여성</option>
+                    </select>
+                    생년월일&nbsp;
+                </div>
+                <div class="row col-sm">
+                    <select id="birth_year" class="col form-control" name="birth_year" style="max-width:50%; padding:.375rem .45rem"></select>
+                    <select id="birth_month" class="col form-control" name="birth_month" style="max-width:25%; padding:.375rem .45rem"></select>
+                    <select id="birth_date" class="col form-control" name="birth_date" style="max-width:25%; padding:.375rem .45rem"></select>
+                </div>
+                <div class="row col-lg-12 col-md-12 col-sm-12">
+                    {% if user.is_authenticated %}
+                        <button type="sumbit" class="btn submitButton">수정</button>
+                        <a href="{% url 'profile:account_myInfo' user.id %}" class="btn cancelButton">취소</a>
+                    {% else %}
+                        <button type="sumbit" class="btn submitButton">등록</button>
+                        <a href="{% url 'index' %}" class="btn cancelButton">취소</a>
+                    {% endif %}
+                </div>
+            </form>
         </div>
     </div>
 

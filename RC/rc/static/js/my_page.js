@@ -53,7 +53,7 @@ function get_history(this_page, query_type) {
             });
             $("#page-area-2").empty();
             if (current_page_num != 1) {
-                $("#page-area-2").append(`<li class="page-item"><a class="page-link" onclick="get_history(${1}, ${query_type})" style="cursor: pointer;">\<\<</a></li>`);
+                $("#page-area-2").append(`<li class="page-item"><a class="page-link" onclick="get_history(${1}, ${query_type})" style="cursor: pointer;">처음</a></li>`);
             }
             if (current_page_num - 2 > 1) {
                 $("#page-area-2").append(`<li class="page-item"><a class="page-link">...</a></li>`);    
@@ -71,7 +71,7 @@ function get_history(this_page, query_type) {
                 $("#page-area-2").append(`<li class="page-item"><a class="page-link">...</a></li>`);    
             }
             if (current_page_num != max_page_num) {
-                $("#page-area-2").append(`<li class="page-item"><a class="page-link" onclick="get_history(${max_page_num}, ${query_type})" style="cursor: pointer;">\>\></a></li>`);
+                $("#page-area-2").append(`<li class="page-item"><a class="page-link" onclick="get_history(${max_page_num}, ${query_type})" style="cursor: pointer;">끝</a></li>`);
             }
         }
         
@@ -173,7 +173,7 @@ function get_receipt(this_page) {
             
             $("#page-area").empty();
             if (current_page_num != 1) {
-                $("#page-area").append(`<li class="page-item"><a class="page-link" onclick="get_receipt(${1})" style="cursor: pointer;">\<\<</a></li>`);
+                $("#page-area").append(`<li class="page-item"><a class="page-link" onclick="get_receipt(${1})" style="cursor: pointer;">처음</a></li>`);
             }
             if (current_page_num - 2 > 1) {
                 $("#page-area").append(`<li class="page-item"><a class="page-link">...</a></li>`);    
@@ -191,7 +191,7 @@ function get_receipt(this_page) {
                 $("#page-area").append(`<li class="page-item"><a class="page-link">...</a></li>`);    
             }
             if (current_page_num != max_page_num) {
-                $("#page-area").append(`<li class="page-item"><a class="page-link" onclick="get_receipt(${max_page_num})" style="cursor: pointer;">\>\></a></li>`);
+                $("#page-area").append(`<li class="page-item"><a class="page-link" onclick="get_receipt(${max_page_num})" style="cursor: pointer;">끝</a></li>`);
             }
         }
         
@@ -229,7 +229,7 @@ function get_myboard(this_page) {
             })
             $("#page-area-3").empty();
             if (current_page_num != 1) {
-                $("#page-area-3").append(`<li class="page-item"><a class="page-link" onclick="get_myboard(1)" style="cursor: pointer;">\<\<</a></li>`);
+                $("#page-area-3").append(`<li class="page-item"><a class="page-link" onclick="get_myboard(1)" style="cursor: pointer;">처음</a></li>`);
             }
             if (current_page_num - 2 > 1) {
                 $("#page-area-3").append(`<li class="page-item"><a class="page-link">...</a></li>`);    
@@ -247,7 +247,7 @@ function get_myboard(this_page) {
                 $("#page-area-3").append(`<li class="page-item"><a class="page-link">...</a></li>`);    
             }
             if (current_page_num != max_page_num) {
-                $("#page-area-3").append(`<li class="page-item"><a class="page-link" onclick="get_myboard(${max_page_num})" style="cursor: pointer;">\>\></a></li>`);
+                $("#page-area-3").append(`<li class="page-item"><a class="page-link" onclick="get_myboard(${max_page_num})" style="cursor: pointer;">끝</a></li>`);
             }
         }
     });
@@ -256,7 +256,7 @@ function get_myboard(this_page) {
 
 function cancel(num) {
     var csrf_token = $('meta[name="csrf-token"]').attr("content");
-    var url = "/store/cancel_payment/";
+    var url = "/payment/cancel_payment/";
     var to = $(`data${num}`).attr("to");
     var amount = $(`data${num}`).attr("amount");
     var tx = $(`data${num}`).attr("tx");

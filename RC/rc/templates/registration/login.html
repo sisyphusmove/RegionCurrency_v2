@@ -11,31 +11,30 @@
 
 {% block content %}
 
-<section id="content">
-    <br/>
-    <div class="container" align="center">
-        <div class="col-lg-4 col-md-6 col-sm-8">
-            <div class="submitbox">
-                <div class="col-lg-12">
-                    <span class="boxtitle" >로그인</span>   
-                </div>
-                <form action="." method="POST" onSubmit="return check_validate();">
-                    {% csrf_token %}
-                    {% if form.errors %}
-                        <input type="text" id="status" value="failed" hidden></input>
-                    {% endif %}
-                    <div class="row col-lg-12 col-md-12 col-sm-12">
-                        {% comment %} <img src="{% static 'img/account/login.jpg' %}"> {% endcomment %}
-                        <input type="text"  id="username" name="username" class="form-control" placeholder="아이디를 입력해주세요." required autocomplete="off" autofocus="true">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력해주세요." required autocomplete="off" >
-                    </div>
-                    <div class="row col-lg-12 col-md-12 col-sm-12">
-                        <button class="btn submitButton">로그인</Button>
-                        <a href="{% url 'index' %}" class="btn cancelButton">취소</a> 
-                    </div>
-                </form>
+<section id="content" style="margin-top: 50px; margin-bottom: 50px">
+	<div class="container" align="center">
+        <div class="submitbox" style="max-width:400px">
+            <div class="col-lg-12">
+                <span class="boxtitle" >로그인</span>   
             </div>
+
+            <form action="." method="POST" onSubmit="return check_validate();">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <input type="text" id="status" value="failed" hidden></input>
+                {% endif %}
+                <div class="row col-lg-12 col-md-12 col-sm-12">
+                    {% comment %} <img src="{% static 'img/account/login.jpg' %}"> {% endcomment %}
+                    <input type="text"  id="username" name="username" class="form-control" placeholder="아이디를 입력해주세요." required autocomplete="off" autofocus="true">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력해주세요." required autocomplete="off" >
+                </div>
+                <div class="row col-lg-12 col-md-12 col-sm-12">
+                    <button class="btn submitButton">로그인</Button>
+                    <a href="{% url 'index' %}" class="btn cancelButton">취소</a> 
+                </div>
+            </form>
         </div>
+        
         <div class="forGotPassword">
             <a href="{% url 'profile:search_username' %}">아이디 찾기</a>&nbsp;|&nbsp;
             <a href="{% url 'profile:search_password' %}">비밀번호 찾기</a>&nbsp;|&nbsp;
