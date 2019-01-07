@@ -25,7 +25,6 @@ def upload_path_handler(instance, filename):
     return "store/store_{id}/{file}".format(id=instance.store.id, file=filename)
 
 @python_2_unicode_compatible
-
 class Store(models.Model):
     name = models.CharField(max_length=100, null=True)
     corporate_number = models.CharField(max_length=12, null=True)

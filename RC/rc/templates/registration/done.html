@@ -22,14 +22,16 @@
             <div class="col-lg-12">
                 <span class="boxtitle">{{ title }}</span>   
             </div>
+
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <img src="{% static 'img/account/mascot.jpg' %}"  alt="Logo">
                 {% for message in messages %}
                     <p id="msg">{{ message }}</p>
                 {% endfor %}
             </div>
+
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <a href="{% url 'index' %}" class="btn confirmButton">확인</button>
+                <a href="{% url 'index' %}" class="btn confirmButton">확인</a>
             </div>
         </div>
     </div>

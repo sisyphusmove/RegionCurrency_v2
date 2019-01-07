@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 import random
 from django.contrib.auth.models import User
 import json, requests, datetime
-from datetime import date
 from django.http import JsonResponse, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
@@ -28,7 +27,7 @@ def transfer(request):
     fromId = request.POST.get("from")
     toId = request.POST.get("target") 
     amount = (request.POST.get("point")).replace(',', '')
-    today = str(date.today())
+    today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
     url = host + "transfer/" + fromId +"/"+toId+"/"+amount+"/5/"+today
     response = requests.get(url)
     return redirect ('profile:account_myInfo', account_id = request.user.pk)
@@ -96,42 +95,47 @@ def get_history(request):
 def get_receipt(request):
     u_id = request.GET.get('u_id', None)
     this_page_num = request.GET.get('this_page', None)
+    data = {}
     
     user = get_object_or_404(User, pk=u_id)
-    url = host + 'get_txList/' + user.username
-    response = requests.get(url)
-    res = json.loads(response.text)
-    res.reverse()
+    store = Store.objects.filter(Q(representative_id=u_id) & ~Q(status='d'))
+    
+    if store:    
+        url = host + 'get_txList/' + user.username
+        response = requests.get(url)
+        res = json.loads(response.text)
+        res.reverse()
 
-    filtered_list = []
-    for receipt in res:
-        if receipt['txType'] == '2' or receipt['txType'] == '3':
-            filtered_list.append(receipt)
+        filtered_list = []
+        for receipt in res:
+            if (receipt['txType'] == '2' or receipt['txType'] == '3'):
+                filtered_list.append(receipt)
 
-    page_size = 10
-    p = Paginator(filtered_list, page_size)
+        page_size = 10
+        p = Paginator(filtered_list, page_size)
 
-    history_list = []
-    for receipt in p.page(this_page_num):
-        canceled = Cancellation.objects.filter(Q(txHash=receipt['tx_id'])).exists()
+        history_list = []
+        for receipt in p.page(this_page_num):
+            canceled = Cancellation.objects.filter(Q(txHash=receipt['tx_id'])).exists()
 
-        temp = {
-            'txHash' : str(receipt['tx_id']),
-            'trader' : receipt['trader'],
-            'amount' : receipt['amount'],
-            'txType' : receipt['txType'],
-            'date'  : receipt['date'],
-            'canceled' : canceled
+            temp = {
+                'txHash' : str(receipt['tx_id']),
+                'trader' : receipt['trader'],
+                'amount' : receipt['amount'],
+                'txType' : receipt['txType'],
+                'date'  : receipt['date'],
+                'canceled' : canceled
+            }
+            history_list.append(temp)
+
+        start_seq = p.count - (page_size * (int(this_page_num) - 1))
+        data = {
+            'start_seq' : start_seq,
+            'receipt_list' : history_list,
+            'current_page_num' : this_page_num,
+            'max_page_num' : p.num_pages,
         }
-        history_list.append(temp)
 
-    start_seq = p.count - (page_size * (int(this_page_num) - 1))
-    data = {
-        'start_seq' : start_seq,
-        'receipt_list' : history_list,
-        'current_page_num' : this_page_num,
-        'max_page_num' : p.num_pages,
-    }
     json_data = json.dumps(data)
     return HttpResponse(json_data, content_type="application/json;charset=UTF-8")
 
@@ -159,7 +163,7 @@ def payment(request):
     store = get_object_or_404(Store, pk=s_id)
     from_user = get_object_or_404(User, pk=u_id)
     to_user = get_object_or_404(User, pk=int(store.representative_id))
-    today = (datetime.datetime.now()).strftime('%Y-%m-%d')
+    today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
             
     url = host + "transfer/" + from_user.username + "/" + to_user.username + "/" + amount + "/1/" + today
     response = requests.get(url)
@@ -186,7 +190,7 @@ def add_canceled_payment(request):
     key = request.POST.get('username', None)
     amount = request.POST.get('amount', None)
     tx = request.POST.get('tx', None)
-    today = (datetime.datetime.now()).strftime('%Y-%m-%d')
+    today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
 
     url = host +'transfer/' + key + '/' + to + '/' + amount + '/3/' + today
     response = requests.get(url)

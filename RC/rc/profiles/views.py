@@ -94,7 +94,7 @@ def account_edit(request, account_id=None):
         
         if isSignup:
             target = get_object_or_404(User, username=request.POST.get("username"))
-            today = (datetime.datetime.now()).strftime('%Y-%m-%d')
+            today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
             url = host + "init_wallet/" + str(target.username) + "/관리자/" + today
             res = requests.get(url)
             if res == "fail":
