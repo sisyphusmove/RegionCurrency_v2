@@ -93,6 +93,7 @@ function get_myStore() {
                 $("#btn_qr").hide();
             }
             $("#btn_add").hide();
+            $("#modify_id").attr("value", data.id);
             $("#del_id").attr("value", data.id);
             $("#s_id").attr("value", data.id);
             $("#image").attr("src", data.photo);

@@ -19,22 +19,19 @@ class PhotoForm(forms.ModelForm):
         fields = ['image']
 
 class StoreForm(ModelForm):
-
     name = forms.CharField()
-    corporate_number = forms.CharField(widget=forms.TextInput(attrs={'id':'corporate_number', 'class':'form-control'}))
+    corporate_number = forms.CharField()
     representative = forms.ModelChoiceField(queryset=User.objects.all().order_by('id'), required=False)
-    category = forms.ModelChoiceField(queryset =Category.objects.all().order_by('id'),
-                                      widget=forms.Select(attrs={'id':'category', 'class':'form-control'}))
-    location = forms.ModelChoiceField(queryset=Location.objects.all().order_by('id'),
-                                      widget=forms.Select(attrs={'id':'location', 'class':'form-control'}))
-    address = forms.CharField(widget=forms.TextInput(attrs={'id':'address', 'class':'form-control'}), required=False)
-    phone_number = forms.CharField(widget=forms.TextInput(attrs={'id':'phone_number', 'class':'form-control'}), required=False)
-    url = forms.CharField(widget=forms.TextInput(attrs={'id':'url', 'class':'form-control'}), required=False)
-    opening_hour = forms.CharField(widget=forms.Select(attrs={'id':'opening_hour', 'class':'form-control'}))
-    opening_minute = forms.CharField(widget=forms.Select(attrs={'id':'opening_minute', 'class':'form-control'}))
-    closing_hour = forms.CharField(widget=forms.Select(attrs={'id':'closing_hour', 'class':'form-control'}))
-    closing_minute = forms.CharField(widget=forms.Select(attrs={'id':'closing_minute', 'class':'form-control'}))
-    description = forms.CharField(widget=forms.Textarea(attrs={'id':'description', 'class':'form-control text-area'}))
+    category = forms.ModelChoiceField(queryset =Category.objects.all().order_by('id'))
+    location = forms.ModelChoiceField(queryset=Location.objects.all().order_by('id'))
+    address = forms.CharField(required=False)
+    phone_number = forms.CharField(required=False)
+    url = forms.CharField(required=False)
+    opening_hour = forms.CharField()
+    opening_minute = forms.CharField()
+    closing_hour = forms.CharField()
+    closing_minute = forms.CharField()
+    description = forms.CharField(required=False)
 
     class Meta:
         model = Store

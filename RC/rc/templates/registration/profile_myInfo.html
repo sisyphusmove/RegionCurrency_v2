@@ -132,7 +132,12 @@
                         <img src="" id="image" width="250px">
                         <h5 id="store_name">
                             <div class="justify-content-center row">
-                                <form style="margin:2%"><button class="btn" style="background-color:#71c55d">수정</button></form>
+                                <form action="{% url 'store:edit' %}" method="POST" style="margin:2%">
+                                    {% csrf_token %}
+                                    <input type="text" id="modify_id" name="store_id" hidden></input>
+                                    <input type="text" name="op" value="template" hidden></input>
+                                    <button type="submit" class="btn" style="background-color:#71c55d">수정</button>
+                                </form>
                                 <form id="del_form" action="{% url 'store:delete' %}" method="POST" style="margin:2%">
                                     {% csrf_token %}
                                     <input type="text" id="del_id" name="del_id" hidden></input>

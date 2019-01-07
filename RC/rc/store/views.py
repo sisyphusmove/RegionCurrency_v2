@@ -34,7 +34,7 @@ class StorePV(ListView):
         paginator = context['paginator']
         page_numbers_range = 5  # Display only 5 page numbers
         max_index = len(paginator.page_range)
-
+        
         page = self.request.GET.get('page')
         current_page = int(page) if page else 1
 
@@ -76,9 +76,9 @@ class filteredStoresPV(ListView):
         loc = self.kwargs.get('loc',None)
         if loc == 4:
             search_query = self.request.GET.get('search_box', None)
-            queryset = Photo.objects.filter(store__name__icontains=search_query) # filter returns a list so you might consider skip except part
+            queryset = Photo.objects.filter(Q(store__name__icontains=search_query) & ~Q(store__status='d') & ~Q(store__status='w')) # filter returns a list so you might consider skip except part
         else:
-            queryset = Photo.objects.filter(location=loc)
+            queryset = Photo.objects.filter(Q(location=loc) & ~Q(store__status='d') & ~Q(store__status='w'))
         return queryset
 
 
@@ -86,41 +86,28 @@ def detailView (request, store_id=None):
     store = get_object_or_404(Store, pk=store_id)
     photo = get_object_or_404(Photo, store_id=store.pk)
     return render(request, 'store_list_detail.html', dict(store=store, photo=photo))
-    
-    # def store_list(request):
-    #     photo_list = User.objects.all()
-    #     page = request.GET.get('page', 1)
-    #     paginator = Paginator(photo_list, 12)
-    #     photos = paginator.page(1)
 
-    #     try:
-    #         photos = paginator.page(page)
-    #     except PageNotAnInteger:
-    #         photos = paginator.page(1)
-    #     except EmptyPage:
-    #         photos = paginator.page(paginator.num_pages)
-
-    #     return render(request, "store/store_list.html",{'photos': photos})    
-    
 
 class StoreDPV(DetailView):
     model = Photo
     context_object_name = 'photo'
 
 
-def store_edit(request, store_id=None):
+def store_edit(request):
     user = request.user.pk
+    store_id = request.POST.get("store_id", None)
+    op = request.POST.get("op", None)
 
-    if store_id:
+    if store_id != None and store_id != "None":
         store = get_object_or_404(Store, pk=store_id)
         photo = get_object_or_404(Photo, store=store)
     else:
         store = Store()
         photo = Photo()
 
-    if request.method == "POST":
+    if request.method == "POST" and op != "template":
         form = StoreForm(request.POST, instance=store)
-        photo_form = PhotoForm(request.POST, request.FILES)
+        photo_form = PhotoForm(request.POST, request.FILES, instance=photo)
 
         if form.is_valid():
             store = form.save(commit=False)
@@ -130,17 +117,43 @@ def store_edit(request, store_id=None):
             store.save()
 
             if photo_form.is_valid():
-                photo = Photo(store=store, image=request.FILES['image'])
+                photo = ""
+                try:
+                    photo = get_object_or_404(Photo, store_id=store.id)
+                    photo.image = request.FILES['image']
+                except:
+                    photo = Photo(store=store, image=request.FILES['image'])
                 photo.save()
-
+                
         return redirect('profile:account_myInfo', request.user.pk)
 
     else:
-        form = StoreForm(instance=store)
-        photo_form = PhotoForm(instance=photo)
         category = Category.objects.all().order_by('id')
+        category_list = []
+        for domain in category:
+            temp = {
+                'id' : domain.id,
+                'domain' : domain.domain
+            }
+            category_list.append(temp)
+        categorys = {
+            'categoty_list' : category_list
+        }
+        json_category = json.dumps(category_list)
+        
         location = Location.objects.all().order_by('id')
-        return render(request, 'store/myStore_edit.html', dict(form=form, photo_form=photo_form, categorys=category, locations=location, store=store))
+        location_list = []
+        for loc in location:
+            temp = {
+                'id' : loc.id,
+                'loc' : loc.loc
+            }
+            location_list.append(temp)
+        locations = {
+            'location_list' : location_list
+        }
+        json_location = json.dumps(location_list)
+        return render(request, 'store/myStore_edit.html', dict(categorys=json_category, locations=json_location, store=store, photo=photo))
 
 
 def store_remove(request):

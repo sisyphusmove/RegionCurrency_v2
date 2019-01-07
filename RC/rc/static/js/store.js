@@ -1,8 +1,26 @@
+function setStore() {
+    var oh = $("#myOpening_hour").val();
+    if ( oh == "None" ) {
+        $("#myOpening_hour").attr("value", "");
+        $("#name").attr("value", "");
+        $("#corporate_number").attr("value", "");
+        $("#url").attr("value", "");
+        $("#phone_number").attr("value", "");
+        $("#address").attr("value", "");
+        $("#description").attr("value", "");
+        $("#image").attr("value", "");
+    }
+}
+
 function setCategory() {
     var myCategory = $("#myCategory").val();
+    var categoryList = JSON.parse($("#categoryList").val());
 
-    $("#category option:eq(1)").prop("selected", true);
+    categoryList.forEach(function(category) {
+        $("#category").append(`<option value="${category.id}">${category.domain}</option>`);
+    });
 
+    $("#category option:eq(0)").prop("selected", true);
     if( myCategory != null && myCategory != "") {
         $("#category").val(myCategory).prop("selected", true);
     }
@@ -10,9 +28,12 @@ function setCategory() {
 
 function setLocation() {
     var myLocation = $("#myLocation").val();
+    var locationList = JSON.parse($("#locationList").val());
 
-    $("#location option:eq(1)").prop("selected", true);
-
+    locationList.forEach(function(location) {
+        $("#location").append(`<option value="${location.id}">${location.loc}</option>`);
+    });
+    $("#location option:eq(0)").prop("selected", true);
     if( myLocation != null && myLocation != "") {
         $("#location").val(myLocation).prop("selected", true);
     }
@@ -43,7 +64,7 @@ function setTime() {
     $("#closing_hour").val("00").prop("selected", true);
     $("#closing_minute").val("00").prop("selected", true);
 
-    if( myOpening_hour != "None") {
+    if( myOpening_hour ) {
         $("#opening_hour").val(myOpening_hour).prop("selected", true);
         $("#opening_minute").val(myOpening_minute).prop("selected", true);
         $("#closing_hour").val(myClosing_hour).prop("selected", true);
@@ -52,24 +73,28 @@ function setTime() {
 }
 
 $(function() {
+    setStore();
     setCategory();
     setLocation();
     setTime();
 
-    $("#btn_modify").click( function(event) {
+    $("#btn_submit").on("click", function(event) {
         var name = $("#name").val();
         var corporate_number = $("#corporate_number").val();
         var description = $("#description").val();
+        var image = $("#image").val();
         var pattern = /^\d{3}-\d{2}-\d{5}$/;
-
+        
         if( name == "" ) {
-            $("#msg").text('상호명을 입력해주세요.').attr('class', 'alert alert-danger');
+            alert("상호명을 입력해주세요.");
         } else if( corporate_number == "" ) {
-            $("#msg").text('사업자등록번호를 입력해주세요.').attr('class', 'alert alert-danger');
+            alert("사업자등록번호를 입력해주세요.");
         } else if( !corporate_number.match(pattern) ) {
-            $("#msg").text('사업자등록번호가 올바르지 않습니다.').attr('class', 'alert alert-danger');
+            alert("사업자등록번호 형식이 올바르지 않습니다. 'ex) 111-11-11111'");
+        } else if( image == "" ) {
+            alert("가맹점 사진을 등록하세요.");
         } else if( description == "" ) {
-            $("#msg").text('가맹점 설명을 입력해 주세요.').attr('class', 'alert alert-danger');
+            alert("가맹점 설명을 입력해주세요.");
         } else {
             $("#edit_form").submit();
         }
