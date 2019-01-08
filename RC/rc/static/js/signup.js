@@ -129,6 +129,9 @@ function check_validate() {
                     existId = true;
                 } else {
                     if ( check_password1() && check_password2() && check_email()) {
+                        $("#btn_submit").text("등록중");
+                        $("#btn_submit").prop("disabled", true);
+                        $("#btn_cancel").attr("onClick", "return false");
                         success = true;
                     }
                 }

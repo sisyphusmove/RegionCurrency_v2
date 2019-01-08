@@ -99,8 +99,8 @@ def get_receipt(request):
     
     user = get_object_or_404(User, pk=u_id)
     store = Store.objects.filter(Q(representative_id=u_id) & ~Q(status='d'))
-    
-    if store:    
+    if store:
+        registered_date = (store[0].registered_date).strftime('%Y-%m-%d %H:%M:%S')    
         url = host + 'get_txList/' + user.username
         response = requests.get(url)
         res = json.loads(response.text)
@@ -108,7 +108,7 @@ def get_receipt(request):
 
         filtered_list = []
         for receipt in res:
-            if (receipt['txType'] == '2' or receipt['txType'] == '3'):
+            if (receipt['date'] >= registered_date) and (receipt['txType'] == '2' or receipt['txType'] == '3'):
                 filtered_list.append(receipt)
 
         page_size = 10

@@ -76,9 +76,9 @@ class filteredStoresPV(ListView):
         loc = self.kwargs.get('loc',None)
         if loc == 4:
             search_query = self.request.GET.get('search_box', None)
-            queryset = Photo.objects.filter(Q(store__name__icontains=search_query) & ~Q(store__status='d') & ~Q(store__status='w')) # filter returns a list so you might consider skip except part
+            queryset = Photo.objects.filter(Q(store__name__icontains=search_query) & Q(store__status='a')) # filter returns a list so you might consider skip except part
         else:
-            queryset = Photo.objects.filter(Q(location=loc) & ~Q(store__status='d') & ~Q(store__status='w'))
+            queryset = Photo.objects.filter(Q(location=loc) & Q(store__status='a'))
         return queryset
 
 
@@ -184,8 +184,8 @@ def get_myStore(request):
             'url'               : store[0].url,
             'opening_time'      : store[0].opening_hour + " : " + store[0].opening_minute,
             'closing_time'      : store[0].closing_hour + " : " + store[0].closing_minute,
-            'registered_date'   : (store[0].registered_date).strftime('%Y-%m-%d'),
-            'modified_date'     : (store[0].modified_date).strftime('%Y-%m-%d'),
+            'registered_date'   : (store[0].registered_date).strftime('%Y-%m-%d %H:%M:%S'),
+            'modified_date'     : (store[0].modified_date).strftime('%Y-%m-%d %H:%M:%S'),
             'status'            : store[0].status,
             'photo'             : photo[0].image.thumb_url
         }

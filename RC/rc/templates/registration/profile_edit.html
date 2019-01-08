@@ -57,11 +57,11 @@
                 </div>
                 <div class="row col-lg-12 col-md-12 col-sm-12">
                     {% if user.is_authenticated %}
-                        <button type="sumbit" class="btn submitButton">수정</button>
-                        <a href="{% url 'profile:account_myInfo' user.id %}" class="btn cancelButton">취소</a>
+                        <button id="btn_submit" type="sumbit" class="btn submitButton">수정</button>
+                        <a href="{% url 'profile:account_myInfo' user.id %}" id="btn_cancel" class="btn cancelButton">취소</a>
                     {% else %}
-                        <button type="sumbit" class="btn submitButton">등록</button>
-                        <a href="{% url 'index' %}" class="btn cancelButton">취소</a>
+                        <button id="btn_submit" type="sumbit" class="btn submitButton">등록</button>
+                        <a href="{% url 'index' %}" id="btn_cancel" class="btn cancelButton">취소</a>
                     {% endif %}
                 </div>
             </form>
