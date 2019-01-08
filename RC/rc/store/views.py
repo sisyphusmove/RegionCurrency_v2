@@ -47,6 +47,10 @@ class StorePV(ListView):
         context['page_range'] = page_range
         return context
 
+    def get_queryset(self, **kwargs):
+        queryset = Photo.objects.filter(Q(store__status='a')) # filter returns a list so you might consider skip except part
+        return queryset
+
 
 class filteredStoresPV(ListView):
     model=Photo
@@ -76,9 +80,9 @@ class filteredStoresPV(ListView):
         loc = self.kwargs.get('loc',None)
         if loc == 4:
             search_query = self.request.GET.get('search_box', None)
-            queryset = Photo.objects.filter(Q(store__name__icontains=search_query) & Q(store__status='a')) # filter returns a list so you might consider skip except part
+            queryset = Photo.objects.filter(Q(store__name__icontains=search_query) & Q(store__status='a') ) # filter returns a list so you might consider skip except part
         else:
-            queryset = Photo.objects.filter(Q(location=loc) & Q(store__status='a'))
+            queryset = Photo.objects.filter(Q(store__status='a') & Q(store__location=loc))
         return queryset
 
 

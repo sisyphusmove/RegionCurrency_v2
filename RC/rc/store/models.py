@@ -50,7 +50,6 @@ class Photo(models.Model):
     store = models.ForeignKey('Store', on_delete=models.CASCADE)
     image = ThumbnailImageField(upload_to=upload_path_handler, null=True)
     upload_date = models.DateTimeField(auto_now_add=True)
-    location = models.ForeignKey(Location, null=True, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['store']
