@@ -23,7 +23,7 @@ class StoreAdmin(admin.ModelAdmin):
     verbose_name_plural = 'store'
 
 class PhotoAdmin(admin.ModelAdmin):
-    list_display = ['store', 'image', 'upload_date','location']
+    list_display = ['store', 'image', 'upload_date', ]
     verbose_name_plural = 'photo'
 
 admin.site.register(Location, LocationAdmin)
