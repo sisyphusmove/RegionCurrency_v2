@@ -83,7 +83,7 @@ function check_password() {
         success: function(data) {
             if ( data["result"] ){
                 // $("#msg").text("이미 등록된 아이디 입니다.");
-                alert("비밀번호가 확인되었습니다.");
+                // alert("비밀번호가 확인되었습니다.");
                 pwCheck = 1;
             } else {
                 alert("비밀번호가 일치하지 않습니다.");
@@ -105,6 +105,7 @@ function agree() {
     }
     else {
         agreeCheck = 0;
+        alert("약관에 동의해주세요.");
         // console.log("argeeCheck:",agreeCheck);
     }
 
