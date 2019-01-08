@@ -221,7 +221,7 @@ def get_notices():
     return notice_list
 
 def get_publish_amount():
-    get_publish_url = "http://127.0.0.1:3000/get_total_publish"
+    get_publish_url = "http://210.107.78.166:8000/get_total_publish"
     publish_data = {}
     publish_amount = 0
 
@@ -253,7 +253,7 @@ def get_account_cnt():
 
 def get_tx_cnt():
     tx_height = 0
-    get_block_url = "http://127.0.0.1:3000/get_tx_cnt"
+    get_block_url = "http://210.107.78.166:8000/get_tx_cnt"
     try:
         response = requests.get(get_block_url)
         json_format = json.loads(response.text)
