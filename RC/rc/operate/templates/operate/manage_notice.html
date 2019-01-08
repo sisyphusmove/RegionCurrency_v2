@@ -209,23 +209,7 @@
 
     var change_list = []
 
-    // $(".select_all").click(function(){
-    //   if(!$(".select_all").hasClass('on')){
-    //     $("input[name=box]").each(function() {
-    //       $(this).attr("checked", true);
-    //       $(".select_all").addClass('on');
-    //     });
-    //   }else{
-    //     $("input[name=box]").each(function() {
-    //       alert(1234)
-    //       $(this).attr("checked", false);
-    //       $(".select_all").removeClass('on');
-    //     });
-    //   }
-    // });
-
     $(".select_all").click(function () {
-      // alert($(this).attr("data-type"));
       var data_type = $(this).attr("data-type");
       if( data_type == 'true' ){
         $("input[name=box]").each(function() {
@@ -268,7 +252,6 @@
     });
 
     $(".confirm").click(function(){
-      alert("change_list: " + change_list)
       $.ajax({
         type: 'GET',
         url: '{% url "operate:notice_activate" %}',

@@ -15,14 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from . import views
+from .views import NoticeLV
 
 app_name = 'info'
 
 urlpatterns = [
-    path('notice/list/', views.list, name='list'),
-    path('notice/add/', views.add, name='add'),
-    path('notice/read/<int:n_id>', views.read, name='read'),
-    path('notice/modify/<int:n_id>', views.add, name='modify'),
-    path('notice/delete/<int:n_id>', views.delete, name='delete'),
+    path('list/', NoticeLV.as_view(), name='list'),
+    # path('notice/add/', views.add, name='add'),
+    # path('notice/read/<int:n_id>', views.read, name='read'),
+    # path('notice/modify/<int:n_id>', views.add, name='modify'),
+    # path('notice/delete/<int:n_id>', views.delete, name='delete'),
 ]

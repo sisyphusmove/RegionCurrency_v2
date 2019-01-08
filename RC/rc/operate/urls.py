@@ -26,9 +26,6 @@ urlpatterns = [
     path('main/', main, name='main'),
 #### 대시보드 URL #######################################################
     path('dashboard/', dashboard, name='dashboard'),
-   
-    
-    path('notice/', notice, name='notice'),
 #### 공지사항 관리 URL ###################################################    
     path('notice/', NoticeLV.as_view(), name='notice'),
     path('notice/notice_add/', notice_edit, name='notice_add'),
@@ -40,31 +37,18 @@ urlpatterns = [
     path('discount_rate/', discount_rate, name='discount_rate'),
 #### 네트워크 관리 URL ###################################################
     path('network/', network, name='network'),
-    
-
-### 유저관리 URL ########################################################
 #### 유저관리 URL ########################################################
     path('users/', usersMyLV.as_view(), name='users'),
     path('get_like/', get_like, name='get_like'),
-########################################################################
-
-#### 가맹점 URL ########################################################
 #### 가맹점 URL ##########################################################
     path('approval/', ApprovalLV.as_view(), name='approval'),
     path('get_approval/', get_approval, name='get_approval'),
-########################################################################
-
-
-##### 차트 URL #########################################################
 ##### 차트 URL ###########################################################
     path('statistics/', ChartHomeView.as_view(), name='statistics'),
     path('statistics/chartdata/', ChartData.as_view(), name='chartdata'),
     path('statistics/regional/',regional.as_view(),name='regional'),
     path('statistics/gender/',gender.as_view(),name='gender'),
     path('statistics/store/',store.as_view(),name='store'),
-########################################################################
-    
-    ## login
 ##### login_required ####################################################
     path('login_required/', login_required, name='login_required'),
 ]

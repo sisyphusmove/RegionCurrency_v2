@@ -6,7 +6,9 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card">
+            
             <div class="card-header card-header-success">
+              
               <span style="float: left">
                 <h4 class="card-title "><i class="material-icons">person</i>&nbsp;<strong>사용자 관리</strong></h4>
                 <p class="card-category">this is the page of managing users</p>
@@ -51,20 +53,24 @@
                         <td>{{ user.profile.birth_year }}-{{ user.profile.birth_month }}-{{ user.profile.birth_date }}</td>
                         <td>{{ user.profile.type }}</td>
                         <td>{{ user.profile.status }}</td>
+                        <!-- <td>{{ user.board.liker }}</td> -->
+
                         <td class="status-button">
                             <a href="#layer2" class="btn-example" id="{{user.id}}">
                               <button type="button" class="btn btn-primary btn-sm">상세조회</button>
                             </a>
                         </td>
                       </tr>
+                      
                     {% endfor %}
                     {% for li in remain_of_page %}
                         <tr><td colspan="6">&nbsp;`</td></tr>
                     {% endfor %}
+
                   </tbody>
                 </table>
+               
               </div>
-              
               <!-- <div class="row justify-content-center">
                   {% if is_paginated %}
                       <nav>
@@ -109,8 +115,10 @@
         </div>
       </div>
     </div>
+    
   </div>
-  <!-- 팝업레이어 부분 -->
+  <!-- <div> 팝업레이어 부분 -->
+    <!-- <a href="#layer2" class="btn-example">딤처리 팝업레이어 1</a> -->
   <div class="dim-layer">
       <div class="dimBg"></div>
         <div id="layer2" class="pop-layer">
@@ -155,7 +163,40 @@
           
                   </table>
                 </div>
-              </div>
+                
+                  <!-- <div class="profile-userbuttons">
+                    <button type="button" class="btn btn-success btn-sm">발행</button>
+                    <!-- <button type="button" class="btn btn-danger btn-sm">정보</button> -->
+                  </div>
+                 
+                  <!-- <div class="profile-usermenu">
+                      <ul class="nav">
+                        <li class="active">
+                          <a href="#">
+                          <i class="glyphicon glyphicon-home"></i>
+                          Overview </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                          <i class="glyphicon glyphicon-user"></i>
+                          Account Settings </a>
+                        </li>
+                        <li>
+                          <a href="#" target="_blank">
+                          <i class="glyphicon glyphicon-ok"></i>
+                          Tasks </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                          <i class="glyphicon glyphicon-flag"></i>
+                          Help </a>
+                        </li>
+                      </ul>
+                    </div>
+               -->
+
+                
+                
             </div>
         </div>
     </div>
@@ -409,6 +450,10 @@ a.btn-layerClose:hover {
         var type = alltag[4].innerHTML
         var status = alltag[5].innerHTML
       
+        
+        // for( var i=0; i < temp.length; i++ ){
+        //   alert(temp[i].innerHTML)
+        // }
         
         $('.profile-usertitle-name').text(username)
         $('.profile-usertitle-email').text(email)

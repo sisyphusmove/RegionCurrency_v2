@@ -10,6 +10,8 @@ from store.models import Photo, Store
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
+from info.forms import NoticeForm
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -66,7 +68,7 @@ class ApprovalLV(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ApprovalLV, self).get_context_data(**kwargs)
-        context['stores'] = Photo.objects.filter(store__status='w')
+        context['photos'] = Photo.objects.filter(store__status='w')
         return context
 
 def get_approval(request):
@@ -88,8 +90,6 @@ def get_approval(request):
 
 #--------------------------------------공지사항관리-----------------------------------------------#
 
-def notice(request):
-    return render(request, 'operate/manage_notice.html', ({}))
 class NoticeLV(ListView):
     model = Notice
     template_name = 'operate/manage_notice.html'
@@ -221,7 +221,7 @@ def get_notices():
     return notice_list
 
 def get_publish_amount():
-    get_publish_url = "http://210.107.78.166:8000/get_total_publish"
+    get_publish_url = "http://127.0.0.1:3000/get_total_publish"
     publish_data = {}
     publish_amount = 0
 
@@ -253,7 +253,7 @@ def get_account_cnt():
 
 def get_tx_cnt():
     tx_height = 0
-    get_block_url = "http://210.107.78.166:8000/get_tx_cnt"
+    get_block_url = "http://127.0.0.1:3000/get_tx_cnt"
     try:
         response = requests.get(get_block_url)
         json_format = json.loads(response.text)

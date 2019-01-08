@@ -23,18 +23,18 @@
                   </thead>
                   <tbody>
                         {% if stores %}
-                        {% for store in stores %}
-                        <input id="img_url{{store.id}}" type="hidden" val="{{ store.image.thumb_url }}" class='SRC'> 
-                        <tr class="tag" id="{{store.id}}">
-                          <td>{{ store.store.name }}</td>
-                          <td>{{ store.store.corporate_number }}</td>
+                        {% for photo in photos %}
+                        <input id="img_url{{ photo.store.id }}" type="hidden" val="{{ photo.image.thumb_url }}" class='SRC'> 
+                        <tr class="tag" id="{{ photo.store.id }}">
+                          <td>{{ photo.store.name }}</td>
+                          <td>{{ photo.store.corporate_number }}</td>
                           <td>
-                           {{ store.store.category }}
+                           {{ photo.store.category }}
                           </td>
-                          <td>{{ store.store.location }}</td>
-                          <td>{{ store.store.status  }}</td>
+                          <td>{{ photo.store.location }}</td>
+                          <td>{{ photo.store.status  }}</td>
                           <td class="status-button">
-                              <a href="#layer2" class="btn-example" val="{{store.id}}">
+                              <a href="#layer2" class="btn-example" val="{{ photo.store.id }}">
                                 <button type="button" class="btn btn-primary btn-sm ">조회</button>
                               </a>
                           </td>
