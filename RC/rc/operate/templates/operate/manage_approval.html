@@ -22,7 +22,7 @@
                     <th>조회</th>
                   </thead>
                   <tbody>
-                        {% if stores %}
+                        {% if photos %}
                         {% for photo in photos %}
                         <input id="img_url{{ photo.store.id }}" type="hidden" val="{{ photo.image.thumb_url }}" class='SRC'> 
                         <tr class="tag" id="{{ photo.store.id }}">
