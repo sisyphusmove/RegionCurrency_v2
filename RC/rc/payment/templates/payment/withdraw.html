@@ -310,18 +310,18 @@
                 <input type="text" name="from" id="from" value="{{ user.username }}" hidden />
                 <h5 class="font-weight-bold" style="color:#23bab5">잔액</h5>
                 <p class="form-control">
-                  <input type="text" id="balance" style="border:none;" class="point" value="{{ balance }}" readonly /><strong>RC</strong>
+                  <input type="text" id="balance" style="border:none; text-align:right;" class="point" value="{{ balance }}" readonly /><strong>&nbsp;&nbsp;<img src="{% static 'img/favicon.ico' %}" width="20px"></strong>
                 </p>
                 <div class="form-group">
                 <h5 class="font-weight-bold" style="color:#23bab5" >보낼금액</h5>
                 <p class="form-control">
-                  <input style="border:none;"type="text" name="point" id="point" class="point" placeholder="소숫점 사용불가"/><strong>RC</strong>
+                  <input style="border:none; text-align:right;"type="text" name="point" id="point" class="point" placeholder="소숫점 사용불가"/><strong>&nbsp;&nbsp;<img src="{% static 'img/favicon.ico' %}" width="20px"></strong>
                 </p>
                 </div>
                 <div class="form-group">
                 <h5 class="font-weight-bold" style="color:#23bab5" >남는금액</h5>
                 <p class="form-control">
-                <input style="border:none;"type="text" id="rest_balance" value="0" readonly /><strong>RC</strong>
+                <input style="border:none; text-align:right;"type="text" id="rest_balance" value="0" readonly /><strong>&nbsp;&nbsp;<img src="{% static 'img/favicon.ico' %}" width="20px"></strong>
                 </p>
                 <div class="form-group">
                 <h5 class="font-weight-bold" style="color:#23bab5" >송금할계정</h5>
@@ -335,7 +335,7 @@
                 <div class="form-group">
                 <div class="checkbox">
                     <label>
-                    <div style="color:blanchedalmond"><input type="checkbox" id="agree" name="agree"> 송금시 책임은 전적으로 본인에게 있음에 동의합니다.</div>
+                    <div style="color:rgb(194, 180, 160)"><input type="checkbox" id="agree" name="agree"> 송금시 책임은 전적으로 본인에게 있음에 동의합니다.</div>
                     </label>
                 </div>
                 </div>
