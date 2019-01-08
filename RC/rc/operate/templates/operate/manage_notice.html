@@ -105,18 +105,13 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card">
-            <div class="card-header card-header-danger">
             <div class="card-header card-header-success">
               <h4 class="card-title "><i class="material-icons">library_books</i>&nbsp;공지사항 관리</h4>
-              <p class="card-category">this is the page of managing notices</p>
               <p class="card-category">this is the page of managing notices
                 <a href="{% url 'operate:notice_add' %}" class="btn btn-default btn-sm my-3" style="float: right;">추가</a>
               </p>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table">
-                  <thead class=" text-primary">
               <div class="table table-hover table-border">
                 <table class="table table-border">
                   <thead class=" text-primary" align="center">
@@ -126,126 +121,11 @@
                     <th>Create Date</th>
                     <th>Modify Date</th>
                     <th>
-                      ID
-                    </th>
-                    <th>
-                      Name
-                    </th>
-                    <th>
-                      Country
-                    </th>
-                    <th>
-                      City
-                    </th>
-                    <th>
-                      Salary
                       <a class="btn btn-default btn-sm my-3 select_all" style="padding: 5px 10px 5px 10px; margin: 0 0 0 0;" data-type="false"><i class="material-icons">check_circle</i></a>
                       <a href="#layer" class="btn_layer_pop btn btn-default" class="btn btn-default btn-sm my-3" style="padding: 5.5px 10px 5.5px 10px; margin: 0 0 0 0;">활성</a>
                     </th>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>
-                        1
-                      </td>
-                      <td>
-                        Dakota Rice
-                      </td>
-                      <td>
-                        Niger
-                      </td>
-                      <td>
-                        Oud-Turnhout
-                      </td>
-                      <td class="text-primary">
-                        $36,738
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        2
-                      </td>
-                      <td>
-                        Minerva Hooper
-                      </td>
-                      <td>
-                        Curaçao
-                      </td>
-                      <td>
-                        Sinaai-Waas
-                      </td>
-                      <td class="text-primary">
-                        $23,789
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        3
-                      </td>
-                      <td>
-                        Sage Rodriguez
-                      </td>
-                      <td>
-                        Netherlands
-                      </td>
-                      <td>
-                        Baileux
-                      </td>
-                      <td class="text-primary">
-                        $56,142
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        4
-                      </td>
-                      <td>
-                        Philip Chaney
-                      </td>
-                      <td>
-                        Korea, South
-                      </td>
-                      <td>
-                        Overland Park
-                      </td>
-                      <td class="text-primary">
-                        $38,735
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        5
-                      </td>
-                      <td>
-                        Doris Greene
-                      </td>
-                      <td>
-                        Malawi
-                      </td>
-                      <td>
-                        Feldkirchen in Kärnten
-                      </td>
-                      <td class="text-primary">
-                        $63,542
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        6
-                      </td>
-                      <td>
-                        Mason Porter
-                      </td>
-                      <td>
-                        Chile
-                      </td>
-                      <td>
-                        Gloucester
-                      </td>
-                      <td class="text-primary">
-                        $78,615
-                      </td>
-                    </tr>
                     {% for notice in notice_list %}
                       <tr align="center">
                         <td class="notice_id" onClick="location.href='{% url "operate:notice_edit" notice_id=notice.id %}'">{{ notice.id }}</td>

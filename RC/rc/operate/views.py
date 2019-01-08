@@ -243,6 +243,7 @@ def get_publish_amount():
         publish_data['publish_list'] = data_list
     except Exception as e:
         print(e)
+        publish_data['publish_list'] = ""
     return publish_data
 
 def get_account_cnt():

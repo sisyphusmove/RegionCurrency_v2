@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'store.apps.StoreConfig',
     'info.apps.InfoConfig',
     'payment.apps.PaymentConfig',
-    'publish.apps.PublishConfig'
+    'publish.apps.PublishConfig',
+    'operate'
 ]
 
 MIDDLEWARE = [
