@@ -1,7 +1,7 @@
 {% extends 'index_base.html' %}
 {% load staticfiles %}
 {% block extra_js %}
-<script type="text/javascript" src="{% static '/js/board.js' %}"></script>
+<script type="text/javascript" src="{% static '/js/board.js' %}?ver=4"></script>
 {% endblock %}
 {% block content %}
   <!-- editor -->
@@ -35,10 +35,10 @@
 <div class="side_bar" style="float: left; border-top: 1px solid #71c55d; border-bottom: 1px solid #71c55d; margin-left: 40px; background-color: white">
     <div style="padding: 20px; background-color: #71c55d;"><div class="" href="{% url 'board:list' %}" style="text-align: center; color: white; font-weight: bold;"> 게 시 판</div></div>
     <div style="border: 1px solid white;"></div>
-    <div style="padding: 20px;" value="1" id="btn_board_type_1"><a class="btn_board_type_1" href="{% url 'board:list' %}" style="text-align: center; font-weight: bold;">가맹 게시판</a></div>
+    <div style="padding: 20px;" value="1" id="btn_board_type_1"><a class="btn_board_type_1" onclick="back_to_list()" href="{% url 'board:list' %}" style="text-align: center; font-weight: bold;">가맹 게시판</a></div>
     <input type="hidden" id="board_type_1" value="1">
     <div style="border: 1px solid white;"></div>
-    <div style="padding: 20px;" value="2" id="btn_board_type_2"><a class="btn_board_type_2" href="{% url 'board:list' %}" style="text-align: center; font-weight: bold;">회원 게시판</a></div>
+    <div style="padding: 20px;" value="2" id="btn_board_type_2"><a class="btn_board_type_2" onclick="back_to_list()" href="{% url 'board:list' %}" style="text-align: center; font-weight: bold;">회원 게시판</a></div>
     <input type="hidden" id="board_type_2" value="2">
 </div>
 <div class="content board_content" style="margin-left: 20%;margin-top: 10%;margin-right: 20%;margin-bottom: 30%">
@@ -64,30 +64,28 @@
         <a class="btn btn_delete" href="{% url 'board:delete' object.id %}">삭제</a>
         {% endif %}
         <a class="btn" href="{% url 'board:list' %}">돌아가기</a>
-        <a class="btn btn_comment" onclick="comment({{ object.id }})">댓글 보기</a>
+        <a class="btn btn_comment" onclick="comment.spread_comment({{ object.id }})">댓글 보기</a>
     </div>
     <div>
         <a><img src="{% static 'img/comment.png' %}"></a>
         <span>{{ comment_cnt }}</span>
     </div>
     <input class="input_comment" type='text' value='' style='width: 80%'>
-    <button class='btn btn-primary btn_comment_write' onclick="write_comment({{ object.id }})">제출</button>
-    <div class="comment_area" id="comment_area" style="display: table">
-        <ul style="list-style:none;"></ul>
+    <button class='btn btn-primary btn_comment_write' onclick="comment.write_comment({{ object.id }})">제출</button>
+    <div class="comment_area" id="comment_area" style="display: table; width: 100%;">
+        <ul class="comment_list" style="list-style:none; overflow: auto; max-height: 300px;"></ul>
     </div>
 </div>
 <input id="hdn_board_val" type="hidden" value="{{ object.id }}" >
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function(){
 
-    <!--$('#summernote').html();-->
 
     var getCookie = function(name) {
       var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
       return value? value[2] : null;
     };
 
-    <!--var current_user = {{ user.pk }}-->
     var board_type = getCookie('current_board')
 
     ctl_btn_by_board_type(board_type)
@@ -95,93 +93,81 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 
-function comment(num){
-    var board_id = num
-
-    if( $('.comment_area').hasClass('on') ){
-        $('.comment_area').removeClass('on')
-        $('.comment_area').css('display', 'none');
-    }else{
-        $.ajax({
-            type: 'GET',
-            url: '{% url 'board:comment' %}',
-            data: {
-                board_id : board_id
-            },
-            dataType : 'json',
-            success: function(data) {
-                $( "li" ).remove();
-                html_str = ""
-                var result_data = []
-                result_data = data
-                if ( data != '' ){
-                    result_data.forEach(function(data){
-                        html_str += "<li>" + data.writer + "&nbsp; | &nbsp;" + data.time_diff + "</li>"
-                        html_str += "<li>" + data.content + "</li>"
-                    });
-                    $(".comment_area ul").append(html_str)
-                }
-            },
-            error: function( jqXHR, textStatus, errorThrown ){
-                    alert('status: ' + textStatus + '\nerror: ' + jqXHR.error )
-            }
-        });
-        $('.comment_area').css('display', 'table');
-        $('.comment_area').addClass('on');
-    }
-}
-
-function write_comment(board_id){
-
-    var comm = $('.input_comment').val()
-    alert(comm)
-    if( comm != '' ){
+var comment = {};
+comment.add_to_database = function(board_id){
+    var input_comment = $('.input_comment').val();
+    $('.input_comment').val("");
+    if( input_comment != '' ){
         $.ajax({
             type: 'GET',
             url: '{% url 'board:write_comment' %}',
             data: {
                 board_id : board_id,
-                comment : comm
+                comment : input_comment
             },
             dataType : 'json',
             success: function(data) {
-
-                $('.input_comment').val('')
-
             },
             error: function( jqXHR, textStatus, errorThrown ){
                     alert('status: ' + textStatus + '\nerror: ' + jqXHR.error )
             }
         });
-
-        $.ajax({
-            type: 'GET',
-            url: '{% url 'board:comment' %}',
-            data: {
-                board_id : board_id
-            },
-            dataType : 'json',
-            success: function(data) {
-                alert($(".comment_area ul"))
-                html_str = ""
-                var result_data = []
-                result_data = data
-                if ( data != '' ){
-                    result_data.forEach(function(data){
-                        html_str += "<li>" + data.writer + "&nbsp; | &nbsp;" + data.time_diff + "</li>"
-                        html_str += "<li>" + data.content + "</li>"
-                    });
-                    $(".comment_area ul").append(html_str)
-                }
-            },
-            error: function( jqXHR, textStatus, errorThrown ){
-                    alert('status: ' + textStatus + '\nerror: ' + jqXHR.error )
-            }
-        });
+    }else{
+        alert("댓글을 작성세요")
     }
-    $('.comment_area').css('display', 'table');
-    $('.comment_area').addClass('on');
-}
+};
+comment.get_comment = function(board_id, do_spread){
+    $.ajax({
+        type: 'GET',
+        url: '{% url 'board:comment' %}',
+        data: {
+            board_id : board_id
+        },
+        dataType : 'json',
+        success: function(data) {
+            comment.spread_data(data);
+        },
+        error: function( jqXHR, textStatus, errorThrown ){
+                alert('status: ' + textStatus + '\nerror: ' + jqXHR.error )
+        }
+    });
+};
+comment.spread_comment = function(num){
+    var board_id = num;
+    $( ".comment_list" ).empty();
+    if( $('.comment_area').hasClass('on') ){
+        $('.comment_area').removeClass('on')
+        $('.comment_area').css('display', 'none');
+    }else{
+        comment.get_comment(board_id);
+        $('.comment_area').css('display', 'table');
+        $('.comment_area').addClass('on');
+    }
+};
+comment.spread_data = function(data){
+    html_str = ""
+    var result_data = []
+    result_data = data
+    $( ".comment_list" ).empty();
+    if ( data != '' ){
+        result_data.forEach(function(data){
+            html_str += "<li>" + data.writer + "&nbsp; | &nbsp;" + data.time_diff + "</li>"
+            html_str += "<li>" + data.content + "</li>"
+        });
+        $(".comment_area ul").append(html_str)
+    }
+};
+comment.write_comment = function(board_id){
+    
+    comment.add_to_database(board_id);
+    if($('.comment_area').hasClass('on')){
+        comment.get_comment(board_id);
+    }else{
+        $('.comment_area').css('display', 'table');
+        comment.get_comment(board_id);
+        $('.comment_area').addClass('on');
+    }
+};
 
 function add_like(board_id){
     $.ajax({
@@ -201,7 +187,7 @@ function add_like(board_id){
             }
         },
         error: function( jqXHR, textStatus, errorThrown ){
-                alert('status: ' + textStatus + '\nerror: ' + jqXHR.error )
+            alert("로그인을 하셔야합니다.")
         }
     });
 }

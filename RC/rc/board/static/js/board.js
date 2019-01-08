@@ -54,11 +54,9 @@ function chg_board(board_type, page){
 
         if( $('#search_categoty option:selected').val() != "" &&  $('#search_categoty > option:selected').val() != undefined ){
             category = $('#search_categoty > option:selected').val()
-            alert("category:" + category)
         }
         if( $('.keyword').val() != "" &&  $('.keyword').val() != undefined ){
             keyword = $('.keyword').val()
-            alert("keyword:" + keyword)
         }
 
         $.ajax({
@@ -163,4 +161,15 @@ function chg_board(board_type, page){
                     alert('status: ' + textStatus + '\nerror: ' + jqXHR.error )
             }
         })
+    }
+
+    function back_to_list(){
+
+        var setCookie = function(name, value, exp) {
+            var date = new Date();
+            date.setTime(date.getTime() + exp*24*60*60*1000);
+            document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+          };
+          setCookie('from', "not_intro", 7)
+
     }
