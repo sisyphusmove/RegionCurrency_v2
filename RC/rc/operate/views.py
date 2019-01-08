@@ -73,13 +73,17 @@ class ApprovalLV(TemplateView):
 
 def get_approval(request):
 
-    print(request.GET.get('store_id'))
     store_id = request.GET.get('store_id', '')
     store = get_object_or_404(Store, id=store_id)
+    userid = store.representative
+    user = get_object_or_404(User, profile__user=userid)
+    print(type(user))
     context = {}
     if store.status == 'w':
         store.status = 'a'
         store.save()
+        user.profile.type = 1
+        user.save()
         context['result'] = 'y'
     else:
         context['result'] = 'n'
