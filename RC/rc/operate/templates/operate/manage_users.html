@@ -1,0 +1,449 @@
+{% extends './base.html' %}
+{% load staticfiles %}
+{% block content %}
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-success">
+              <span style="float: left">
+                <h4 class="card-title "><i class="material-icons">person</i>&nbsp;<strong>사용자 관리</strong></h4>
+                <p class="card-category">this is the page of managing users</p>
+              </span>
+              <span style="float: right">
+                <form action="." method="get" class="navbar-form">
+                    {% csrf_token %}
+                    <div class="input-group no-border">
+                      <input type="text" value="" name="keyword" class="form-control" placeholder="search...">
+                      <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                        <i class="material-icons">search</i>
+                        <div class="ripple-container"></div>
+                      </button>
+                    </div>
+                  </form>
+              </span>
+            </div>            
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class=" text-primary">
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Birth</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    {% for user in users %}
+                      <tr class="tag" id="{{user.id}}">
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                          {% if user.profile.gender == 'm' %}
+                            남자
+                          {% else %}
+                            여자
+                          {% endif %}
+                        </td>
+                        <td>{{ user.profile.birth_year }}-{{ user.profile.birth_month }}-{{ user.profile.birth_date }}</td>
+                        <td>{{ user.profile.type }}</td>
+                        <td>{{ user.profile.status }}</td>
+                        <td class="status-button">
+                            <a href="#layer2" class="btn-example" id="{{user.id}}">
+                              <button type="button" class="btn btn-primary btn-sm">상세조회</button>
+                            </a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    {% for li in remain_of_page %}
+                        <tr><td colspan="6">&nbsp;`</td></tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              
+              <!-- <div class="row justify-content-center">
+                  {% if is_paginated %}
+                      <nav>
+                          <ul class="pagination">
+                          {% if page_obj.has_previous %}
+                              <li>
+                              <a href="?page={{ page_obj.previous_page_number }}">
+                                  <span><i class="material-icons">arrow_back</i></span>
+                              </a>
+                              </li>
+                          {% else %}
+                              <li class="disabled">
+                              <a href="#">
+                                  <span><i class="material-icons">arrow_back</i></span>
+                              </a>
+                              </li>
+                          {% endif %}
+                          {% for page in page_range %}
+                              <li {% if page == page_obj.number %}class="active"{% endif %}>
+                              <a href="?page={{ page }}">{{ page }}</a>
+                              </li>
+                          {% endfor %}
+                          {% if page_obj.has_next %}
+                              <li>
+                              <a href="?page={{ page_obj.next_page_number }}">
+                                  <span><i class="material-icons">arrow_forward</i></span>
+                              </a>
+                              </li>
+                          {% else %}
+                              <li {% if not page_obj.has_next %}class="disabled"{% endif %}>
+                              <a href="#">
+                                  <span><i class="material-icons">arrow_forward</i></span>
+                              </a>
+                              </li>
+                          {% endif %}
+                          </ul>
+                      </nav>
+                  {% endif %}
+                </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 팝업레이어 부분 -->
+  <div class="dim-layer">
+      <div class="dimBg"></div>
+        <div id="layer2" class="pop-layer">
+          <div class="pop-container">
+              <div class="btn-r">
+                  <a href="#" class="btn-layerClose"><i class="material-icons">close</i></a>
+              </div>
+            <div class="pop-conts">
+              
+                <div class="profile-userpic">
+                    <img style="float:left;" src="https://image.flaticon.com/icons/svg/236/236832.svg" class="img-responsive" alt="">
+                </div>
+
+                <div class="profile-usertitle">
+                  <table style="margin-left: 21em">
+                    <tr>
+                      <td class="profile">id</td><td class="profile-usertitle-name"></td>  
+                    </tr>
+                  
+                    <tr>
+                      <td class="profile">email</td><td class="profile-usertitle-email"></td>  
+                    </tr>
+                    
+                    <tr>
+                      <td class="profile">gender</td><td class="profile-usertitle-gender"></td>  
+                    </tr>
+                    <tr>
+                      <td class="profile">birth</td><td class="profile-usertitle-birth"></td>  
+                    </tr>
+                    <tr>
+                      <td class="profile">type</td><td class="profile-usertitle-type"></td>  
+                    </tr>
+                    <tr>
+                      <td class="profile">status</td><td class="profile-usertitle-status"></td>  
+                    </tr>
+                    <tr>
+                        <td class="profile">like</td><td class="profile-usertitle-like"></td>  
+                    </tr>
+                    <tr>
+                        <td class="profile">board</td><td class="profile-usertitle-board"></td>  
+                    </tr>
+          
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+<style>
+.profile {
+  margin: 20px 0;
+}
+/* Profile sidebar */
+.profile-sidebar {
+  padding: 20px 0 10px 0;
+  background: #fff;
+}
+.profile-userpic img {
+    float: none;
+    margin:-25px 0 0 14px;
+    width: 45%;
+    height: 36%;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+}
+.profile{
+  color: #5a7391;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+.profile-usertitle {
+  text-align: center;
+  margin-top: 20px;
+}
+.profile-usertitle-name {
+  color: #5a7391;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+.profile-usertitle-email {
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.profile-usertitle-gender {
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.profile-usertitle-birth {
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.profile-usertitle-type {
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.profile-usertitle-status {
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.profile-usertitle-like {
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.profile-usertitle-board {
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.profile-usertitle > table > tr{
+  text-align: center
+}
+.profile-userbuttons {
+  text-align: center;
+  margin-top: 10px;
+}
+.profile-userbuttons .btn {
+  text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 9px 19px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 19px;
+    margin: -24% 20% -17% 58%;
+}
+.profile-userbuttons .btn:last-child {
+  margin-right: 0px;
+}
+    
+.profile-usermenu {
+  margin-top: 30px;
+}
+.profile-usermenu ul li {
+  border-bottom: 1px solid #f0f4f7;
+}
+.profile-usermenu ul li:last-child {
+  border-bottom: none;
+}
+.profile-usermenu ul li a {
+  color: #93a3b5;
+  font-size: 14px;
+  font-weight: 400;
+}
+.profile-usermenu ul li a i {
+  margin-right: 8px;
+  font-size: 14px;
+}
+.profile-usermenu ul li a:hover {
+  background-color: #fafcfd;
+  color: #5b9bd1;
+}
+.profile-usermenu ul li.active {
+  border-bottom: none;
+}
+.profile-usermenu ul li.active a {
+  color: #5b9bd1;
+    background-color: #f6f9fb;
+    border-left: 2px solid #5b9bd1;
+    margin-left: 24px;
+}
+/* Profile Content */
+.profile-content {
+  padding: 20px;
+  background: #fff;
+  min-height: 460px;
+}
+  * {
+  margin: 0;
+  padding: 0;
+}
+.pop-layer .pop-container {
+  padding: 20px 25px;
+}
+.pop-layer p.ctxt {
+  color: #666;
+  line-height: 25px;
+}
+.pop-layer .btn-r {
+    
+    width: 101%;
+    margin: -14px 10px 42px;
+    padding-top: 0%;
+    text-align: right;
+}
+.pop-layer {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 630px;
+    height: 350px;
+    background-color: #fff;
+    border: 5px solid #3571B5;
+    z-index: 10;
+}
+.dim-layer {
+  display: none;
+  position: fixed;
+  _position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+.dim-layer .dimBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: .5;
+  filter: alpha(opacity=50);
+}
+.dim-layer .pop-layer {
+  display: block;
+}
+/* a.btn-layerClose {
+  display: inline-block;
+  height: 25px;
+  padding: 0 14px 0;
+  border: 1px solid #304a8a;
+  background-color: #3f5a9d;
+  font-size: 13px;
+  color: #fff;
+  line-height: 25px;
+} */
+a.btn-layerClose:hover {
+  border: 1px solid #091940;
+  background-color: #1f326a;
+  color: #fff;
+}
+</style>
+
+<script>
+  $('.btn-example').click(function(){
+        var $href = $(this).attr('href');
+        var user_id = $(this).attr('id');
+        var tag_name = ""
+        tag_name = "tr#" + user_id + " > td";
+        var alltag = []
+        alltag = $(tag_name)
+        var like = ''
+        var board = ''
+        
+        $.ajax({
+            type: 'GET',
+            url: '/operate/get_like',
+            data: {
+                user_id : user_id
+            },
+            dataType : 'json',
+            success: function(data) {
+                
+                like = data.like_cnt
+                board = data.board_cnt
+                $('.profile-usertitle-like').text(like)
+                $('.profile-usertitle-board').text(board)
+            }, 
+            error: function( jqXHR, textStatus, errorThrown ){
+                    alert('status: ' + textStatus + '\nerror: ' + jqXHR.error )
+            }
+        })
+        
+        var username = alltag[0].innerHTML
+        var email = alltag[1].innerHTML
+        var gender = alltag[2].innerHTML
+        var birth = alltag[3].innerHTML
+        var type = alltag[4].innerHTML
+        var status = alltag[5].innerHTML
+      
+        
+        $('.profile-usertitle-name').text(username)
+        $('.profile-usertitle-email').text(email)
+        $('.profile-usertitle-gender').text(gender)
+        $('.profile-usertitle-birth').text(birth)
+        $('.profile-usertitle-type').text(type)
+        $('.profile-usertitle-status').text(status)
+        
+        layer_popup($href);
+    });
+    function layer_popup(el){
+        var $el = $(el);        //레이어의 id를 $el 변수에 저장
+        var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+        isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+        var $elWidth = ~~($el.outerWidth()),
+            $elHeight = ~~($el.outerHeight()),
+            docWidth = $(document).width(),
+            docHeight = $(document).height();
+        // 화면의 중앙에 레이어를 띄운다.
+        if ($elHeight < docHeight || $elWidth < docWidth) {
+            $el.css({
+                marginTop: -$elHeight /2,
+                marginLeft: -$elWidth/2
+            })
+        } else {
+            $el.css({top: 0, left: 0});
+        }
+        $el.find('a.btn-layerClose').click(function(){
+            isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+            return false;
+        });
+        $('.layer .dimBg').click(function(){
+            $('.dim-layer').fadeOut();
+            return false;
+        });
+    }
+</script>
+{% endblock content %}

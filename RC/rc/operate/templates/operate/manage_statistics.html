@@ -1,0 +1,293 @@
+{% extends './base.html' %}
+
+
+{% block content %}
+<div class="content">
+        <div class="container-fluid">
+            <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                <div class="card-header card-header-info">
+                    <h4 class="card-title "><i class="material-icons">trending_up</i>&nbsp;<strong>통계</strong></h4>
+                    <p class="card-category">this is the page of managing statistics</p>
+                    <p class="card-category"> </p>
+                </div>
+                <div class="card-body">
+                    <div class='row'>
+                        <div class='col-sm-12' url-endpoint=''>
+                            <table>
+                                <tr>
+                                    <td><canvas id="myChart" width="450" height="400"></canvas></td>
+                                    <td><canvas id="myChart2" width="450" height="400"></canvas></td>
+                                    <td><canvas id="myChart3" width="450" height="400"></canvas></td>
+                                </tr>
+
+                                <tr>
+                                    <td><canvas id="myChart4" width="450" height="400"></canvas></td>
+                                    <td><canvas id="myChart5" width="450" height="400"></canvas></td>
+                                    <td><canvas id="myChart6" width="400" height="400"></canvas></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        var endpoint = 'chartdata/'
+        var defaultData = []
+        var labels_second = []
+        var labels = [];
+        $.ajax({
+            method: "GET",
+            url: endpoint,
+            success: function(data){
+                labels = data.labels
+                labels_second = data.labels_second
+                defaultData = data.default
+                defaultData1 = data.default1
+                defaultData2 = data.default1
+                setChart()
+            },
+            error: function(error_data){
+                console.log("error")
+                console.log(error_data)
+            }
+        })
+        function setChart(){
+            var ctx = document.getElementById("myChart");
+            var ctx2 = document.getElementById("myChart2");
+            var ctx3 = document.getElementById("myChart3");
+            var ctx4 = document.getElementById("myChart4");
+            var ctx5 = document.getElementById("myChart5");
+            
+            
+            var myChart = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: labels_second,
+                datasets: [{
+                    label: '연령대별 사용현황',
+                    data: defaultData1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+            var myChart = new Chart(ctx, {
+            type: 'polarArea',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '# of Votes',
+                    data: defaultData,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+            var myChart = new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: labels_second,
+                datasets: [{
+                    label: '연령대별 사용현황',
+                    data: defaultData1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+            var myChart = new Chart(ctx4, {
+            type: 'radar',
+            data: {
+                labels: labels_second,
+                datasets: [{
+                    label: '연령대별 사용현황',
+                    data: defaultData1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+        
+            var myChart = new Chart(ctx5, { 
+            type: 'bubble',
+            data: {
+            
+            datasets: [
+                {
+                label: ["10대"],
+                backgroundColor: "rgba(255,221,50,0.2)",
+                borderColor: "rgba(255,221,50,1)",
+                data: [{
+                    x: 450,
+                    y: 30,
+                    r: 25
+                }]
+                }, {
+                label: ["20대"],
+                backgroundColor: "rgba(60,186,159,0.2)",
+                borderColor: "rgba(60,186,159,1)",
+                data: [{
+                    x: 550,
+                    y: 25,
+                    r: 30
+                }]
+                }, {
+                label: ["30대"],
+                backgroundColor: "rgba(0,0,0,0.2)",
+                borderColor: "#000",
+                data: [{
+                    x: 800,
+                    y: 40,
+                    r: 30
+                }]
+                }, {
+                label: ["40대"],
+                backgroundColor: "rgba(170,12,54,0.3)",
+                borderColor: "rgba(193,46,12,1)",
+                data: [{
+                    x: 700,
+                    y: 30,
+                    r: 20
+                }]
+                },
+                
+                {
+                label: ["50대"],
+                backgroundColor: "rgba(193,46,12,0.2)",
+                borderColor: "rgba(193,46,12,1)",
+                data: [{
+                    x: 700,
+                    y: 35,
+                    r: 40
+                }]
+                }
+            ]
+            },
+            options: {
+            title: {
+                display: true,
+                text: '누적현황 in 2019'
+            }, scales: {
+                yAxes: [{ 
+                scaleLabel: {
+                    display: true,
+                    labelString: "사용"
+                }
+                }],
+                xAxes: [{ 
+                scaleLabel: {
+                    display: true,
+                    labelString: "나이"
+                }
+                }]
+            }
+            }
+        });
+        }
+        // var ctx = document.getElementById("myChart");
+    });
+</script>
+{% endblock content %}

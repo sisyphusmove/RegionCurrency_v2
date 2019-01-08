@@ -1,0 +1,423 @@
+{% extends './base.html' %}
+{% block content %}
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-warning">
+              <h4 class="card-title "><i class="material-icons">store</i>&nbsp;<strong>가게 승인창</strong></h4>
+              <p class="card-category">this is the page of managing stores</p>
+              <p class="card-category"> </p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class=" text-primary">
+                    <th>가맹점 이름</th>
+                    <th>가게 번호</th>
+                    <th>가맹점 종류</th>
+                    <th>위치</th>
+                    <th>상태</th>
+                    <th>조회</th>
+                  </thead>
+                  <tbody>
+                        {% if stores %}
+                        {% for store in stores %}
+                        <input id="img_url{{store.id}}" type="hidden" val="{{ store.image.thumb_url }}" class='SRC'> 
+                        <tr class="tag" id="{{store.id}}">
+                          <td>{{ store.store.name }}</td>
+                          <td>{{ store.store.corporate_number }}</td>
+                          <td>
+                           {{ store.store.category }}
+                          </td>
+                          <td>{{ store.store.location }}</td>
+                          <td>{{ store.store.status  }}</td>
+                          <td class="status-button">
+                              <a href="#layer2" class="btn-example" val="{{store.id}}">
+                                <button type="button" class="btn btn-primary btn-sm ">조회</button>
+                              </a>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      {% else %}
+                      <tr>
+                          <td colspan="6" align = 'center'>대기중인 가맹점 없음 </td>    
+                      </tr>
+                      {% endif %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dim-layer">
+        <div class="dimBg"></div>
+          <div id="layer2" class="pop-layer">
+            <div class="pop-container">
+                <div class="btn-r">
+                    <a href="#" class="btn-layerClose"><i class="material-icons">close</i></a>
+                </div>
+              <div class="pop-conts">
+                
+                  
+                  <div class="profile-userpic">
+                      <img style="float:left;" src="" class="img-responsive" alt=""> 
+                  </div>
+
+                  <div class="profile-usertitle">
+                    <table style="margin-left: 21em">
+                      <tr>
+                        <td class="profile">storename</td><td class="profile-usertitle-storename"></td>  
+                      </tr>
+                    
+                      <tr>
+                        <td class="profile">number</td><td class="profile-usertitle-corporate_number"></td>  
+                      </tr>
+                      
+                      <tr>
+                        <td class="profile">category</td><td class="profile-usertitle-category"></td>  
+                      </tr>
+
+                      <tr>
+                        <td class="profile">location</td><td class="profile-usertitle-location"></td>  
+                      </tr>
+                      
+                      <tr>
+                        <td class="profile">status</td><td class="profile-usertitle-status"></td>  
+                      </tr>
+                    </table>
+                  </div>
+                  
+                   <div class="profile-userbuttons">
+                      <button type="button" class="btn btn-success btn-sm status">승인</button> 
+                    </div>
+              </div>
+          </div>
+      </div>
+
+  <style>
+        .profile {
+          margin: 20px 0;
+        }
+        
+        /* Profile sidebar */
+        .profile-sidebar {
+          padding: 20px 0 10px 0;
+          background: #fff;
+        }
+        
+        .profile-userpic img {
+            float: none;
+            margin:-25px 0 0 14px;
+            width: 45%;
+            height: 36%;
+            -webkit-border-radius: 50% !important;
+            -moz-border-radius: 50% !important;
+            border-radius: 50% !important;
+        }
+        
+        .profile{
+          color: #5a7391;
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 7px;
+        }
+        
+        .profile-usertitle {
+          text-align: center;
+          margin-top: 20px;
+        }
+        
+        .profile-usertitle-storename {
+          color: #5a7391;
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 7px;
+        }
+        
+        .profile-usertitle-corporate_number {
+          text-transform: uppercase;
+          color: #5b9bd1;
+          font-size: 13px;
+          font-weight: 600;
+          margin-bottom: 15px;
+        }
+        
+        .profile-usertitle-category {
+          text-transform: uppercase;
+          color: #5b9bd1;
+          font-size: 13px;
+          font-weight: 600;
+          margin-bottom: 15px;
+        }
+        
+        .profile-usertitle-location {
+          text-transform: uppercase;
+          color: #5b9bd1;
+          font-size: 13px;
+          font-weight: 600;
+          margin-bottom: 15px;
+        }
+        
+        .profile-usertitle-status {
+          text-transform: uppercase;
+          color: #5b9bd1;
+          font-size: 13px;
+          font-weight: 600;
+          margin-bottom: 15px;
+        }
+        
+        .profile-usertitle-like {
+          text-transform: uppercase;
+          color: #5b9bd1;
+          font-size: 13px;
+          font-weight: 600;
+          margin-bottom: 15px;
+        }
+        .profile-usertitle-board {
+          text-transform: uppercase;
+          color: #5b9bd1;
+          font-size: 13px;
+          font-weight: 600;
+          margin-bottom: 15px;
+        }
+        
+        
+        .profile-usertitle > table > tr{
+          text-align: center
+        }
+        
+        .profile-userbuttons {
+          text-align: center;
+          margin-top: 10px;
+        }
+        
+        .profile-userbuttons .btn {
+          text-transform: uppercase;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 9px 19px;
+            text-transform: uppercase;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 10px 19px;
+            margin: -24% 20% -17% 58%;
+        }
+        
+        .profile-userbuttons .btn:last-child {
+          margin-right: 0px;
+        }
+            
+        .profile-usermenu {
+          margin-top: 30px;
+        }
+        
+        .profile-usermenu ul li {
+          border-bottom: 1px solid #f0f4f7;
+        }
+        
+        .profile-usermenu ul li:last-child {
+          border-bottom: none;
+        }
+        
+        .profile-usermenu ul li a {
+          color: #93a3b5;
+          font-size: 14px;
+          font-weight: 400;
+        }
+        
+        .profile-usermenu ul li a i {
+          margin-right: 8px;
+          font-size: 14px;
+        }
+        
+        .profile-usermenu ul li a:hover {
+          background-color: #fafcfd;
+          color: #5b9bd1;
+        }
+        
+        .profile-usermenu ul li.active {
+          border-bottom: none;
+        }
+        
+        .profile-usermenu ul li.active a {
+          color: #5b9bd1;
+            background-color: #f6f9fb;
+            border-left: 2px solid #5b9bd1;
+            margin-left: 24px;
+        }
+        
+        /* Profile Content */
+        .profile-content {
+          padding: 20px;
+          background: #fff;
+          min-height: 460px;
+        }
+        
+        
+          * {
+          margin: 0;
+          padding: 0;
+        }
+        
+        
+        .pop-layer .pop-container {
+          padding: 20px 25px;
+        }
+        
+        .pop-layer p.ctxt {
+          color: #666;
+          line-height: 25px;
+        }
+        
+        .pop-layer .btn-r {
+            
+            width: 101%;
+            margin: -14px 10px 42px;
+            padding-top: 0%;
+            text-align: right;
+        }
+        
+        .pop-layer {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 630px;
+            height: 350px;
+            background-color: #fff;
+            border: 5px solid #3571B5;
+            z-index: 10;
+        }
+        
+        .dim-layer {
+          display: none;
+          position: fixed;
+          _position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 100;
+        }
+        
+        .dim-layer .dimBg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: #000;
+          opacity: .5;
+          filter: alpha(opacity=50);
+        }
+        
+        .dim-layer .pop-layer {
+          display: block;
+        }
+        
+        a.btn-layerClose:hover {
+          border: 1px solid #091940;
+          background-color: #1f326a;
+          color: #fff;
+        }
+  </style>
+
+  <script>
+        
+        $('.btn-example').click(function(){
+            
+              var $href = $(this).attr('href');
+              store_id = $(this).attr('val');
+              var tag_name = ""
+              tag_name = "tr#" + store_id + " > td";
+              var alltag = []
+              alltag = $(tag_name)
+              var image_id = '#img_url' + store_id
+              var src_id = $(image_id).attr('val');
+        
+              
+            
+              var storename = alltag[0].innerHTML
+              var corporate_number = alltag[1].innerHTML
+              var category = alltag[2].innerHTML
+              var location = alltag[3].innerHTML
+              var status = alltag[4].innerHTML
+              
+              $('.profile-usertitle-storename').text(storename)
+              $('.profile-usertitle-corporate_number').text(corporate_number)
+              $('.profile-usertitle-category').text(category)
+              $('.profile-usertitle-location').text(location)
+              $('.profile-usertitle-status').text(status)
+              $('.img-responsive').attr('src', src_id)
+              
+            
+              layer_popup($href);
+          });
+          var store_id = ""
+        
+            $('.status').click(function(){
+                $.ajax({
+                    type: 'GET',
+                    url: '/operate/get_approval',
+                    data: {
+                        store_id : store_id
+                    },
+                    dataType : 'json',
+                    success: function(data) {
+                        
+                        var yes = data.result
+                        
+                        if ( yes == 'y'){
+                            alert('승인되었습니다.')
+                            window.location.reload()
+                            
+                        }
+                    },
+                    error: function( jqXHR, textStatus, errorThrown ){
+                        alert('status: ' + textStatus + '\nerror: ' + jqXHR.error )
+                    }
+                })
+            });
+          function layer_popup(el){
+      
+              var $el = $(el);        //레이어의 id를 $el 변수에 저장
+              var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+      
+              isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+      
+              var $elWidth = ~~($el.outerWidth()),
+                  $elHeight = ~~($el.outerHeight()),
+                  docWidth = $(document).width(),
+                  docHeight = $(document).height();
+      
+              // 화면의 중앙에 레이어를 띄운다.
+              if ($elHeight < docHeight || $elWidth < docWidth) {
+                  $el.css({
+                      marginTop: -$elHeight /2,
+                      marginLeft: -$elWidth/2
+                  })
+              } else {
+                  $el.css({top: 0, left: 0});
+              }
+      
+              $el.find('a.btn-layerClose').click(function(){
+                  isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+                  return false;
+              });
+              
+      
+              $('.layer .dimBg').click(function(){
+                  $('.dim-layer').fadeOut();
+                  return false;
+              });
+      
+          }
+  
+  </script>
+{% endblock content %}

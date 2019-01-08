@@ -1,0 +1,456 @@
+{% extends './base.html' %}
+{% block content %}
+<style>
+          .profile {
+          margin: 20px 0;
+        }
+        .profile{
+          color: #5a7391;
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 7px;
+        }
+        .profile-usertitle {
+          text-align: center;
+          margin-top: 20px;
+        }
+        .profile-usertitle > table > tr{
+          text-align: center
+        }
+        .profile-userbuttons {
+          text-align: center;
+          position: fixed;
+        }
+        .profile-userbuttons .btn {
+          text-transform: uppercase;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 9px 19px;
+            text-transform: uppercase;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 7px 19px;
+            margin: 5 30% -20% 90%
+        }
+        /* Profile Content */
+        .profile-content {
+          padding: 20px;
+          background: #fff;
+          min-height: 182px;
+          max-height: 182px;
+        }
+        * {
+          margin: 0;
+          padding: 0;
+        }
+        .pop-layer .pop-container {
+          padding: 20px 25px;
+        }
+        .pop-layer p.ctxt {
+          color: #666;
+          line-height: 25px;
+        }
+        .pop-layer .btn-r {
+            
+            width: 101%;
+            margin: -14px 10px 42px;
+            padding-top: 0%;
+            text-align: right;
+        }
+        .pop-layer {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 630px;
+            height: 350px;
+            background-color: #fff;
+            border: 5px solid #3571B5;
+            z-index: 10;
+        }
+        .dim-layer {
+          display: none;
+          position: fixed;
+          _position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 100;
+        }
+        .dim-layer .dimBg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: #000;
+          opacity: .5;
+          filter: alpha(opacity=50);
+        }
+        .dim-layer .pop-layer {
+          display: block;
+        }
+        a.btn-layerClose:hover {
+          border: 1px solid #091940;
+          background-color: #1f326a;
+          color: #fff;
+        }
+        .table-border tr > td{
+          font-family: Arial, Helvetica, sans-serif;
+        }
+</style>
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-danger">
+            <div class="card-header card-header-success">
+              <h4 class="card-title "><i class="material-icons">library_books</i>&nbsp;공지사항 관리</h4>
+              <p class="card-category">this is the page of managing notices</p>
+              <p class="card-category">this is the page of managing notices
+                <a href="{% url 'operate:notice_add' %}" class="btn btn-default btn-sm my-3" style="float: right;">추가</a>
+              </p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class=" text-primary">
+              <div class="table table-hover table-border">
+                <table class="table table-border">
+                  <thead class=" text-primary" align="center">
+                    <th>Index</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Create Date</th>
+                    <th>Modify Date</th>
+                    <th>
+                      ID
+                    </th>
+                    <th>
+                      Name
+                    </th>
+                    <th>
+                      Country
+                    </th>
+                    <th>
+                      City
+                    </th>
+                    <th>
+                      Salary
+                      <a class="btn btn-default btn-sm my-3 select_all" style="padding: 5px 10px 5px 10px; margin: 0 0 0 0;" data-type="false"><i class="material-icons">check_circle</i></a>
+                      <a href="#layer" class="btn_layer_pop btn btn-default" class="btn btn-default btn-sm my-3" style="padding: 5.5px 10px 5.5px 10px; margin: 0 0 0 0;">활성</a>
+                    </th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        1
+                      </td>
+                      <td>
+                        Dakota Rice
+                      </td>
+                      <td>
+                        Niger
+                      </td>
+                      <td>
+                        Oud-Turnhout
+                      </td>
+                      <td class="text-primary">
+                        $36,738
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        2
+                      </td>
+                      <td>
+                        Minerva Hooper
+                      </td>
+                      <td>
+                        Curaçao
+                      </td>
+                      <td>
+                        Sinaai-Waas
+                      </td>
+                      <td class="text-primary">
+                        $23,789
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        3
+                      </td>
+                      <td>
+                        Sage Rodriguez
+                      </td>
+                      <td>
+                        Netherlands
+                      </td>
+                      <td>
+                        Baileux
+                      </td>
+                      <td class="text-primary">
+                        $56,142
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        4
+                      </td>
+                      <td>
+                        Philip Chaney
+                      </td>
+                      <td>
+                        Korea, South
+                      </td>
+                      <td>
+                        Overland Park
+                      </td>
+                      <td class="text-primary">
+                        $38,735
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        5
+                      </td>
+                      <td>
+                        Doris Greene
+                      </td>
+                      <td>
+                        Malawi
+                      </td>
+                      <td>
+                        Feldkirchen in Kärnten
+                      </td>
+                      <td class="text-primary">
+                        $63,542
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        6
+                      </td>
+                      <td>
+                        Mason Porter
+                      </td>
+                      <td>
+                        Chile
+                      </td>
+                      <td>
+                        Gloucester
+                      </td>
+                      <td class="text-primary">
+                        $78,615
+                      </td>
+                    </tr>
+                    {% for notice in notice_list %}
+                      <tr align="center">
+                        <td class="notice_id" onClick="location.href='{% url "operate:notice_edit" notice_id=notice.id %}'">{{ notice.id }}</td>
+                        <td class="title{{ notice.id }}" onClick="location.href='{% url "operate:notice_edit" notice_id=notice.id %}'">{{ notice.title }}</td>
+                        <td onClick="location.href='{% url "operate:notice_edit" notice_id=notice.id %}'">{{ notice.status }}</td>
+                        <td onClick="location.href='{% url "operate:notice_edit" notice_id=notice.id %}'">{{ notice.create_date }}</td>
+                        <td onClick="location.href='{% url "operate:notice_edit" notice_id=notice.id %}'">{{ notice.modify_date }}</td>
+                        <td><input name="box" class="box" data="{{ notice.id }}" type="checkbox"></td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                {% if is_paginated %}
+                <nav aria-label="Page navigation">
+                  <ul class="pagination">
+                    <!-- is exists previous page -->
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;<span class="sr-only">Previous</span></span></a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;<span class="sr-only">Previous</span></span></a>
+                        </li>
+                    {% endif %}
+                    <!-- is exists current, etc page -->
+                    {% for linkpage in page_obj.paginator.page_range %}
+                        {% if linkpage == page_obj.number %}
+                            <li class="page-item active"><a class="page-link" href="#">
+                                {{ linkpage }}</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ linkpage }}">
+                                {{ linkpage }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    <!-- is exists next page -->
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;<span class="sr-only">Next</span></span></a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;<span class="sr-only">Next</span></span></a>
+                        </li>
+                    {% endif %}
+                  </ul>
+                </nav>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dim-layer">
+      <div class="dimBg"></div>
+        <div id="layer" class="pop-layer">
+          <div class="pop-container">
+            <div class="btn-r">
+                <a href="#" class="btn-layerClose"><i class="material-icons">close</i></a>
+            </div>
+            <div class="pop-conts">
+                <div class="alert alert-danger" style="margin-top: -43px;"></div>
+                <div class="profile-content">
+                  <ul class="for_deactivate" class="list-group" style="inline:block;"></ul>
+                </div>
+                <div class="profile-userbuttons" >
+                  <a class="btn btn-success btn-sm confirm">확인</a>
+                  <a href="#" class="btn btn-danger btn-sm cancel">취소</a> 
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <script>
+
+    var change_list = []
+
+    // $(".select_all").click(function(){
+    //   if(!$(".select_all").hasClass('on')){
+    //     $("input[name=box]").each(function() {
+    //       $(this).attr("checked", true);
+    //       $(".select_all").addClass('on');
+    //     });
+    //   }else{
+    //     $("input[name=box]").each(function() {
+    //       alert(1234)
+    //       $(this).attr("checked", false);
+    //       $(".select_all").removeClass('on');
+    //     });
+    //   }
+    // });
+
+    $(".select_all").click(function () {
+      // alert($(this).attr("data-type"));
+      var data_type = $(this).attr("data-type");
+      if( data_type == 'true' ){
+        $("input[name=box]").each(function() {
+          $(this).prop('checked', '');
+          $('.select_all').attr("data-type", "false");
+        });
+      }else{
+        $("input[name=box]").each(function() {
+          $(this).prop('checked', data_type);
+          $('.select_all').attr("data-type", "true");
+        });
+      }
+    });
+
+    $(".btn_layer_pop").click(function(){
+      var $href = $(this).attr('href');
+      $( ".for_deactivate" ).empty();
+      $( ".alert" ).empty();
+
+      var title_list = []
+      title_list = $(".box:checked");
+      var list_length = title_list.length;
+      if(list_length > 0 ){
+        $(".alert").append('<span><strong>' + list_length + '개의 항목을 활성화/비 활성화 하시겠습니까</strong></span>');
+      }else{
+        alert("선택한 항목이 없습니다. ")
+        return false;
+      }
+
+      $(".box:checked").each(function(i, val){
+        change_list.push($(this).attr('data'))
+        if( i < 2 ){
+          var title_attr_str = ".title" + $(this).attr('data');
+          $(".for_deactivate").append("<li class='list-group-item'>" + $(title_attr_str).text() + "</li>");
+        };
+      });
+      $(".for_deactivate").append("<li class='list-group-item'>.....</li>");
+      
+      layer_popup($href);
+    });
+
+    $(".confirm").click(function(){
+      alert("change_list: " + change_list)
+      $.ajax({
+        type: 'GET',
+        url: '{% url "operate:notice_activate" %}',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: {
+            change_list : change_list
+        },
+        dataType : 'json',
+        success: function(data) {
+          var response = data.result
+          if ( response == 'success' ){
+              alert('변경되었습니다.')
+              window.location.reload()
+          }else{
+              alert('실패 하였습니다.')
+              window.location.reload()
+          }
+        },
+        error: function( jqXHR, textStatus, errorThrown ){
+            alert('status: ' + textStatus + '\nerror: ' + jqXHR.error )
+        }
+      });
+    }); 
+
+    function layer_popup(el){
+      
+      var $el = $(el);        //레이어의 id를 $el 변수에 저장
+      var isDim = $el.prev().hasClass('dimBg');   //dimmed 레이어를 감지하기 위한 boolean 변수
+
+      isDim ? $('.dim-layer').fadeIn() : $el.fadeIn();
+
+      var $elWidth = ~~($el.outerWidth()),
+          $elHeight = ~~($el.outerHeight()),
+          docWidth = $(document).width(),
+          docHeight = $(document).height();
+
+      // 화면의 중앙에 레이어를 띄운다.
+      if ($elHeight < docHeight || $elWidth < docWidth) {
+          $el.css({
+              marginTop: -$elHeight /2,
+              marginLeft: -$elWidth/2
+          })
+      } else {
+          $el.css({top: 0, left: 0});
+      }
+
+      $el.find('a.btn-layerClose').click(function(){
+          isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+          return false;
+      });
+
+      $el.find('a.cancel').click(function(){
+          isDim ? $('.dim-layer').fadeOut() : $el.fadeOut(); // 닫기 버튼을 클릭하면 레이어가 닫힌다.
+          return false;
+      });
+
+      $('.layer .dimBg').click(function(){
+          $('.dim-layer').fadeOut();
+          return false;
+      });
+
+  }
+  </script>
+{% endblock content %}      
