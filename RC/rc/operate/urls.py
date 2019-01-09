@@ -51,4 +51,5 @@ urlpatterns = [
     path('statistics/store/',store.as_view(),name='store'),
 ##### login_required ####################################################
     path('login_required/', login_required, name='login_required'),
+    # path('logout_admin/', logout_admin, name='logout_admin'),
 ]

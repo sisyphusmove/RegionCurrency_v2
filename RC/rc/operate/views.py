@@ -7,6 +7,8 @@ import requests
 from info.models import Notice
 from board.models import Comment, BoardLiker
 from store.models import Photo, Store
+
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
@@ -19,10 +21,45 @@ import json
 
 Userchart = get_user_model()
 
-# Create your views here.
-def main(request):
-    return render(request, 'operate/manage_main.html', ({}))
+## annotation
+def login_required(fn):
+    def wrapper(*args, **kwargs):
+        request = args[0]
+        if request.session['admin_name']:
+            return fn(request)
+        else:
+            return render(request, 'operate/manage_main.html', ({}))
+    return wrapper
 
+#--------------------------------------메인-----------------------------------------------#
+
+def main(request):
+    if request.method == 'POST': # POST
+        admin_name = request.POST.get('username', '')
+        admin_pass = request.POST.get('password', '')
+        user = authenticate(request, username=admin_name, password=admin_pass)
+        if user is not None:
+            request.session['admin_name'] = admin_name
+            context = {}
+            if admin_name == "admin":
+                context['admin_name'] = admin_name
+                return redirect('operate:dashboard')
+            elif admin_name == "admin_server":
+                context['admin_server'] = admin_name
+                return redirect('operate:dashboard')
+            elif admin_name == "admin_govern":
+                context['admin_govern'] = admin_name
+                return redirect('operate:dashboard')
+            else:
+                return render(request, 'operate/manage_main.html', (context))
+        else: 
+            return render(request, 'operate/manage_main.html', (context))
+    else: # GET
+        return render(request, 'operate/manage_main.html', ({}))
+
+#--------------------------------------대시보드-----------------------------------------------#
+
+@login_required
 def dashboard(request):
     context = {}
     context['notice_list']         = get_notices()
@@ -72,12 +109,10 @@ class ApprovalLV(TemplateView):
         return context
 
 def get_approval(request):
-
     store_id = request.GET.get('store_id', '')
     store = get_object_or_404(Store, id=store_id)
     userid = store.representative
     user = get_object_or_404(User, profile__user=userid)
-    print(type(user))
     context = {}
     if store.status == 'w':
         store.status = 'a'
@@ -139,6 +174,7 @@ def notice_activate(request):
     return HttpResponse(json_format, content_type="application/json:charset=UTF-8") 
 
 #--------------------------------------발행이력관리-----------------------------------------------#
+@login_required
 def publish(request):
     context = {}
     publish_list = []
@@ -194,11 +230,6 @@ class store(View):
         return render(request, 'operate/manage_statistics_store.html', {"customers": 10})
 
 #-----------------------------------------------------------------------#
-
-
-
-def login_required(request):
-    return render(request, 'redirect/manage_login_require.html', ({}))
 
 ## utils
 def check_length(string, max_len):

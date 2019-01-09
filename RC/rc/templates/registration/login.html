@@ -18,7 +18,7 @@
                 <span class="boxtitle" >로그인</span>   
             </div>
 
-            <form action="." method="POST" onSubmit="return check_validate();">
+            <form action="{% url 'login' %}" method="POST" onSubmit="return check_validate();">
                 {% csrf_token %}
                 {% if form.errors %}
                     <input type="text" id="status" value="failed" hidden></input>
