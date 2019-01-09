@@ -5,9 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.core.mail import send_mail
 from .forms import ProfileForm
-from docx import Document
 from time import sleep
-import json, requests, datetime
+import json, requests, datetime, docxpy
 
 # Create your views here.
 
@@ -18,30 +17,22 @@ def agreement(request):
     context = {}
     
     try:
-        f = open('static/doc/개인정보 수집·이용 동의.docx', 'rb')
+        doc = docxpy.process('static/doc/개인정보 수집·이용 동의.docx')
     except FileNotFoundError:
         context['agreement1'] = '개인정보 수집·이용 약관을 불러오는데 실패했습니다.'
     else:
-        doc = Document(f)
-        fullText = []
-        for para in doc.paragraphs:
-            fullText.append(para.text)
-        context['agreement1'] = '\n'.join(fullText)
+        context['agreement1'] = doc
     finally:
         if not (f is None):
             f.close()
 
 
     try:
-        f = open('static/doc/개인정보 처리 동침 동의.docx', 'rb')
+        doc = docxpy.process('static/doc/개인정보 처리 동침 동의.docx')
     except FileNotFoundError:
         context['agreement2'] = '개인정보 처리 동침 동의 약관을 불러오는데 실패했습니다.'
     else:
-        doc = Document(f)
-        fullText = []
-        for para in doc.paragraphs:
-            fullText.append(para.text)
-        context['agreement2'] = '\n'.join(fullText)
+        context['agreement2'] = doc
     finally:
         if not (f is None):
             f.close()
