@@ -34,5 +34,5 @@ urlpatterns = [
     path('add_like/', add_like, name='add_like'),
 
     ## external
-    path('board_each/', board_each, name='board_each'),
+    path('board_search/', board_search, name='board_search'),
 ]

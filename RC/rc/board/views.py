@@ -257,11 +257,32 @@ def add_like(request):
         ])
         return HttpResponse(result, content_type="application/json:charset=UTF-8")
 
-def board_each(request):
-    username = request.GET.get('username', )
-    username_user = User(username)
-    board = Board.objects.filter(writer=username_user)
-    result = {}
-    result['board'] = board
+def board_search(request):
+    userid = request.GET.get('userid', )
+    board = Board.objects.filter(Q(writer_id=userid) & Q(status='Y')).order_by('-id')
+    this_page_num = request.GET.get('this_page',1)
+    board_list = []
+    page_size = 5
+    p = Paginator(board, page_size)
+    # for li in list(board):
+    for li in p.page(this_page_num):
+        temp = {}
+        temp['id'] = li.id
+        if len(li.title) > 30 : temp['title'] = str(li.title)[0:30]+"..."
+        else : temp['title'] = li.title
+        temp['content'] = li.content
+        temp['recommend'] = li.recommend
+        temp['create_date'] = str(li.create_date)[0:10]
+        temp['category'] = li.category
+        temp['count'] = li.count
+        board_list.append(temp)
 
-    return HttpResponse(result, content_type="application/json:charset=UTF-8")
+    start_seq = p.count - (page_size * (int(this_page_num) - 1))
+    res = {
+        'start_seq' : start_seq,
+        'board_list': board_list,
+        'current_page_num' : this_page_num,
+        'max_page_num' : p.num_pages
+    }
+    json_format = json.dumps(res)
+    return HttpResponse(json_format, content_type="application/json:charset=UTF-8")
