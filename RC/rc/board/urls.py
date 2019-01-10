@@ -35,4 +35,5 @@ urlpatterns = [
 
     ## external
     path('board_each/', board_each, name='board_each'),
+    path('board_search/', board_search, name='board_search'),
 ]

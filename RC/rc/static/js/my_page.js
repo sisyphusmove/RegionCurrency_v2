@@ -202,7 +202,7 @@ function get_receipt(this_page) {
 
 function get_myboard(this_page) {
     var userid = $("#u_id").val();
-    var urls = "/board/board_search/"
+    var urls = "/board/board_search/";
     $.ajax({
         type: 'GET',
         url: urls,
