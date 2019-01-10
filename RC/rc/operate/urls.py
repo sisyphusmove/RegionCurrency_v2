@@ -27,29 +27,28 @@ urlpatterns = [
 #### 대시보드 URL #######################################################
     path('dashboard/', dashboard, name='dashboard'),
 #### 공지사항 관리 URL ###################################################    
-    path('notice/', NoticeLV.as_view(), name='notice'),
+    path('notice/', manage_notice, name='notice'),
     path('notice/notice_add/', notice_edit, name='notice_add'),
     path('notice/notice_edit/<int:notice_id>', notice_edit, name='notice_edit'),
     path('notice/notice_activate/', notice_activate, name='notice_activate'),
 #### 발행 관리 URL #######################################################    
     path('publish/', publish, name='publish'),
-#### 할인율 관리 URL #####################################################
-    path('discount_rate/', discount_rate, name='discount_rate'),
 #### 네트워크 관리 URL ###################################################
     path('network/', network, name='network'),
 #### 유저관리 URL ########################################################
-    path('users/', usersMyLV.as_view(), name='users'),
+    # path('users/', usersMyLV.as_view(), name='users'),
+    path('users/', manageUser, name='users'),
     path('get_like/', get_like, name='get_like'),
 #### 가맹점 URL ##########################################################
-    path('approval/', ApprovalLV.as_view(), name='approval'),
+    path('approval/', manage_store_approval, name='approval'),
     path('get_approval/', get_approval, name='get_approval'),
 ##### 차트 URL ###########################################################
-    path('statistics/', ChartHomeView.as_view(), name='statistics'),
-    path('statistics/chartdata/', ChartData.as_view(), name='chartdata'),
-    path('statistics/regional/',regional.as_view(),name='regional'),
-    path('statistics/gender/',gender.as_view(),name='gender'),
-    path('statistics/store/',store.as_view(),name='store'),
+    path('stats/', manage_stats, name='stats'),
+    path('stats/chartdata/', ChartData.as_view(), name='chartdata'),
+    path('stats/west_stats/', west_stats, name='west_stats'),
+    path('stats/north_stats/', north_stats, name='north_stats'),
+    path('stats/wooleung_stats/', wooleung_stats, name='wooleung_stats'),
 ##### login_required ####################################################
     path('login_required/', login_required, name='login_required'),
-    # path('logout_admin/', logout_admin, name='logout_admin'),
+    path('admin_logout/', admin_logout, name='admin_logout'),
 ]

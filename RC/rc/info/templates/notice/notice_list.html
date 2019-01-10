@@ -24,11 +24,12 @@
     tr.tag_title:hover{
         background-color: lightgrey;
     }
+    .note-editor.note-frame .note-editing-area .note-editable[contenteditable="false"]{
+        background-color: white;
+    }
 </style>
 <div class="side_bar" style="float: left; border-top: 1px solid #71c55d; border-bottom: 1px solid #71c55d; margin-left: 40px; background-color: white">
     <div style="padding: 20px; background-color: #71c55d;"><div class="" href="{% url 'board:list' %}" style="text-align: center; color: white; font-weight: bold;"> 정 보 마 당 </div></div>
-    <div style="border: 1px solid white;"></div>
-    <div id="btn_board_type_1" style="padding: 20px; background-color: #71c55d;"><a class="btn_board_type_1" value="1" href="{% url 'info:list' %}" style="text-align: center; font-weight: bold;">공 지 사 항</a></div>
 </div>
 <input type="hidden" id="user_type" name="user_type" value="{{ user.profile.type }}">
 <input type="hidden" id="board_type" name="board_type" value="">
@@ -50,7 +51,7 @@
                 </tr>
                 <tr class="tag_content" style="display:none">
                     <td colspan="3">
-                        <div align="center" style="min-height: 5em">{{ text.content }}</div>
+                        <div align="center" class="body" id="summernote" style="min-height: 5em">{{ text.content|safe }}</div>
                     </td>
                 </tr>
             {% endfor %}

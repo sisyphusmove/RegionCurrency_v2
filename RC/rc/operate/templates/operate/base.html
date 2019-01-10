@@ -78,19 +78,13 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="{% url 'operate:discount_rate' %}">
-              <i class="material-icons">more</i>
-              <p>할인율 관리</p>
-            </a>
-          </li>
-          <li class="nav-item ">
             <a class="nav-link" href="{% url 'operate:network' %}">
               <i class="material-icons">cloud_queue</i>
               <p>네트워크 관리</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="{% url 'operate:statistics' %}">
+            <a class="nav-link" href="{% url 'operate:stats' %}">
               <i class="material-icons">trending_up</i>
               <p>통계</p>
             </a>
@@ -138,16 +132,16 @@
                 </div>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="#" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
                     Account
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                    <a class="dropdown-item"><strong>{{ user.profile.user }}</strong></a>
+                    <a class="dropdown-item"><strong>{{ request.session.admin_name }}</strong></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Log out</a>
+                    <a class="dropdown-item" href="{% url 'operate:admin_logout' %}">Log out</a>
                 </div>
               </li>
             </ul>
@@ -168,10 +162,16 @@
       </footer>
     </div>
   </div>
-  <!--   Core JS Files   -->
-  <!-- <script src="{% static 'js/core/jquery.min.js' %}"></script> -->
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+  <!-- Bootstrap tooltips -->
+  {% if main %}
+    <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
+    <script src="{% static 'js/core/popper.min.js' %}"></script>
+  {% else %}
   <script src="{% static 'js/core/popper.min.js' %}"></script>
-  <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
+    <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
+  {% endif %}
   <script src="{% static 'js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
   <!-- Plugin for the momentJs  -->
   <script src="{% static 'js/plugins/moment.min.js' %}"></script>
@@ -210,7 +210,7 @@
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="{% static 'demo/demo.js' %}"></script>
   <script>
-
+    
     $(document).ready(function() {
       $().ready(function() {
         $sidebar = $('.sidebar');

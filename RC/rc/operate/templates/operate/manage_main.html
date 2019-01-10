@@ -253,69 +253,69 @@
 <!--Modal: Login / Register Form-->
 <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog cascading-modal" role="document">
-  <!--Content-->
-  <div class="modal-content">
-    <!--Modal cascading tabs-->
-    <div class="modal-c-tabs">
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="" role="tab"><i class="material-icons">face</i>Login</a>
-        </li>
-      </ul>
-      <!-- Tab panels -->
-      <div class="tab-content">
-        <!--Panel 7-->
-        <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
-            <form action="." method="POST" onSubmit="return check_validate();">
-                {% csrf_token %}
-                {% if form.errors %}
-                    <input type="text" id="status" value="failed" hidden></input>
-                {% endif %}
-                <!--Body-->
-                <div class="modal-body mb-1">
-                    <div class="md-form form-sm mb-5">
-                        <i class="fas fa-id-card-alt prefix"></i>
-                        <input name="username" type="text" id="username" class="form-control form-control-sm validate">
-                        <label id="username" data-error="wrong" data-success="right" for="username">Your id</label>
+    <!--Content-->
+    <div class="modal-content">
+        <!--Modal cascading tabs-->
+        <div class="modal-c-tabs">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
+            <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="" role="tab"><i class="material-icons">face</i>Login</a>
+            </li>
+        </ul>
+        <!-- Tab panels -->
+        <div class="tab-content">
+            <!--Panel 7-->
+            <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+                <form action="." method="POST" onSubmit="return check_validate();">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                        <input type="text" id="status" value="failed" hidden></input>
+                    {% endif %}
+                    <!--Body-->
+                    <div class="modal-body mb-1">
+                        <div class="md-form form-sm mb-5">
+                            <i class="fas fa-id-card-alt prefix"></i>
+                            <input name="username" type="text" id="username" class="form-control form-control-sm validate">
+                            <label id="username" data-error="wrong" data-success="right" for="username">Your id</label>
+                        </div>
+        
+                        <div class="md-form form-sm mb-4">
+                            <i class="fas fa-lock prefix"></i>
+                            <input name="password" type="password" id="password" class="form-control form-control-sm validate">
+                            <label id="password" data-error="wrong" data-success="right" for="password">Your password</label>
+                        </div>
+                        <div class="text-center mt-2">
+                            <button class="btn_login btn btn-info submitButton">Log in <i class="fas fa-sign-in-alt"></i></button>
+                        </div>
                     </div>
-    
-                    <div class="md-form form-sm mb-4">
-                        <i class="fas fa-lock prefix"></i>
-                        <input name="password" type="password" id="password" class="form-control form-control-sm validate">
-                        <label id="password" data-error="wrong" data-success="right" for="password">Your password</label>
-                    </div>
-                    <div class="text-center mt-2">
-                        <button class="btn_login btn btn-info submitButton">Log in <i class="fas fa-sign-in-alt"></i></button>
-                    </div>
+                </form>
+                <div class="alert_bar_id alert alert-danger" style="display:none; margin-bottom: auto;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                    <span><b> Warning - </b> id required </span>
                 </div>
-            </form>
-            <div class="alert_bar_id alert alert-danger" style="display:none; margin-bottom: auto;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <i class="material-icons">close</i>
-                </button>
-                <span><b> Warning - </b> id required </span>
-            </div>
-            <div class="alert_bar_pass alert alert-danger" style="display:none; margin-bottom: auto;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <i class="material-icons">close</i>
-                </button>
-                <span><b> Warning - </b> password required </span>
-            </div>
-            <div class="alert_bar_id_or_pass alert alert-danger" style="display:none; margin-bottom: auto;">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <i class="material-icons">close</i>
-                </button>
-                <span><b> Warning - </b> not proper id or password </span>
+                <div class="alert_bar_pass alert alert-danger" style="display:none; margin-bottom: auto;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                    <span><b> Warning - </b> password required </span>
+                </div>
+                <div class="alert_bar_id_or_pass alert alert-danger" style="display:none; margin-bottom: auto;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                    <span><b> Warning - </b> not proper id or password </span>
+                </div>
             </div>
         </div>
-      </div>
+        </div>
     </div>
-  </div>
-  <!--/.Content-->
+    <!--/.Content-->
+    </div>
 </div>
-</div>
-  <!--Modal: Login / Register Form-->
+<!--Modal: Login / Register Form-->
 <script>
     $( document ).ready(function() {
         $("#modalLRForm").modal("show");

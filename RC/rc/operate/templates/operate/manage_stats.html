@@ -65,14 +65,13 @@
             var ctx4 = document.getElementById("myChart4");
             var ctx5 = document.getElementById("myChart5");
             
-            
-            var myChart = new Chart(ctx2, {
-            type: 'bar',
+            var myChart = new Chart(ctx, {
+            type: 'polarArea',
             data: {
-                labels: labels_second,
+                labels: labels,
                 datasets: [{
-                    label: '연령대별 사용현황',
-                    data: defaultData1,
+                    label: '# of Votes',
+                    data: defaultData,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -102,12 +101,13 @@
                 }
             }
         });
-            var myChart = new Chart(ctx, {
-            type: 'polarArea',
+            
+            var myChart = new Chart(ctx2, {
+            type: 'bar',
             data: {
-                labels: labels,
+                labels: labels_second,
                 datasets: [{
-                    label: '# of Votes',
+                    label: '연령대별 사용현황',
                     data: defaultData,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
