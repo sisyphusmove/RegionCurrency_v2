@@ -27,19 +27,16 @@ Userchart = get_user_model()
 def login_required(fn):
     def wrapper(*args, **kwargs):
         request = args[0]
-        print("############################")
+        print("login required ############################")
         print(request)
         key = 'admin_name'
         context = {}
         if key in request.session:
-            print("is###################")
             return fn(request)    
         elif request.method == "POST":
-            print("not###################")
             context['main'] = 'main'
             return render_to_response('operate/manage_main.html', {'main': 'main'})
         elif request.method == "GET":
-            print("not###################")
             context['main'] = 'main'
             return render_to_response('operate/manage_main.html', {'main': 'main'})
     return wrapper
@@ -157,11 +154,11 @@ def notice_edit(request, notice_id=None):
         if form.is_valid():
             notice = form.save(commit=False)
             notice.save()
-            return redirect('operate:notice')
+        return redirect('operate:notice')
 
     else: # GET 
         form = NoticeForm(instance=notice) 
-        return render(request, 'operate/manage_notice_edit.html', dict(form=form,))
+        return render(request, 'operate/manage_notice_edit.html', dict(form=form, notice=notice))
 
 def notice_activate(request):
     change_list = []
@@ -287,6 +284,8 @@ def check_length(string, max_len):
         result = str(string)
     return result
 
+host = "http://127.0.0.1:3000/"
+
 ## query
 def get_notices():
     notice = Notice.objects.order_by('-id')
@@ -303,7 +302,7 @@ def get_notices():
     return notice_list
 
 def get_publish_amount():
-    get_publish_url = "http://127.0.0.1:3000/get_total_publish"
+    get_publish_url = host + "get_total_publish"
     publish_data = {}
     publish_amount = 0
 
@@ -335,7 +334,7 @@ def get_account_cnt():
 
 def get_tx_cnt():
     tx_height = 0
-    get_block_url = "http://127.0.0.1:3000/get_tx_cnt"
+    get_block_url = host + "get_tx_cnt"
     try:
         response = requests.get(get_block_url)
         json_format = json.loads(response.text)
