@@ -139,6 +139,55 @@ span {
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
+
+#video  {
+  position: relative;
+  height: 75vh;
+  min-height: 70rem;
+  width: 100%;
+}
+
+#video .A {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 1;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+#video .container {
+  position: relative;
+  z-index: 2;
+}
+
+#video .overlay {
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+@media (pointer: coarse) and (hover: none) {
+  #video {
+    background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
+  }
+  #video .A {
+    display: none;
+  }
+}
+
+
 #header {
   background: #fff;
   position: fixed;
@@ -192,7 +241,7 @@ span {
 #hero {
   width: 100%;
   height: calc(100vh - 40px);
-  background: url(../img/hero-bg.png) center bottom no-repeat;
+  background: url("https://ichef.bbci.co.uk/news/660/cpsprodpb/B7B0/production/_101542074_gettyimages-956391468.jpg") center bottom no-repeat;
   background-size: 100%;
   position: relative;
   margin-top: 40px;

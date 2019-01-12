@@ -5,32 +5,37 @@
 {% block title %}RC Coin{% endblock title %}
 {% block extra_js %}
 <script type="text/javascript" src="{% static '/js/board.js' %}"></script>{% endblock %}
-
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
 {% block content %}
 <!--==========================
 소개 id hero
 ============================-->
-<section id="hero" class="wfadeIn">
+
+
+
+{% comment %} <section id="get-started" class="fadeIn">
+
     <div class="hero-container">
-        <br/><br/>
-        <h1>저희는 RC 코인입니다</h1>
-        <h2><span>울릉도민과 관광객 모두를 위한 블록체인 지역화폐</span></h2>
-        <p></p>
-        <a href="{% url 'index' %}"><img src="{% static 'img/ug.jpg' %}" alt="Hero Imgs"></a>
+        <br/><br/> {% endcomment %}
 
+<section id="video">
+  <div class="overlay"></div>
+  <video class="A"playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+    <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4">
+  </video>
+  <div class="container h-100">
+    <div class="d-flex h-100 text-center align-items-center">
+      <div class="w-100 text-white">
+        <h1 class="display-3">Video Header</h1>
+        <h2>With HTML5 Video and Bootstrap 4</h2>
+      </div>
     </div>
+  </div>
+</section>
 
-</section><!-- #hero -->
-<section id="get-started" class="fadeIn">
 
-    <div class="container">
-        <div class="section-title text-center">
-            <br/><br/>
-            <h1>RC 코인이란?</h1>
-            <p class="separator">REGION CURRENCY COIN의 약자입니다.</p>
-
-        </div>
-    </div>
+<section id="get-started">
+    
 
     <div class="container">
         <div class="row">
@@ -99,92 +104,4 @@
     </div>
 </section>
 
-
-<br>
-<!--<section id="get-started" class="wow fadeIn">-->
-
-<!--<div class="container">-->
-<!--<div class="row">-->
-
-<!--<div class="col-md-6 col-lg-4">-->
-<!--<div class="feature-block">-->
-
-<!--<img src="{% static 'img/svg/sitemap.png'%}" alt="img" class="img-fluid">-->
-<!--<h4>사이트맵</h4>-->
-<!--<nav id="nav-menu-container">-->
-<!--<ul class="nav-menu">-->
-<!--<p>-->
-<!--<li class="menu-has-children"><a href="#about-us">펼치기</a>-->
-<!--<ul>-->
-<!--<li><a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2052" target="_blank">소개</a></li>-->
-<!--<li><a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=1967&" target="_blank">오시는 길</a></li>-->
-<!--<li><a href="#" target="_blank">정보마당</a></li>-->
-<!--<li><a href="#" target="_blank">커뮤니티</a></li>-->
-<!--<li><a href="#" target="_blank">가맹점 찾기</a></li>-->
-<!--<li><a href="#" target="_blank">회원가입</a></li>-->
-<!--<li><a href="#" target="_blank">로그인</a></li>-->
-<!--</ul>-->
-<!--</li>-->
-<!--</p>-->
-<!--</ul>-->
-<!--</nav>-->
-
-<!--</div>-->
-<!--</div>-->
-
-<!--<div class="col-md-6 col-lg-4">-->
-<!--<div class="feature-block">-->
-
-<!--<img src="{% static 'img/svg/speaker.png'%}" alt="img" class="img-fluid">-->
-<!--<h4>공지사항</h4>-->
-<!--<nav id="nav-menu-container">-->
-<!--<ul class="nav-menu">-->
-<!--<p>-->
-<!--<li class="menu-has-children"><a href="#about-us">펼치기</a>-->
-<!--<ul>-->
-<!--<li><a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2052" target="_blank">소개</a></li>-->
-<!--<li><a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=1967&" target="_blank">오시는 길</a></li>-->
-<!--<li><a href="#" target="_blank">정보마당</a></li>-->
-<!--<li><a href="#" target="_blank">커뮤니티</a></li>-->
-<!--<li><a href="#" target="_blank">가맹점 찾기</a></li>-->
-<!--<li><a href="#" target="_blank">회원가입</a></li>-->
-<!--<li><a href="#" target="_blank">로그인</a></li>-->
-<!--</ul>-->
-<!--</li>-->
-<!--</p>-->
-<!--</ul>-->
-<!--</nav>-->
-
-
-<!--</div>-->
-<!--</div>-->
-
-<!--<div class="col-md-6 col-lg-4">-->
-<!--<div class="feature-block">-->
-
-<!--<img src="{% static 'img/svg/question.png' %}" alt="img" class="img-fluid">-->
-<!--<h4>자주하는 질문</h4>-->
-<!--<nav id="nav-menu-container">-->
-<!--<ul class="nav-menu">-->
-<!--<p>-->
-<!--<li class="menu-has-children"><a href="#about-us">펼치기</a>-->
-<!--<ul>-->
-<!--<li><a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2052" target="_blank">소개</a></li>-->
-<!--<li><a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=1967&" target="_blank">오시는 길</a></li>-->
-<!--<li><a href="#" target="_blank">정보마당</a></li>-->
-<!--<li><a href="#" target="_blank">커뮤니티</a></li>-->
-<!--<li><a href="#" target="_blank">가맹점 찾기</a></li>-->
-<!--<li><a href="#" target="_blank">회원가입</a></li>-->
-<!--<li><a href="#" target="_blank">로그인</a></li>-->
-<!--</ul>-->
-<!--</li>-->
-<!--</p>-->
-<!--</ul>-->
-<!--</nav>-->
-
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</section>-->
 {% endblock content %}
