@@ -10,7 +10,8 @@ from payment.models import Cancellation
 
 # Create your views here.
 
-host = "http://210.107.78.166:8000/"
+# host = "http://210.107.78.166:8000/"
+host = 'http://127.0.0.1:3000/'
 
 def withdraw(request,account_id=None):
     template_name = "payment/withdraw.html"

@@ -35,7 +35,7 @@ def login_required(fn):
             return fn(request)    
         elif request.method == "POST":
             context['main'] = 'main'
-            return render_to_response('operate/manage_main.html', {'main': 'main'})
+            return render(request, 'operate/manage_dashboard.html')
         elif request.method == "GET":
             context['main'] = 'main'
             return render_to_response('operate/manage_main.html', {'main': 'main'})
@@ -58,14 +58,8 @@ def main(request):
         if user is not None:
             request.session['admin_name'] = admin_name
             request.session.modified = True
-            if admin_name == "admin":
-                context['admin_name'] = admin_name
-                return redirect('operate:dashboard')
-            elif admin_name == "admin_server":
-                context['admin_name'] = admin_name
-                return redirect('operate:dashboard')
-            elif admin_name == "admin_govern":
-                context['admin_name'] = admin_name
+            if admin_name != "":
+                print("admin#########")
                 return redirect('operate:dashboard')
             else:
                 context['main'] = "main"
