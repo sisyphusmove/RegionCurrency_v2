@@ -89,7 +89,8 @@ def dashboard(request):
 def manageUser(request):
     context = {}
     username = request.GET.get('keyword', '')
-    context['users'] = User.objects.filter(username__icontains=username).order_by('-id')
+    context['users'] = User.objects.filter(Q(username__icontains=username) & ~Q(profile__type=0)).order_by('id')
+
     return render(request, 'operate/manage_users.html', (context))
 
 def get_like(request):
