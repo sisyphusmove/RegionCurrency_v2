@@ -156,3 +156,7 @@ EMAIL_HOST_USER = 'doradora46@naver.com'
 EMAIL_HOST = 'smtp.naver.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+# session time setting
+SESSION_COOKIE_AGE = 1200
+SESSION_SAVE_EVERY_REQUEST = True

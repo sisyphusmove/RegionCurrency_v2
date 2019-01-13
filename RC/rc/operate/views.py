@@ -27,18 +27,32 @@ Userchart = get_user_model()
 def login_required(fn):
     def wrapper(*args, **kwargs):
         request = args[0]
-        print("login required ############################")
-        print(request)
+        request_url = request.resolver_match.url_name
         key = 'admin_name'
         context = {}
         if key in request.session:
-            return fn(request)    
+            if bool(request.session['admin_name'] == 'admin_server') & bool(request_url != 'network') & bool(request_url != 'dashboard'):
+                return redirect('operate:dashboard')
+            elif bool(request.session['admin_name'] == 'admin') & bool(request_url == 'network') & bool(request_url != 'dashboard'):
+                return redirect('operate:dashboard')
+            else:
+                return fn(request)
         elif request.method == "POST":
+            admin_name = request.POST.get('username', '')
+            admin_pass = request.POST.get('password', '')
+            user = authenticate(request, username=admin_name, password=admin_pass)
+            if user is not None:
+                request.session['admin_name'] = admin_name
+                request.session.modified = True
+                if bool(admin_name == 'admin_server') & bool(request_url != 'network') & bool(request_url != 'dashboard'):
+                    return redirect('operate:dashboard')
+                elif bool(admin_name == 'admin') & bool(request_url == 'network') & bool(request_url != 'dashboard'):
+                    return redirect('operate:dashboard')
+                else:
+                    return fn(request)    
+        else:
             context['main'] = 'main'
-            return render(request, 'operate/manage_dashboard.html')
-        elif request.method == "GET":
-            context['main'] = 'main'
-            return render_to_response('operate/manage_main.html', {'main': 'main'})
+            return render(request, 'operate/manage_main.html', {'main': 'main'})
     return wrapper
 
 def admin_logout(request, *args):
@@ -50,26 +64,27 @@ def admin_logout(request, *args):
 #--------------------------------------메인-----------------------------------------------#
 
 def main(request):
+    key = 'admin_name'
     context = {}
-    if request.method == 'POST': # POST
-        admin_name = request.POST.get('username', '')
-        admin_pass = request.POST.get('password', '')
-        user = authenticate(request, username=admin_name, password=admin_pass)
-        if user is not None:
-            request.session['admin_name'] = admin_name
-            request.session.modified = True
-            if admin_name != "":
-                print("admin#########")
-                return redirect('operate:dashboard')
-            else:
-                context['main'] = "main"
+    context['main'] = "main"
+    if key in request.session:
+        return redirect('operate:dashboard')
+    else:
+        if request.method == 'POST': # POST
+            admin_name = request.POST.get('username', '')
+            admin_pass = request.POST.get('password', '')
+            user = authenticate(request, username=admin_name, password=admin_pass)
+            if user is not None:
+                request.session['admin_name'] = admin_name
+                request.session.modified = True
+                if admin_name != "":
+                    return redirect('operate:dashboard')
+                else:
+                    return render(request, 'operate/manage_main.html', (context))
+            else: 
                 return render(request, 'operate/manage_main.html', (context))
-        else: 
-            context['main'] = "main"
+        else: # GET
             return render(request, 'operate/manage_main.html', (context))
-    else: # GET
-        context['main'] = "main"
-        return render(request, 'operate/manage_main.html', (context))
 
 #--------------------------------------대시보드-----------------------------------------------#
 
@@ -77,7 +92,7 @@ def main(request):
 def dashboard(request):
     context = {}
     context['notice_list']         = get_notices()
-    context['publish']       = get_publish_amount()
+    context['publish']             = get_publish_amount()
     context['account_cnt']         = get_account_cnt()
     context['tx_cnt']              = get_tx_cnt()
     context['store_cnt']           = get_store_cnt()
@@ -187,7 +202,7 @@ def publish(request):
     return render(request, 'operate/manage_publish.html', (context))
 
 #--------------------------------------네트워크 관리-----------------------------------------------#
-
+@login_required
 def network(request):
     return render(request, 'operate/manage_network.html', ({}))
 
@@ -304,7 +319,6 @@ def get_publish_amount():
     try:
         response = requests.get(get_publish_url)
         json_format = json.loads(response.text)
-        print(type(json_format))
         data_list = []
         for datas in json_format:
             data = {}
@@ -360,5 +374,4 @@ def get_waiting_store():
         if str(li.category).strip() == "요식업":
             stores['category'] = 4
         store_list.append(stores)
-    print(store_list)
     return store_list

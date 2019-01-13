@@ -130,9 +130,13 @@
                       <tr align="center">
                         <td class="notice_id" onClick="location.href='{% url "operate:notice_edit" notice_id=notice.id %}'">{{ notice.id }}</td>
                         <td class="title{{ notice.id }}" onClick="location.href='{% url "operate:notice_edit" notice_id=notice.id %}'">{{ notice.title }}</td>
-                        <td onClick="location.href='{% url "operate:notice_edit" notice_id=notice.id %}'">{{ notice.status }}</td>
                         <td onClick="location.href='{% url "operate:notice_edit" notice_id=notice.id %}'">{{ notice.create_date }}</td>
                         <td onClick="location.href='{% url "operate:notice_edit" notice_id=notice.id %}'">{{ notice.modify_date }}</td>
+                        {% if notice.status == 'Y' %}
+                        <td onClick="location.href='{% url "operate:notice_edit" notice_id=notice.id %}'">활성</td>
+                        {% else %}
+                        <td onClick="location.href='{% url "operate:notice_edit" notice_id=notice.id %}'">비활성</td>
+                        {% endif %}
                         <td><input name="box" class="box" data="{{ notice.id }}" type="checkbox"></td>
                       </tr>
                     {% endfor %}
