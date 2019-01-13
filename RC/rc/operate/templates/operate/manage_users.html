@@ -1,6 +1,7 @@
 {% extends './base.html' %}
 {% load staticfiles %}
 {% block content %}
+<style rel="stylesheet" type="text/css" href="{% static 'css/operate/user.css' %}"></style>
   <div class="content">
     <div class="container-fluid">
       <div class="row">
@@ -56,7 +57,11 @@
                         {% elif user.profile.type == 2 %}
                         <td>일반</td>
                         {% endif %}
-                        <td>{{ user.profile.status }}</td>
+                        {% if user.profile.status == 'a' %}
+                        <td>활동</td>
+                        {% else %}
+                        <td>탈퇴</td>
+                        {% endif %}
                         <td class="status-button">
                             <a href="#layer2" class="btn-example" id="{{user.id}}">
                               <button type="button" class="btn btn-primary btn-sm">상세조회</button>
@@ -81,45 +86,46 @@
       <div class="dimBg"></div>
         <div id="layer2" class="pop-layer">
           <div class="pop-container">
-          <div class="btn-r">
-              <a href="#" class="btn-layerClose"><i class="material-icons">close</i></a>
-          </div>
-          <div class="pop-conts">
-              <div class="profile-userpic">
-                  <img style="float:left;" src="https://image.flaticon.com/icons/svg/236/236832.svg" class="img-responsive" alt="">
+              <div class="btn-r">
+                  <a href="#" class="btn-layerClose"><i class="material-icons">close</i></a>
               </div>
-              <div class="profile-usertitle">
-                <table style="margin-left: 21em">
-                  <tr>
-                    <td class="profile">id</td><td class="profile-usertitle-name"></td>  
-                  </tr>
-                  <tr>
-                    <td class="profile">email</td><td class="profile-usertitle-email"></td>  
-                  </tr>
-                  <tr>
-                    <td class="profile">gender</td><td class="profile-usertitle-gender"></td>  
-                  </tr>
-                  <tr>
-                    <td class="profile">birth</td><td class="profile-usertitle-birth"></td>  
-                  </tr>
-                  <tr>
-                    <td class="profile">type</td><td class="profile-usertitle-type"></td>  
-                  </tr>
-                  <tr>
-                    <td class="profile">status</td><td class="profile-usertitle-status"></td>  
-                  </tr>
-                  <tr>
-                      <td class="profile">like</td><td class="profile-usertitle-like"></td>  
-                  </tr>
-                  <tr>
-                      <td class="profile">board</td><td class="profile-usertitle-board"></td>  
-                  </tr>
-                </table>
-              </div>
-          </div>
+            <div class="pop-conts">
+                <div class="profile-userpic">
+                    <img style="float:left;" src="https://image.flaticon.com/icons/svg/236/236832.svg" class="img-responsive" alt="">
+                </div>
+                <div class="profile-usertitle">
+                  <table style="margin-left: 21em">
+                    <tr>
+                      <td class="profile">id</td><td class="profile-usertitle-name"></td>  
+                    </tr>
+                    <tr>
+                      <td class="profile">email</td><td class="profile-usertitle-email"></td>  
+                    </tr>
+                    <tr>
+                      <td class="profile">gender</td><td class="profile-usertitle-gender"></td>  
+                    </tr>
+                    <tr>
+                      <td class="profile">birth</td><td class="profile-usertitle-birth"></td>  
+                    </tr>
+                    <tr>
+                      <td class="profile">type</td><td class="profile-usertitle-type"></td>  
+                    </tr>
+                    <tr>
+                      <td class="profile">status</td><td class="profile-usertitle-status"></td>  
+                    </tr>
+                    <tr>
+                        <td class="profile">like</td><td class="profile-usertitle-like"></td>  
+                    </tr>
+                    <tr>
+                        <td class="profile">board</td><td class="profile-usertitle-board"></td>  
+                    </tr>
+                  </table>
+                </div>
+                  </div>
+            </div>
         </div>
     </div>
   </div>
-<style rel="stylesheet" type="text/css" href="{% static 'css/operate/user.css' %}"></style>
 <script src="{% static 'js/operate/user.js' %}"></script>
 {% endblock content %}
+  
