@@ -10,8 +10,7 @@ from payment.models import Cancellation
 
 # Create your views here.
 
-# host = "http://210.107.78.166:8000/"
-host = 'http://127.0.0.1:3000/'
+host = "http://210.107.78.166:8000/"
 
 def withdraw(request,account_id=None):
     template_name = "payment/withdraw.html"
@@ -30,7 +29,8 @@ def transfer(request):
     amount = (request.POST.get("point")).replace(',', '')
     today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
     url = host + "transfer/" + fromId +"/"+toId+"/"+amount+"/5/"+today
-    response = requests.get(url)
+    response = requests.post(url)
+    print(response)
     return redirect ('profile:account_myInfo', account_id = request.user.pk)
 
 def get_history(request):
@@ -167,7 +167,7 @@ def payment(request):
     today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
             
     url = host + "transfer/" + from_user.username + "/" + to_user.username + "/" + amount + "/1/" + today
-    response = requests.get(url)
+    response = requests.post(url)
     res = json.loads(response.text)
     data = {
         "result" : res
@@ -194,7 +194,7 @@ def add_canceled_payment(request):
     today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
 
     url = host +'transfer/' + key + '/' + to + '/' + amount + '/3/' + today
-    response = requests.get(url)
+    response = requests.post(url)
     res = json.loads(response.text)
 
     if res['result'] == 'success':

@@ -11,8 +11,6 @@ import json, requests, datetime
 
 # Create your views here.
 
-host = 'http://210.107.78.166:8000/'
-
 class StoreDV(DetailView):
     model = Store
     context_object_name = 'store'

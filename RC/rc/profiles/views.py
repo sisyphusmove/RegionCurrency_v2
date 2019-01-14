@@ -10,8 +10,7 @@ import json, requests, datetime, docxpy
 
 # Create your views here.
 
-# host = 'http://210.107.78.166:8000/'
-host = 'http://127.0.0.1:3000/'
+host = 'http://210.107.78.166:8000/'
 
 def agreement(request):
     f = None
@@ -90,23 +89,19 @@ def account_edit(request, account_id=None):
             today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
             url = host + "init_wallet/" + str(target.username) + "/admin/" + today
             response = requests.post(url)
-            print("############")
-            # print(response)
+            
             res = json.loads(response.text)
-            print(res['result'])
+            
             if res['result'] == "fail":
                 context['messages'] = ['계좌 생성에 실패했습니다.', '관리자에게 문의하세요.', '메인화면으로 이동합니다.', '로그인을 해주세요.']
             else:
                 try:
                     sleep(3)
-                    get_object_or_404(User, email=target.email)
-                    print(111111)
+                    get_object_or_404(User, email=target.email)    
                     today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
                     url = host + "publish/" + str(target.username) + "/admin/3000/" + today
                     response = requests.post(url)
                     res = json.loads(response.text)
-                    print("publish###########")
-                    print(res)
                     if res['result'] == 'success':
                         context['messages'] = ['환영합니다.', '회원가입 기념 3000RC가 발급되었습니다.', '로그인을 해주세요.']
                 except:
