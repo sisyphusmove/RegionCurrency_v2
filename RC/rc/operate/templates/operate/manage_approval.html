@@ -1,12 +1,12 @@
 {% extends './base.html' %}
 {% block content %}
-  <div class="content">
+  <div class="content" style="margin-top: 35px;">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-warning">
-              <h4 class="card-title "><i class="material-icons">store</i>&nbsp;<strong>가게 승인창</strong></h4>
+              <h4 class="card-title "><i class="material-icons">store</i>&nbsp;<strong>가맹점 승인 관리</strong></h4>
               <p class="card-category">this is the page of managing stores</p>
               <p class="card-category"> </p>
             </div>
@@ -54,52 +54,43 @@
       </div>
     </div>
   </div>
-
   <div class="dim-layer">
-        <div class="dimBg"></div>
-          <div id="layer2" class="pop-layer">
-            <div class="pop-container">
-                <div class="btn-r">
-                    <a href="#" class="btn-layerClose"><i class="material-icons">close</i></a>
-                </div>
-              <div class="pop-conts">
-                
-                  
-                  <div class="profile-userpic">
-                      <img style="float:left;" src="" class="img-responsive" alt=""> 
-                  </div>
-
-                  <div class="profile-usertitle">
-                    <table style="margin-left: 21em">
-                      <tr>
-                        <td class="profile">storename</td><td class="profile-usertitle-storename"></td>  
-                      </tr>
-                    
-                      <tr>
-                        <td class="profile">number</td><td class="profile-usertitle-corporate_number"></td>  
-                      </tr>
-                      
-                      <tr>
-                        <td class="profile">category</td><td class="profile-usertitle-category"></td>  
-                      </tr>
-
-                      <tr>
-                        <td class="profile">location</td><td class="profile-usertitle-location"></td>  
-                      </tr>
-                      
-                      <tr>
-                        <td class="profile">status</td><td class="profile-usertitle-status"></td>  
-                      </tr>
-                    </table>
-                  </div>
-                  
-                   <div class="profile-userbuttons">
-                      <button type="button" class="btn btn-success btn-sm status">승인</button> 
-                    </div>
-              </div>
+      <div class="dimBg"></div>
+      <div id="layer2" class="pop-layer">
+        <div class="pop-container">
+          <div class="btn-r">
+              <a href="#" class="btn-layerClose"><i class="material-icons">close</i></a>
           </div>
-      </div>
-
+          <div class="pop-conts">
+            <div class="profile-userpic">
+                <img style="float:left;" src="" class="img-responsive" alt=""> 
+            </div>
+            <div class="profile-usertitle">
+              <table style="margin-left: 21em">
+                <tr>
+                  <td class="profile">storename</td><td class="profile-usertitle-storename"></td>  
+                </tr>
+                <tr>
+                  <td class="profile">number</td><td class="profile-usertitle-corporate_number"></td>  
+                </tr>
+                <tr>
+                  <td class="profile">category</td><td class="profile-usertitle-category"></td>  
+                </tr>
+                <tr>
+                  <td class="profile">location</td><td class="profile-usertitle-location"></td>  
+                </tr>
+                <tr>
+                  <td class="profile">status</td><td class="profile-usertitle-status"></td>  
+                </tr>
+              </table>
+            </div>
+            <div class="profile-userbuttons">
+              <button type="button" class="btn btn-success btn-sm status">승인</button> 
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
   <style>
         .profile {
           margin: 20px 0;
