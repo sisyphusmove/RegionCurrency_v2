@@ -91,12 +91,15 @@ def main(request):
 @login_required
 def dashboard(request):
     context = {}
-    context['notice_list']         = get_notices()
-    context['publish']             = get_publish_amount()
-    context['account_cnt']         = get_account_cnt()
     context['tx_cnt']              = get_tx_cnt()
     context['store_cnt']           = get_store_cnt()
+    context['account_cnt']         = get_account_cnt()
+    context['publish']             = get_publish_amount()
+    context['west_stats']          = 0 if get_total_location_tx(1) == None else get_total_location_tx(1)
+    context['north_stats']         = 0 if get_total_location_tx(2) == None else get_total_location_tx(2)
+    context['wooleung_stats']      = 0 if get_total_location_tx(3) == None else get_total_location_tx(3)
     context['store_waiting_list']  = get_waiting_store()
+    context['notice_list']         = get_notices()
     return render(request, 'operate/manage_dashboard.html', (context))
 
 #--------------------------------------사용자관리-----------------------------------------------#
@@ -323,7 +326,7 @@ def get_publish_amount():
         for datas in json_format:
             data = {}
             publish_amount = datas['balance']
-            data['tx_id'] = check_length(str(datas['tx_id']),7)
+            data['tx_id'] = str(datas['tx_id'])
             data['amount'] = datas['amount']
             data['person'] = datas['trader']
             data['date'] = datas['date']
@@ -375,3 +378,6 @@ def get_waiting_store():
             stores['category'] = 4
         store_list.append(stores)
     return store_list
+
+def get_total_location_tx(location):
+    return ChartStat.objects.filter(Q(store__location=location)).aggregate(Sum('amount'))['amount__sum']

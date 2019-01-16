@@ -54,200 +54,215 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-            <div class="card-header card-header-success card-header-icon">
-                <div class="card-icon">
-                <i class="material-icons">compare_arrows</i>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">compare_arrows</i>
+                        </div>
+                        <p class="card-category">Transactions</p>
+                        <h3 class="card-title">{{ tx_cnt }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">date_range</i> Last 24 Hours
+                        </div>
+                    </div>
                 </div>
-                <p class="card-category">Transactions</p>
-                <h3 class="card-title">{{ tx_cnt }}</h3>
             </div>
-            <div class="card-footer">
-                <div class="stats">
-                <i class="material-icons">date_range</i> Last 24 Hours
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">content_paste</i>
+                        </div>
+                        <p class="card-category">Stores</p>
+                        <h3 class="card-title">{{ store_cnt }}
+                        </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons text-danger">warning</i>
+                            <a href="#pablo">Get More Space...</a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">account_balance_wallet</i>
+                        </div>
+                        <p class="card-category">Accounts</p>
+                        <h3 class="card-title">{{ account_cnt }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_offer</i> Tracked from Github
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">local_atm</i>
+                        </div>
+                        <p class="card-category">Publish</p>
+                        <h3 class="card-title">{{ publish.total_publish }}RC</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_atm</i> Just Updated
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-            <div class="card-header card-header-warning card-header-icon">
-                <div class="card-icon">
-                <i class="material-icons">content_paste</i>
-                </div>
-                <p class="card-category">Stores</p>
-                <h3 class="card-title">{{ store_cnt }}
-                </h3>
-            </div>
-            <div class="card-footer">
-                <div class="stats">
-                <i class="material-icons text-danger">warning</i>
-                <a href="#pablo">Get More Space...</a>
-                </div>
-            </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-            <div class="card-header card-header-danger card-header-icon">
-                <div class="card-icon">
-                <i class="material-icons">account_balance_wallet</i>    
-                </div>
-                <p class="card-category">Accounts</p>
-                <h3 class="card-title">{{ account_cnt }}</h3>
-            </div>
-            <div class="card-footer">
-                <div class="stats">
-                <i class="material-icons">local_offer</i> Tracked from Github
-                </div>
-            </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-            <div class="card-header card-header-info card-header-icon">
-                <div class="card-icon">
-                    <i class="material-icons">local_atm</i>
-                </div>
-                <p class="card-category">Publish</p>
-                <h3 class="card-title">{{ publish.total_publish }}RC</h3>
-            </div>
-            <div class="card-footer">
-                <div class="stats">
-                <i class="material-icons">local_atm</i> Just Updated
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-
         <div class="row">
-            <div class="col-md-4">
+            <div style="float: left; width: 46%; margin-left: 2%; margin-right: 2%">
                 <div class="card card-chart">
-                    <div class="card-header card-header-success" onClick="location.href='{% url "operate:north_stats" %}'">
+                    <div class="card-header card-header-success">
                         <div class="ct-chart" id="dailySalesChart"></div>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">북면</h4>
+                        <h4 class="card-title">전체 거래량</h4>
                         <p class="card-category">
-                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
+                        <span class="text-success"><i class="material-icons">trending_up</i> 55% </span> increase in today sales.</p>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                        <i class="material-icons">access_time</i> till now
+                                <i class="material-icons">local_offer</i><a href="{% url 'operate:stats' %}">통계보기</a><i class="material-icons">subdirectory_arrow_left</i>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card card-chart">
-                <div class="card-header card-header-warning" onClick="location.href='{% url "operate:west_stats" %}'">
-                    <div class="ct-chart" id="websiteViewsChart"></div>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">서면</h4>
-                    <p class="card-category">Last Campaign Performance</p>
-                </div>
-                <div class="card-footer">
-                    <div class="stats">
-                    <i class="material-icons">access_time</i> campaign sent 2 days ago
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-chart">
-                    <div class="card-header card-header-danger" onClick="location.href='{% url "operate:wooleung_stats" %}'">
-                        <div class="ct-chart" id="completedTasksChart"></div>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">울릉읍</h4>
-                        <p class="card-category">Last Campaign Performance</p>
+            <div style="float: right; width: 46%; margin-left: 2%; margin-right: 2%">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">insert_chart</i>
+                        </div>
+                        <p class="card-category">서면</p>
+                        <h3 class="card-title"> &nbsp; {{ west_stats }}
+                        </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                        <i class="material-icons">access_time</i> 
+                            <i class="material-icons">local_offer</i>
+                            <a href="{% url 'operate:west_stats' %}">통계보기</a><i class="material-icons">subdirectory_arrow_left</i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">insert_chart</i>
+                        </div>
+                        <p class="card-category">북면</p>
+                        <h3 class="card-title"> &nbsp; {{ north_stats }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_offer</i><a href="{% url 'operate:north_stats' %}">통계보기</a><i class="material-icons">subdirectory_arrow_left</i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">insert_chart</i>
+                        </div>
+                        <p class="card-category">울릉읍</p>
+                        <h3 class="card-title"> &nbsp; {{ wooleung_stats }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_offer</i><a href="{% url 'operate:wooleung_stats' %}">통계보기</a><i
+                                class="material-icons">subdirectory_arrow_left</i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-        <div class="col-lg-6 col-md-12">
-            <div class="card">
-            <div class="card-header card-header-tabs card-header-primary">
-                <div class="nav-tabs-navigation">
-                <div class="nav-tabs-wrapper">
-                    <ul class="nav nav-tabs" data-tabs="tabs">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#settings" data-toggle="tab">
-                        <i class="material-icons">cloud</i> Waiting Stores
-                        <div class="ripple-container"></div>
-                        </a>
-                    </li>
-                    </ul>
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary">
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#settings" data-toggle="tab">
+                                            <i class="material-icons">cloud</i> Waiting Stores
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="profile">
+                                <ul class="list-group" style="inline:block;">
+                                    {% for store in store_waiting_list %}
+                                    {% if store.category == 1 %}
+                                    <li class="list-group-item"><i class="material-icons">shopping_cart</i>
+                                        {% endif %}
+                                        {% if store.category == 2 %}
+                                    <li class="list-group-item"><i class="material-icons">directions_bike</i>
+                                        {% endif %}
+                                        {% if store.category == 3 %}
+                                    <li class="list-group-item"><i class="material-icons">hotel</i>
+                                        {% endif %}
+                                        {% if store.category == 4 %}
+                                    <li class="list-group-item"><i class="material-icons">local_dining</i>
+                                        {% endif %}
+                                        &nbsp;&nbsp; | &nbsp;&nbsp;{{ store.name }} &nbsp;&nbsp;|&nbsp;&nbsp;
+                                        {{store.corporate_number }} &nbsp;&nbsp;|&nbsp;&nbsp; {{ store.modified_date }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title">Manage notice</h4>
+                        <p class="card-category">Four latest notices</p>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover table-border">
+                            <thead class="text-warning" align="center">
+                                <th>Index</th>
+                                <th>Title</th>
+                                <th>Writer</th>
+                                <th>Create</th>
+                                <th>Modify</th>
+                                <th>Status</th>
+                            </thead>
+                            <tbody>
+                                {% for notice in notice_list %}
+                                <tr align="center">
+                                    <td>{{ notice.id }}</td>
+                                    <td>{{ notice.title }}</td>
+                                    <td>{{ notice.writer }}</td>
+                                    <td>{{ notice.create_date }}</td>
+                                    <td>{{ notice.modify_date }}</td>
+                                    <td>{{ notice.status }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div class="card-body">
-                <div class="tab-content">
-                <div class="tab-pane active" id="profile">
-                    <ul class="list-group" style="inline:block;">
-                        {% for store in store_waiting_list %}
-                            {% if store.category == 1 %}
-                                <li class="list-group-item"><i class="material-icons">shopping_cart</i>
-                            {% endif %}
-                            {% if store.category == 2 %}
-                                <li class="list-group-item"><i class="material-icons">directions_bike</i>
-                            {% endif %}
-                            {% if store.category == 3 %}
-                                <li class="list-group-item"><i class="material-icons">hotel</i>
-                            {% endif %}
-                            {% if store.category == 4 %}
-                                <li class="list-group-item"><i class="material-icons">local_dining</i>
-                            {% endif %}
-                                &nbsp;&nbsp; | &nbsp;&nbsp;{{ store.name }} &nbsp;&nbsp;|&nbsp;&nbsp; {{ store.corporate_number }} &nbsp;&nbsp;|&nbsp;&nbsp; {{ store.modified_date }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                </div>
-            </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-12">
-            <div class="card">
-            <div class="card-header card-header-warning">
-                <h4 class="card-title">Manage notice</h4>
-                <p class="card-category">Four latest notices</p>
-            </div>
-            <div class="card-body table-responsive">
-                <table class="table table-hover table-border">
-                    <thead class="text-warning" align="center">
-                        <th>Index</th>
-                        <th>Title</th>
-                        <th>Writer</th>
-                        <th>Create</th>
-                        <th>Modify</th>
-                        <th>Status</th>
-                    </thead>
-                    <tbody>
-                        {% for notice in notice_list %}
-                        <tr align="center">
-                            <td>{{ notice.id }}</td>
-                            <td>{{ notice.title }}</td>
-                            <td>{{ notice.writer }}</td>
-                            <td>{{ notice.create_date }}</td>
-                            <td>{{ notice.modify_date }}</td>
-                            <td>{{ notice.status }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            </div>
-        </div>
         </div>
     </div>
 </div>
