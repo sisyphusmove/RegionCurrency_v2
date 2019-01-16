@@ -116,6 +116,9 @@ function validationCheck() {
     check_password();
     agree();
     if (idCheck==1&&pwCheck==1&&restBalanceCheck==1&&agreeCheck==1) {
+        $("#btn_transfer").prop("value", "송금중");
+        $("#btn_transfer").attr("onClick", "return false");
+        $("#btn_cancel").attr("onClick", "return false");
         return true;
     }
     return false;
