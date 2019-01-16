@@ -241,8 +241,8 @@ span {
 #hero {
   width: 100%;
   height: calc(100vh - 40px);
-  background: url("https://ichef.bbci.co.uk/news/660/cpsprodpb/B7B0/production/_101542074_gettyimages-956391468.jpg") center bottom no-repeat;
-  background-size: 100%;
+  /* background: url("https://ichef.bbci.co.uk/news/660/cpsprodpb/B7B0/production/_101542074_gettyimages-956391468.jpg") center bottom no-repeat; */
+  /* background-size: 100%; */
   position: relative;
   margin-top: 40px;
 }
