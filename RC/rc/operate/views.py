@@ -268,14 +268,21 @@ class ChartData(APIView):
         ###############line###########################
         labels_thard = ['요식업','숙박업','레저','쇼핑']
        
+        
         default2_items = [0,0,0,0]
-        default2_items[0] = (ChartStat.objects.filter(Q(store__location=location) & Q(store__category = 1)).aggregate(Sum('amount')))['amount__sum']
-        default2_items[1] = (ChartStat.objects.filter(Q(store__location=location) & Q(store__category = 2)).aggregate(Sum('amount')))['amount__sum']
-        default2_items[2] = (ChartStat.objects.filter(Q(store__location=location) & Q(store__category = 3)).aggregate(Sum('amount')))['amount__sum']
-        default2_items[3] = (ChartStat.objects.filter(Q(store__location=location) & Q(store__category = 4)).aggregate(Sum('amount')))['amount__sum']
-           
+
+        
+        for li in range(4):
+            
+            object_money = (ChartStat.objects.filter(Q(store__location=location) & Q(store__category = li+1)).aggregate(Sum('amount')))['amount__sum']
+            print(object_money)
+            if object_money != None:
+                default2_items[li] = object_money
+            
+
 
         data = {
+                
                 "labels": labels,
                 "default": default_items,
                 "labels_second" : labels_second,
