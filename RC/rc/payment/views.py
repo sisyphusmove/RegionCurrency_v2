@@ -143,6 +143,7 @@ def get_receipt(request):
 
 def progress(request):
     s_id = request.GET.get('s_id')
+    s_rid = request.GET.get('s_rid')
     s_name = request.GET.get('s_name')
     u_id = request.user.pk
     u_name = request.user.username
@@ -154,7 +155,7 @@ def progress(request):
     except:
         print("에러")
 
-    return render (request, 'payment/payment.html', dict(s_id=s_id, s_name=s_name, u_id=u_id, u_name=u_name))
+    return render (request, 'payment/payment.html', dict(s_id=s_id, s_name=s_name, s_rid=s_rid, u_id=u_id, u_name=u_name))
 ########################################CSRF############################
 from django.views.decorators.csrf import csrf_exempt
 

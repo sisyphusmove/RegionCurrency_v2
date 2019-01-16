@@ -25,6 +25,7 @@
                 <div>"<strong>{{ s_name }}</strong>"에서&nbsp;</div>
                 <div>결제를&nbsp;진행합니다.</div>
                 <input id="s_id" value="{{ s_id }}" hidden />
+                <input id="s_rid" value="{{ s_rid }}" hidden />
                 <input id="u_id" value="{{ u_id }}" hidden />
             </div>
             
@@ -46,7 +47,7 @@
             
             <div class="row col-sm">
                 <button type="submit" id="btn_submit" onClick="check_validation()" class="col-sm btn submitButton">결제</button>
-                <a href="{% url 'profile:account_myInfo' u_id %}" class="col-sm btn cancelButton">취소</a>
+                <a href="{% url 'profile:account_myInfo' u_id %}" id="btn_cancel" class="col-sm btn cancelButton">취소</a>
             </div>
         
         </div>
