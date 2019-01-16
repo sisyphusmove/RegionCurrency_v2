@@ -4,13 +4,15 @@ from django.contrib.auth.models import User, BaseUserManager
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.core.mail import send_mail
+from django.views.decorators.csrf import csrf_exempt
+
 from .forms import ProfileForm
 from time import sleep
 import json, requests, datetime, docxpy
 
 # Create your views here.
 
-host = 'http://210.107.78.166:8000/'
+host = 'http://210.107.78.166:3000/'
 
 def agreement(request):
     f = None
@@ -60,6 +62,7 @@ def done(request):
     return render(request, 'registration/done.html')
 
 
+@csrf_exempt
 def account_edit(request, account_id=None):
     context = {}
     isSignup = False
@@ -87,22 +90,34 @@ def account_edit(request, account_id=None):
         if isSignup:
             target = get_object_or_404(User, username=request.POST.get("username"))
             today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
-            url = host + "init_wallet/" + str(target.username) + "/admin/" + today
-            response = requests.post(url)
-            
-            res = json.loads(response.text)
-            
-            if res['result'] == "fail":
+            headers = {'Content-Type': 'application/json; charset=utf-8'}
+            url = host + "init_wallet"
+            data = {
+                'user_id' : target.username, 
+                'from_id' : 'admin', 
+                'date' : today
+            }
+            param_data = { 'param_data' : json.dumps(data) }
+            response = requests.post(url, params=param_data, headers=headers)
+
+            if response.status_code != 200:
                 context['messages'] = ['계좌 생성에 실패했습니다.', '관리자에게 문의하세요.', '메인화면으로 이동합니다.', '로그인을 해주세요.']
             else:
                 try:
                     sleep(3)
                     get_object_or_404(User, email=target.email)    
                     today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
-                    url = host + "publish/" + str(target.username) + "/admin/3000/" + today
-                    response = requests.post(url)
-                    res = json.loads(response.text)
-                    if res['result'] == 'success':
+                    headers = {'Content-Type': 'application/json; charset=utf-8'}
+                    url = host + "publish"
+                    data = {
+                        'user_id'   : target.username, 
+                        'from_id'   : 'admin',
+                        'amount'    : "3000",
+                        'date'      : today
+                    }
+                    param_data = { 'param_data' : json.dumps(data) }
+                    response2 = requests.post(url, params=param_data, headers=headers)
+                    if response2.status_code == 200:
                         context['messages'] = ['환영합니다.', '회원가입 기념 3000RC가 발급되었습니다.', '로그인을 해주세요.']
                 except:
                     pass
@@ -121,9 +136,10 @@ def my_info(request, account_id=None):
     template_name = "registration/profile_myInfo.html"
     context = getContext(account_id)
     user = get_object_or_404(User, pk=account_id)
-    url = host +"get_account/" + user.username
-    response = requests.get(url)
-    res = json.loads(response.text)
+    url = host + "get_account"
+    params = {'user_id' : user.username}
+    response = requests.get(url, params=params)
+    res = response.json()
     data = {
         "context" : context,
         "balance" : res['value']
@@ -134,9 +150,10 @@ def my_info(request, account_id=None):
 def get_balance(request):
     u_id = request.POST.get("u_id", None)
     user = get_object_or_404(User, pk=u_id)
-    url = host + "get_account/" + user.username
-    response = requests.get(url)
-    res = json.loads(response.text)
+    url = host + "get_account"
+    params = {'user_id' : user.username}
+    response = requests.get(url, params=params)
+    res = response.json()
     data = {
         "balance" : res['value']
     }
