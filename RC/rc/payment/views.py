@@ -155,7 +155,11 @@ def progress(request):
         print("에러")
 
     return render (request, 'payment/payment.html', dict(s_id=s_id, s_name=s_name, u_id=u_id, u_name=u_name))
+########################################CSRF############################
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
+########################################################################
 def payment(request):
     u_id = request.POST.get("u_id", None)
     s_id = request.POST.get("s_id", None)
@@ -172,7 +176,27 @@ def payment(request):
     data = {
         "result" : res
     }
+    ###################차트 데이터####################
+    user = get_object_or_404(User, id=u_id)
+
+    age = int(datetime.datetime.now().year) - int(user.profile.birth_year) 
+    gender = user.profile.gender
+    location = store.location
+    category = store.category
+    print(user," : ",age," : ",gender,':',location,":",category)
     
+    from operate.models import ChartStat
+    chart = ChartStat()
+    chart.age = age
+    chart.gender = gender
+    chart.store = store
+    chart.amount = amount
+    chart.location = location
+    chart.category = category
+
+    chart.save()
+############################################################################################################
+
     json_data = json.dumps(data)
     return HttpResponse(json_data, content_type="application/json;charset=UTF-8")
 
