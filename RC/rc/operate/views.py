@@ -227,6 +227,8 @@ def west_stats(request):
 
 ##################울릉읍#########################################
 @login_required
+
+
 def wooleung_stats(request):
     return render(request, 'operate/manage_stats_wooleung.html', {})
 
@@ -234,8 +236,22 @@ class ChartData(APIView):
     authentication_classes = []
     permission_classes = []
     def get(self, request, format=None):
-        
+
         location = self.request.GET.get("location")
+        ################울릉도 전체#####################
+        all_labels = ['2015','2016','2017','2018','2019']
+        # data_list = ChartStat.objects.values_list('time', flat=True)
+        default = {}
+        for label in all_labels:
+            default[label] = 0
+            value = ChartStat.objects.filter(time__icontains=label).aggregate(Sum('amount'))['amount__sum']
+            if value != None:
+                default[label] = value
+       
+            # 0 if default[label].values() == None else default[label]
+            # if default[label] != None : 
+            # else :
+            #     default[label] = 0
         ###############polar###########################
         labels = ['남자','여자']
         data_list1 = ChartStat.objects.values_list('gender', flat=True).filter(store__location=location)
@@ -275,18 +291,22 @@ class ChartData(APIView):
         for li in range(4):
             
             object_money = (ChartStat.objects.filter(Q(store__location=location) & Q(store__category = li+1)).aggregate(Sum('amount')))['amount__sum']
-            print(object_money)
             if object_money != None:
                 default2_items[li] = object_money
             
 
 
         data = {
-                
+
+                "all_labels" : all_labels,
+                "all_default" : default.values(),
+               
                 "labels": labels,
                 "default": default_items,
+
                 "labels_second" : labels_second,
                 "default1": default1_items,
+
                 "labels_thard" : labels_thard,
                 "default2": default2_items,
                 

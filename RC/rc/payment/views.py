@@ -176,25 +176,26 @@ def payment(request):
     data = {
         "result" : res
     }
+
     ###################차트 데이터####################
-    user = get_object_or_404(User, id=u_id)
+    if data['result'] != 'fail':
+        user = get_object_or_404(User, id=u_id)
 
-    age = int(datetime.datetime.now().year) - int(user.profile.birth_year) 
-    gender = user.profile.gender
-    location = store.location
-    category = store.category
-    print(user," : ",age," : ",gender,':',location,":",category)
-    
-    from operate.models import ChartStat
-    chart = ChartStat()
-    chart.age = age
-    chart.gender = gender
-    chart.store = store
-    chart.amount = amount
-    chart.location = location
-    chart.category = category
+        age = int(datetime.datetime.now().year) - int(user.profile.birth_year) 
+        gender = user.profile.gender
+        location = store.location
+        category = store.category
+        
+        from operate.models import ChartStat
+        chart = ChartStat()
+        chart.age = age
+        chart.gender = gender
+        chart.store = store
+        chart.amount = amount
+        chart.location = location
+        chart.category = category
 
-    chart.save()
+        chart.save()
 ############################################################################################################
 
     json_data = json.dumps(data)
