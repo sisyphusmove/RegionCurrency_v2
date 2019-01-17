@@ -199,9 +199,9 @@ def payment(request):
     data_json = json.dumps(data)
     param_data = { 'param_data' : data_json }
     response = requests.post(url, params=param_data, headers=headers)
-
+    msg = response.json()
     ###################차트 데이터####################
-    if response.status_code == 200:
+    if msg['result'] == 'success':
         user = get_object_or_404(User, id=u_id)
 
         age = int(datetime.datetime.now().year) - int(user.profile.birth_year) 
@@ -254,8 +254,8 @@ def add_canceled_payment(request):
     data_json = json.dumps(data)
     param_data = { 'param_data' : data_json }
     response = requests.post(url, params=param_data, headers=headers)
-
-    if response.status_code == 200:
+    msg = response.json()
+    if msg['result'] == 'success':
         canceled = Cancellation()
         canceled.s_id = Store.objects.filter(Q(representative=request.user.pk))[0]
         canceled.txHash = tx
