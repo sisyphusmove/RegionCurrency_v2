@@ -104,7 +104,6 @@ def dashboard(request):
     context['west_stats']          = 0 if get_total_location_tx(2) == None else get_total_location_tx(2)
     context['north_stats']         = 0 if get_total_location_tx(3) == None else get_total_location_tx(3)
     context['wooleung_stats']      = 0 if get_total_location_tx(1) == None else get_total_location_tx(1)
->>>>>>> bd1a1d916f3ee8592a16eb4299862e2dc6b2fd40
     context['store_waiting_list']  = get_waiting_store()
     context['notice_list']         = get_notices()
     return render(request, 'operate/manage_dashboard.html', (context))
