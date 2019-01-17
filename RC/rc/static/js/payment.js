@@ -81,6 +81,15 @@ function payment() {
 
 function check_validation() {
     if ( check_password() && check_amount() ) {
-        payment();
+        var s_rid = $("#s_rid").val();
+        var u_id = $("#u_id").val();
+        if( s_rid == u_id ) {
+            alert("자신에게는 결제 할 수 없습니다.");
+        } else {
+            $("#btn_submit").text("결제중");
+            $("#btn_submit").prop("disabled", true);
+            $("#btn_cancel").attr("onClick", "return false");
+            payment();
+        }
     }
 }

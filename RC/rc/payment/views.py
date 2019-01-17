@@ -5,41 +5,55 @@ import json, requests, datetime
 from django.http import JsonResponse, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
 from store.models import Store
 from payment.models import Cancellation
 
 # Create your views here.
 
-host = "http://210.107.78.166:8000/"
+host = "http://210.107.78.166:3000/"
 
 def withdraw(request,account_id=None):
     template_name = "payment/withdraw.html"
     user = get_object_or_404(User, pk=account_id)
-    url = host +"get_account/" + user.username
-    response = requests.get(url)
-    res = json.loads(response.text)
+    url = host +"get_account"
+    params = {'user_id': user.username}
+    response = requests.get(url, params=params)
+    res = response.json()
     data = {       
          "balance" : res['value']
     }
     return render(request, template_name, data)
 
+@csrf_exempt
 def transfer(request):
     fromId = request.POST.get("from")
     toId = request.POST.get("target") 
     amount = (request.POST.get("point")).replace(',', '')
     today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
-    url = host + "transfer/" + fromId +"/"+toId+"/"+amount+"/5/"+today
-    response = requests.post(url)
-    print(response)
+    
+    headers = {'Content-Type': 'application/json; charset=utf-8'}
+    url = host + "transfer"
+    data = {
+        'from_id'   : fromId, 
+        'to_id'     : toId,
+        'amount'    : amount,
+        'type'      : '5',
+        'date'      : today
+    }
+    param_data = { 'param_data' : json.dumps(data) }
+    response = requests.post(url, params=param_data, headers=headers)
+    
     return redirect ('profile:account_myInfo', account_id = request.user.pk)
 
 def get_history(request):
     fro = request.GET.get('fro',None)
     this_page_num = request.GET.get('this_page',None)
     query_type = request.GET.get('type', 1)
-    url = host + "get_txList/" + fro
-    response = requests.get(url)
-    res = json.loads(response.text)
+    url = host + "get_txList"
+    params = {'user_id' : fro}
+    response = requests.get(url, params=params)
+    res = response.json()
     fullLength = len(res)
     result = res.reverse()
 
@@ -102,9 +116,10 @@ def get_receipt(request):
     store = Store.objects.filter(Q(representative_id=u_id) & ~Q(status='d'))
     if store:
         registered_date = (store[0].registered_date).strftime('%Y-%m-%d %H:%M:%S')    
-        url = host + 'get_txList/' + user.username
-        response = requests.get(url)
-        res = json.loads(response.text)
+        url = host + 'get_txList'
+        params = {'user_id' : user.username}
+        response = requests.get(url, params=params)
+        res = response.json()
         res.reverse()
 
         filtered_list = []
@@ -143,6 +158,7 @@ def get_receipt(request):
 
 def progress(request):
     s_id = request.GET.get('s_id')
+    s_rid = request.GET.get('s_rid')
     s_name = request.GET.get('s_name')
     u_id = request.user.pk
     u_name = request.user.username
@@ -154,9 +170,10 @@ def progress(request):
     except:
         print("에러")
 
-    return render (request, 'payment/payment.html', dict(s_id=s_id, s_name=s_name, u_id=u_id, u_name=u_name))
+    return render (request, 'payment/payment.html', dict(s_id=s_id, s_name=s_name, s_rid=s_rid, u_id=u_id, u_name=u_name))
 ########################################CSRF############################
 from django.views.decorators.csrf import csrf_exempt
+
 
 @csrf_exempt
 ########################################################################
@@ -170,31 +187,38 @@ def payment(request):
     to_user = get_object_or_404(User, pk=int(store.representative_id))
     today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
             
-    url = host + "transfer/" + from_user.username + "/" + to_user.username + "/" + amount + "/1/" + today
-    response = requests.post(url)
-    res = json.loads(response.text)
+    headers = {'Content-Type': 'application/json; charset=utf-8'}
+    url = host + "transfer"
     data = {
-        "result" : res
+        'from_id'   : from_user.username, 
+        'to_id'     : to_user.username,
+        'amount'    : amount,
+        'type'      : '1',
+        'date'      : today
     }
+    data_json = json.dumps(data)
+    param_data = { 'param_data' : data_json }
+    response = requests.post(url, params=param_data, headers=headers)
+
     ###################차트 데이터####################
-    user = get_object_or_404(User, id=u_id)
+    if response.status_code == 200:
+        user = get_object_or_404(User, id=u_id)
 
-    age = int(datetime.datetime.now().year) - int(user.profile.birth_year) 
-    gender = user.profile.gender
-    location = store.location
-    category = store.category
-    print(user," : ",age," : ",gender,':',location,":",category)
-    
-    from operate.models import ChartStat
-    chart = ChartStat()
-    chart.age = age
-    chart.gender = gender
-    chart.store = store
-    chart.amount = amount
-    chart.location = location
-    chart.category = category
+        age = int(datetime.datetime.now().year) - int(user.profile.birth_year) 
+        gender = user.profile.gender
+        location = store.location
+        category = store.category
+        
+        from operate.models import ChartStat
+        chart = ChartStat()
+        chart.age = age
+        chart.gender = gender
+        chart.store = store
+        chart.amount = amount
+        chart.location = location
+        chart.category = category
 
-    chart.save()
+        chart.save()
 ############################################################################################################
 
     json_data = json.dumps(data)
@@ -210,6 +234,7 @@ def cancel_payment(request):
     return render(request, 'payment/cancel_payment.html', dict(trader=to, store=store[0].name, username=me.username, amount=amount, tx=tx))
 
 
+@csrf_exempt
 def add_canceled_payment(request):
     to = request.POST.get('trader', None)
     key = request.POST.get('username', None)
@@ -217,11 +242,20 @@ def add_canceled_payment(request):
     tx = request.POST.get('tx', None)
     today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
 
-    url = host +'transfer/' + key + '/' + to + '/' + amount + '/3/' + today
-    response = requests.post(url)
-    res = json.loads(response.text)
+    headers = {'Content-Type': 'application/json; charset=utf-8'}
+    url = host + "transfer"
+    data = {
+        'from_id'   : key, 
+        'to_id'     : to,
+        'amount'    : amount,
+        'type'      : '3',
+        'date'      : today
+    }
+    data_json = json.dumps(data)
+    param_data = { 'param_data' : data_json }
+    response = requests.post(url, params=param_data, headers=headers)
 
-    if res['result'] == 'success':
+    if response.status_code == 200:
         canceled = Cancellation()
         canceled.s_id = Store.objects.filter(Q(representative=request.user.pk))[0]
         canceled.txHash = tx

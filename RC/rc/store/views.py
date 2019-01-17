@@ -7,7 +7,7 @@ from .forms import StoreForm, PhotoForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.template import loader
-import json, requests, datetime
+import json, datetime
 
 # Create your views here.
 
@@ -198,4 +198,4 @@ def get_myStore(request):
 def get_QRcode(request):
     s_id = request.POST.get('s_id')
     store = get_object_or_404(Store, pk=s_id)
-    return render(request, 'store/myStoreQRcode.html', dict(s_id=store.id, s_name=store.name))
+    return render(request, 'store/myStoreQRcode.html', dict(s_id=store.id, s_rid=store.representative_id, s_name=store.name))
