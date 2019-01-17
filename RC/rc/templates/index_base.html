@@ -83,12 +83,12 @@
                 <li class="menu-has-children"><a href="#myInfo">마이페이지</a>
                     <ul>
                         <li><a href="{% url 'profile:account_myInfo' user.id %}">계정관리</a></li>
-                        <li><a href="{% url 'publish:publish'%}">발행</a></li>
+                        <li><a href="{% url 'publish:publish'%}">자전거 타기</a></li>
                         <li><a href="{% url 'logout' %}">로그아웃</a></li>
                     </ul>
                 </li>
                 {% else %}
-                <li class="menu-has-children"><a href="{% url 'profile:agreement' %}">회원가입</a></li>
+                <li><a href="{% url 'profile:agreement' %}">회원가입</a></li>
                 </li>
                 <li><a href="{% url 'login' %}">로그인</a></li>
                 {% endif %}
@@ -112,7 +112,7 @@ Footer
             <div class="row">
                 <div class="col-md-12 col-lg-4">
                     <div class="footer-logo">
-                        <a class="navbar-brand" href="#">RC COIN</a>
+                        <a class="navbar-brand" href="{% url 'index' %}">RC COIN</a>
                         <p>RC코인은 울릉도의 지역경제를 활성화시키기 위하여 만들어진 친환경 코인입니다. 자전거를 타는 활동을 통하여 RC코인을 분배받을 수 있습니다.</p>
                     </div>
                 </div>
@@ -131,9 +131,9 @@ Footer
                     <div class="list-menu">
                         <h4>가맹점 찾기</h4>
                         <ul class="list-unstyled">
-                            <li><a href="#">울릉읍</a></li>
-                            <li><a href="#">북면</a></li>
-                            <li><a href="#">서면</a></li>
+                            <li><a href="{% url 'store:filteredStores' 1 %}">울릉읍</a></li>
+                            <li><a href="{% url 'store:filteredStores' 3 %}">북면</a></li>
+                            <li><a href="{% url 'store:filteredStores' 2 %}">서면</a></li>
                         </ul>
                     </div>
                 </div>
@@ -142,8 +142,8 @@ Footer
                     <div class="list-menu">
                         <h4>정보마당</h4>
                         <ul class="list-unstyled">
-                            <li><a href="#">공지사항</a></li>
-                            <li><a href="#">자주하는 질문</a></li>
+                            <li><a href="{% url 'info:list' %}">공지사항</a></li>
+                            {% comment %} <li><a href="#">자주하는 질문</a></li> {% endcomment %}
                         </ul>
                     </div>
                 </div>
@@ -152,8 +152,10 @@ Footer
                     <div class="list-menu">
                         <h4>커뮤니티</h4>
                         <ul class="list-unstyled">
-                            <li><a href="{% url 'board:list' %}">회원 게시판</a></li>
-                            <li><a href="{% url 'board:list' %}">가맹점 게시판</a></li>
+                            <li><a class="btn_board_type_1" href="{% url 'board:list' %}">가맹게시판</a></li>
+                            <input type="hidden" id="board_type_1" value="1">
+                            <li><a class="btn_board_type_2" href="{% url 'board:list' %}">회원게시판</a></li>
+                            <input type="hidden" id="board_type_2" value="2">
                         </ul>
                     </div>
                 </div>
@@ -170,7 +172,7 @@ Footer
                     Licensing information: https://bootstrapmade.com/license/
                     Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=eStartup
                     -->
-                    Designed by <a href="https://bootstrapmade.com/">RGB PROJECT</a>
+                    Designed by <a href="#">RGB PROJECT</a>
                 </div>
             </div>
         </div>

@@ -142,8 +142,8 @@ span {
 
 #video  {
   position: relative;
-  height: 75vh;
-  min-height: 50rem;
+  height: 55vh;
+  min-height: 35rem;
   width: 100%;
 }
 
@@ -241,8 +241,8 @@ span {
 #hero {
   width: 100%;
   height: calc(100vh - 40px);
-  background: url("https://ichef.bbci.co.uk/news/660/cpsprodpb/B7B0/production/_101542074_gettyimages-956391468.jpg") center bottom no-repeat;
-  background-size: 100%;
+  /* background: url("https://ichef.bbci.co.uk/news/660/cpsprodpb/B7B0/production/_101542074_gettyimages-956391468.jpg") center bottom no-repeat; */
+  /* background-size: 100%; */
   position: relative;
   margin-top: 40px;
 }
@@ -797,7 +797,7 @@ margin: 0 0 10px 0;
 /* Video Section
 --------------------------------*/
 #video {
-  background: url(../img/video-bg.jpg) center center;
+  /* background: url(../img/video-bg.jpg) center center; */
   background-repeat: no-repeat;
   background-size: cover;
   height: 400px;
