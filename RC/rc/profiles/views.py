@@ -99,8 +99,8 @@ def account_edit(request, account_id=None):
             }
             param_data = { 'param_data' : json.dumps(data) }
             response = requests.post(url, params=param_data, headers=headers)
-
-            if response.status_code != 200:
+            msg = response.json()
+            if msg['result'] == 'fail':
                 context['messages'] = ['계좌 생성에 실패했습니다.', '관리자에게 문의하세요.', '메인화면으로 이동합니다.', '로그인을 해주세요.']
             else:
                 try:
@@ -117,7 +117,8 @@ def account_edit(request, account_id=None):
                     }
                     param_data = { 'param_data' : json.dumps(data) }
                     response2 = requests.post(url, params=param_data, headers=headers)
-                    if response2.status_code == 200:
+                    msg2 = response2.json()
+                    if msg['result'] == 'success':
                         context['messages'] = ['환영합니다.', '회원가입 기념 3000RC가 발급되었습니다.', '로그인을 해주세요.']
                 except:
                     pass
