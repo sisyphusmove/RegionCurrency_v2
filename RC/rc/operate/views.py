@@ -324,12 +324,7 @@ def check_length(string, max_len):
         result = str(string)
     return result
 
-<<<<<<< HEAD
-# host = "http://210.107.78.166:8000/"
-host = "http://127.0.0.1:3000/"
-=======
 host = "http://210.107.78.166:3000/"
->>>>>>> 06c84368f18632d807d73cfa76630b247c9cdfd6
 
 ## query
 def get_notices():
@@ -413,3 +408,19 @@ def get_waiting_store():
 
 def get_total_location_tx(location):
     return ChartStat.objects.filter(Q(store__location=location)).aggregate(Sum('amount'))['amount__sum']
+
+def dd(request):
+    headers = {'Content-Type': 'application/json; charset=utf-8'}
+    url = 'http://127.0.0.1:3000/' + "transfer"
+    data = {
+        'from_id' : 'yang', 
+        'to_id' : 'admin', 
+        'amount' : '500',
+        'type' : '1',
+        'date' : '2019-01-02'
+    }
+    data_json = json.dumps(data)
+    param_data = { 'param_data' : data_json }
+    response = requests.post(url, params=param_data, headers=headers)
+    print(response.text)
+    return redirect('operate:stats')
