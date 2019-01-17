@@ -94,7 +94,7 @@ def dashboard(request):
     context['tx_cnt']              = get_tx_cnt()
     context['store_cnt']           = get_store_cnt()
     context['account_cnt']         = get_account_cnt()
-    context['publish']             = get_publish_amount()
+    context['publish']             = 0 if get_publish_amount() == None else get_publish_amount() 
     context['west_stats']          = 0 if get_total_location_tx(1) == None else get_total_location_tx(1)
     context['north_stats']         = 0 if get_total_location_tx(2) == None else get_total_location_tx(2)
     context['wooleung_stats']      = 0 if get_total_location_tx(3) == None else get_total_location_tx(3)
@@ -304,7 +304,8 @@ def check_length(string, max_len):
         result = str(string)
     return result
 
-host = "http://210.107.78.166:8000/"
+# host = "http://210.107.78.166:8000/"
+host = "http://127.0.0.1:3000/"
 
 ## query
 def get_notices():
