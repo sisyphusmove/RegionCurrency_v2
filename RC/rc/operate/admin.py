@@ -4,7 +4,7 @@ from operate.models import ChartStat
 
 class ChartStatAdmin(admin.ModelAdmin):
     model = ChartStat
-    list_display = ['age', 'gender','store','time','amount','category','location']
+    list_display = ['age', 'gender','store','time','amount','category','location','tx_id']
     verbose_name_plural = 'ChartStat'
 
 

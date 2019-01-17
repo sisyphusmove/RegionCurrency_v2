@@ -188,9 +188,9 @@ md = {
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
       dataDailySalesChart = {
-        labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+        labels: ['2015', '2016', '2017', '2018', '2019'],
         series: [
-          [12, 17, 7, 17, 23, 18, 38]
+          [12, 17, 7, 17, 23]
         ]
       };
 
@@ -307,15 +307,16 @@ md = {
     }
   },
 
+  
   initDashboardPageCharts: function() {
 
     if ($('#dailySalesChart').length != 0 || $('#completedTasksChart').length != 0 || $('#websiteViewsChart').length != 0) {
       /* ----------==========     Daily Sales Chart initialization    ==========---------- */
 
       dataDailySalesChart = {
-        labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+        labels: ['2015', '2016', '2017', '2018', '2019'],
         series: [
-          [12, 17, 7, 17, 23, 18, 38]
+          [12, 17, 7, 17, 23]
         ]
       };
 

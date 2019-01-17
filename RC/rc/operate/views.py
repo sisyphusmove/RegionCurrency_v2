@@ -94,10 +94,17 @@ def dashboard(request):
     context['tx_cnt']              = get_tx_cnt()
     context['store_cnt']           = get_store_cnt()
     context['account_cnt']         = get_account_cnt()
+<<<<<<< HEAD
     context['publish']             = 0 if get_publish_amount() == None else get_publish_amount() 
     context['west_stats']          = 0 if get_total_location_tx(1) == None else get_total_location_tx(1)
     context['north_stats']         = 0 if get_total_location_tx(2) == None else get_total_location_tx(2)
     context['wooleung_stats']      = 0 if get_total_location_tx(3) == None else get_total_location_tx(3)
+=======
+    context['publish']             = get_publish_amount()
+    context['west_stats']          = 0 if get_total_location_tx(2) == None else get_total_location_tx(2)
+    context['north_stats']         = 0 if get_total_location_tx(3) == None else get_total_location_tx(3)
+    context['wooleung_stats']      = 0 if get_total_location_tx(1) == None else get_total_location_tx(1)
+>>>>>>> bd1a1d916f3ee8592a16eb4299862e2dc6b2fd40
     context['store_waiting_list']  = get_waiting_store()
     context['notice_list']         = get_notices()
     return render(request, 'operate/manage_dashboard.html', (context))
@@ -238,6 +245,7 @@ class ChartData(APIView):
     def get(self, request, format=None):
 
         location = self.request.GET.get("location")
+        
         ################울릉도 전체#####################
         all_labels = ['2015','2016','2017','2018','2019']
         # data_list = ChartStat.objects.values_list('time', flat=True)
@@ -423,4 +431,3 @@ def dd(request):
     param_data = { 'param_data' : data_json }
     response = requests.post(url, params=param_data, headers=headers)
     print(response.text)
-    return redirect('operate:stats')

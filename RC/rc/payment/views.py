@@ -8,6 +8,7 @@ from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from store.models import Store
 from payment.models import Cancellation
+from operate.models import ChartStat
 
 # Create your views here.
 
@@ -208,8 +209,8 @@ def payment(request):
         gender = user.profile.gender
         location = store.location
         category = store.category
-        
-        from operate.models import ChartStat
+        tx_id = msg['tx_id']
+
         chart = ChartStat()
         chart.age = age
         chart.gender = gender
@@ -217,12 +218,12 @@ def payment(request):
         chart.amount = amount
         chart.location = location
         chart.category = category
+        chart.tx_id = tx_id['_transaction_id']
 
         chart.save()
 ############################################################################################################
 
-    json_data = json.dumps(data)
-    return HttpResponse(json_data, content_type="application/json;charset=UTF-8")
+    return HttpResponse(msg, content_type="application/json;charset=UTF-8")
 
 
 def cancel_payment(request):
@@ -260,6 +261,8 @@ def add_canceled_payment(request):
         canceled.s_id = Store.objects.filter(Q(representative=request.user.pk))[0]
         canceled.txHash = tx
         canceled.save()
+    
+        chart = ChartStat.objects.get(tx_id = tx)
+        chart.delete()
 
     return redirect('profile:account_myInfo', request.user.pk)
-
