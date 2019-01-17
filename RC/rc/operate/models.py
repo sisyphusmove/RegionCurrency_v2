@@ -13,5 +13,5 @@ class ChartStat(models.Model):
     location = models.CharField(max_length=10, null=True)
     category = models.CharField(max_length=10, null=True)
     time = models.DateTimeField(auto_now=True, null=True)
-    tx_id = models.ForeignKey(Cancellation, null=True, on_delete=models.CASCADE)
+    tx_id = models.CharField(max_length=100, null=True)
     amount = models.IntegerField(null=True)

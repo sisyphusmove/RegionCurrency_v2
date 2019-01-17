@@ -405,3 +405,7 @@ def get_waiting_store():
 
 def get_total_location_tx(location):
     return ChartStat.objects.filter(Q(store__location=location)).aggregate(Sum('amount'))['amount__sum']
+
+
+
+

@@ -69,7 +69,7 @@ function payment() {
         $("#payment").empty();
         $("#payment").text("결제 중입니다..");
         
-        var res = data["result"]["result"];
+        var res = data["result"];
         if (res != "success") {
             alert("결제 실패... 다시 시도해주세요.");
         }
