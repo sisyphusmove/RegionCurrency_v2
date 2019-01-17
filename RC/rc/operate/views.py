@@ -95,9 +95,9 @@ def dashboard(request):
     context['store_cnt']           = get_store_cnt()
     context['account_cnt']         = get_account_cnt()
     context['publish']             = get_publish_amount()
-    context['west_stats']          = 0 if get_total_location_tx(1) == None else get_total_location_tx(1)
-    context['north_stats']         = 0 if get_total_location_tx(2) == None else get_total_location_tx(2)
-    context['wooleung_stats']      = 0 if get_total_location_tx(3) == None else get_total_location_tx(3)
+    context['west_stats']          = 0 if get_total_location_tx(2) == None else get_total_location_tx(2)
+    context['north_stats']         = 0 if get_total_location_tx(3) == None else get_total_location_tx(3)
+    context['wooleung_stats']      = 0 if get_total_location_tx(1) == None else get_total_location_tx(1)
     context['store_waiting_list']  = get_waiting_store()
     context['notice_list']         = get_notices()
     return render(request, 'operate/manage_dashboard.html', (context))
@@ -238,6 +238,7 @@ class ChartData(APIView):
     def get(self, request, format=None):
 
         location = self.request.GET.get("location")
+        
         ################울릉도 전체#####################
         all_labels = ['2015','2016','2017','2018','2019']
         # data_list = ChartStat.objects.values_list('time', flat=True)
@@ -248,10 +249,6 @@ class ChartData(APIView):
             if value != None:
                 default[label] = value
        
-            # 0 if default[label].values() == None else default[label]
-            # if default[label] != None : 
-            # else :
-            #     default[label] = 0
         ###############polar###########################
         labels = ['남자','여자']
         data_list1 = ChartStat.objects.values_list('gender', flat=True).filter(store__location=location)

@@ -178,7 +178,7 @@ def payment(request):
     }
 
     ###################차트 데이터####################
-    if data['result'] != 'fail':
+    if data['result'] != 'fail'  :
         user = get_object_or_404(User, id=u_id)
 
         age = int(datetime.datetime.now().year) - int(user.profile.birth_year) 
