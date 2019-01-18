@@ -1,4 +1,7 @@
+
+
 function ctl_cookie(board_type){
+    console.log("ctl cookie ########")
     var getCookie = function(name) {
       var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
       return value? value[2] : null;
@@ -47,6 +50,8 @@ function btn_click_ctl(){
 }
 
 function chg_board(board_type, page){
+
+        console.log(1234)
         ctl_cookie(board_type)
 
         var category = ''
@@ -70,8 +75,15 @@ function chg_board(board_type, page){
             },
             dataType : 'json',
             success: function(data) {
+                if (board_type == 1){
+                    console.log("가맹점 게시판")
+                }
+                else {
+                    console.log("사용자 게시판")
+                }
 
                 html = ''
+                html += '<section id="contact">'
                 html += '    <div class="btn_write_area" style="background-color: white; background-color:67px;">'
                 html += '     <select id="search_categoty" class="category" name="search_categoty" style="height: 30px; border: 1px solid #CCC;color:#777">'
                 html += '       <option value="">전체</option>'
@@ -81,6 +93,7 @@ function chg_board(board_type, page){
                 html += '     </select>'
                 html += '    <input class="keyword" type="text" placeholder="검색어를 입력하세요. "'
                 html += '    style="width: 340px;background-image:url(../../static/img/search.png);background-position-x: 2px; background-position-y: 1px; background-repeat: no-repeat;border:#CCC solid 1px;padding-left: 30px;">'
+                
                 html += '    <a class="btn btn_search" style="color:#fff" onclick="search_board_by_word()">찾기</a>'
                 html += '    <a class="btn btn_write" href="/board/add" style="display: none; position: absolute; margin-top: -53px; right: 20%; background-color: #71c55d;">글쓰기</a>'
                 html += '    </div>'
@@ -146,7 +159,7 @@ function chg_board(board_type, page){
                 }
                 html += '        </ul>'
                 html += '        </nav>'
-
+                html += '</section>'
                 $('div.board_content').html(html)
 
                 if( $('#user_type').val() != board_type ){
