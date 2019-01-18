@@ -94,12 +94,10 @@ def dashboard(request):
     context['tx_cnt']              = get_tx_cnt()
     context['store_cnt']           = get_store_cnt()
     context['account_cnt']         = get_account_cnt()
-<<<<<<< HEAD
     context['publish']             = 0 if get_publish_amount() == None else get_publish_amount() 
     context['west_stats']          = 0 if get_total_location_tx(1) == None else get_total_location_tx(1)
     context['north_stats']         = 0 if get_total_location_tx(2) == None else get_total_location_tx(2)
     context['wooleung_stats']      = 0 if get_total_location_tx(3) == None else get_total_location_tx(3)
-=======
     context['publish']             = get_publish_amount()
     context['west_stats']          = 0 if get_total_location_tx(2) == None else get_total_location_tx(2)
     context['north_stats']         = 0 if get_total_location_tx(3) == None else get_total_location_tx(3)
