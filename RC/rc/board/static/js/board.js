@@ -92,7 +92,7 @@ function chg_board(board_type, page){
                 html += '       <option value="content">게시글</option>'
                 html += '     </select>'
                 html += '    <input class="keyword" type="text" placeholder="검색어를 입력하세요. "'
-                html += '    style="width: 340px;background-image:url(../../static/img/search.png);background-position-x: 2px; background-position-y: 1px; background-repeat: no-repeat;border:#CCC solid 1px;padding-left: 30px;">'
+                html += '    style="background-image:url(../../static/img/search.png);background-position-x: 2px; background-position-y: 1px; background-repeat: no-repeat;border:#CCC solid 1px;padding-left: 30px;">'
                 
                 html += '    <a class="btn btn_search" style="color:#fff" onclick="search_board_by_word()">찾기</a>'
                 html += '    <a class="btn btn_write" href="/board/add" style="display: none; position: absolute; margin-top: -53px; right: 20%; background-color: #71c55d;">글쓰기</a>'
@@ -112,7 +112,7 @@ function chg_board(board_type, page){
                 for( var i=0; i<data.max_page; i++){
                     if( data.object[i] != null ){
                         html += "<tr class='tag_text'>"
-                        html += "<td>" + (data.start_index+i) + "</td>"
+                        html += "<th scope='row'>" + (data.start_index+i) + "</th>"
                         html += "<td><a href='" + data.object[i].get_absolute_url + "'>" + data.object[i].title + "</a></td>"
                         html += "<td>" +  data.object[i].writer + "</td>"
                         html += "<td>" + data.object[i].modify_date + "</td>"

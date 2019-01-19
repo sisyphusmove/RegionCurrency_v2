@@ -180,7 +180,7 @@ span {
 
 @media (pointer: coarse) and (hover: none) {
   #video {
-    background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
+    background: url('../img/대문.png') black no-repeat center center scroll;
   }
   #video .A {
     display: none;
@@ -419,15 +419,15 @@ span {
 
 /* Nav Meu Styling */
 .nav-menu a {
-  padding: 8px 8px;
+  padding: 8px 20px;
   text-decoration: none;
   display: inline-block;
   color: #555;
   font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 14px;
+  font-weight: bold;
+  font-size: 18px;
   outline: none;
-  letter-spacing: 0;
+  letter-spacing: 1px;
   transition: 0.3s;
 }
 

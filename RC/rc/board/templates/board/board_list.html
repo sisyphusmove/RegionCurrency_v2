@@ -49,6 +49,17 @@
     border-top: 1px solid #dee2e6;
     border-bottom: 1px solid #dee2e6;
 }
+
+@media (max-width: 700px) {
+    thead {
+        visibility: hidden;
+    }
+} 
+.tag_text, thead {
+    padding: 5px;
+    text-align: center;
+    white-space: nowrap;
+}
 </style>
 
 <section id="content" style="margin-top: 50px; margin-bottom: 50px">
@@ -57,14 +68,12 @@
  
 	<div class="container">
         <div class="submitbox">
-            <div class="row" style="margin-left:1px">
+            <div style="margin-left:1px">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link btn_board_type_1"  onclick="back_to_list()"   href="{% url 'board:list' %}"    >가맹 게시판</a>
-                        <input type="hidden" id="board_type_1" value="1">
-                    </li>&nbsp;&nbsp;
-                    <li class="nav-item">
-                        <a class="nav-link btn_board_type_2"  onclick="back_to_list()"  href="{% url 'board:list' %}"   >회원 게시판</a>
+                    <li class="row nav-item" style="margin-left: 1px; margin-right: 1px; margin-bottom: 10px; width: 50%">
+                        <a class="nav-link btn_board_type_1"  style="min-width: 75px" onclick="back_to_list()"  href="{% url 'board:list' %}">가맹 게시판</a>
+                        <input type="hidden" id="board_type_1" value="1">&nbsp;
+                        <a class="nav-link btn_board_type_2"  style="min-width: 75px" onclick="back_to_list()"  href="{% url 'board:list' %}">회원 게시판</a>
                         <input type="hidden" id="board_type_2" value="2">
                     </li>
                 </ul>
@@ -81,20 +90,20 @@
                                 <option value="title">제목</option>
                                 <option value="content">게시글</option>
                             </select>
-                            <input class="keyword" type="text" placeholder="" style="width: 340px;background-image:url(../../static/img/search.png);background-repeat: no-repeat;border:#CCC solid 1px;padding-left: 20px;">
+                            <input class="keyword" type="text" placeholder="" style="background-image:url(../../static/img/search.png);background-repeat: no-repeat;border:#CCC solid 1px;padding-left: 20px;">
                             <a class="btn btn_search" style="color:#fff" onclick="search_board_by_word()">찾기</a>
                             <a class="btn btn_write" href="{% url 'board:add' %}" style="display: none; position: absolute; margin-top: -53px; right: 20%; background-color: #71c55d;">글쓰기</a>
                         </div>
 
                         <table class="table table-hover">
                             <thead>
-                                <tr>
-                                    <th scope="col">번호</th>
-                                    <th scope="col">제목</th>
-                                    <th scope="col">작성자</th>
-                                    <th scope="col">날짜</th>
-                                    <th scope="col">조회수</th>
-                                    <th scope="col">추천</th>
+                                <tr class="row">
+                                    <th scope="col-sm">번호</th>
+                                    <th scope="col-sm">제목</th>
+                                    <th scope="col-sm">작성자</th>
+                                    <th scope="col-sm">날짜</th>
+                                    <th scope="col-sm">조회수</th>
+                                    <th scope="col-sm">추천</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -154,8 +163,7 @@
 
 <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/qr_package.js' %}"></script>
-<script src="{% static 'js/my_page.js' %}"></script>
+
 
 
 
