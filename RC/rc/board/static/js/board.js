@@ -1,7 +1,6 @@
 
 
 function ctl_cookie(board_type){
-    console.log("ctl cookie ########")
     var getCookie = function(name) {
       var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
       return value? value[2] : null;
@@ -51,7 +50,6 @@ function btn_click_ctl(){
 
 function chg_board(board_type, page){
 
-        console.log(1234)
         ctl_cookie(board_type)
 
         var category = ''
@@ -75,12 +73,6 @@ function chg_board(board_type, page){
             },
             dataType : 'json',
             success: function(data) {
-                if (board_type == 1){
-                    console.log("가맹점 게시판")
-                }
-                else {
-                    console.log("사용자 게시판")
-                }
 
                 html = ''
                 html += '<section id="contact">'
