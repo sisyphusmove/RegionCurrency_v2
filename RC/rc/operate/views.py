@@ -205,6 +205,8 @@ def publish(request):
     context = {}
     publish_list = []
     publish_list = list(get_publish_amount()['publish_list'])
+    total_publish = get_publish_amount()['total_publish']
+    context['total_publish'] = total_publish
     context['publish_list'] = publish_list
     return render(request, 'operate/manage_publish.html', (context))
 
@@ -355,10 +357,11 @@ def get_publish_amount():
     try:
         response = requests.get(get_publish_url)
         json_format = json.loads(response.text)
+        json_format.reverse()
         data_list = []
         for datas in json_format:
             data = {}
-            publish_amount = datas['balance']
+            publish_amount += datas['balance']
             data['tx_id'] = str(datas['tx_id'])
             data['amount'] = datas['amount']
             data['person'] = datas['trader']
@@ -369,6 +372,7 @@ def get_publish_amount():
         publish_data['publish_list'] = data_list
     except Exception as e:
         print(e)
+        publish_data['total_publish'] = 0
         publish_data['publish_list'] = ""
     return publish_data
 
