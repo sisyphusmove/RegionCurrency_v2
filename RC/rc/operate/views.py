@@ -246,12 +246,13 @@ class ChartData(APIView):
         ################울릉도 전체#####################
         all_labels = ['2015','2016','2017','2018','2019']
         # data_list = ChartStat.objects.values_list('time', flat=True)
-        default = {}
+        default = [0,0,0,0,0]
+        i = -1
         for label in all_labels:
-            default[label] = 0
+            i += 1
             value = ChartStat.objects.filter(time__icontains=label).aggregate(Sum('amount'))['amount__sum']
-            if value != None:
-                default[label] = value
+            if value:
+                default[i] = value
        
             # 0 if default[label].values() == None else default[label]
             # if default[label] != None : 
@@ -304,7 +305,7 @@ class ChartData(APIView):
         data = {
 
                 "all_labels" : all_labels,
-                "all_default" : default.values(),
+                "all_default" : default,
                
                 "labels": labels,
                 "default": default_items,
