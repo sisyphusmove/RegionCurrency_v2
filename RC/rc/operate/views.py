@@ -94,6 +94,10 @@ def dashboard(request):
     context['tx_cnt']              = get_tx_cnt()
     context['store_cnt']           = get_store_cnt()
     context['account_cnt']         = get_account_cnt()
+    context['publish']             = 0 if get_publish_amount() == None else get_publish_amount() 
+    context['west_stats']          = 0 if get_total_location_tx(1) == None else get_total_location_tx(1)
+    context['north_stats']         = 0 if get_total_location_tx(2) == None else get_total_location_tx(2)
+    context['wooleung_stats']      = 0 if get_total_location_tx(3) == None else get_total_location_tx(3)
     context['publish']             = get_publish_amount()
     context['west_stats']          = 0 if get_total_location_tx(2) == None else get_total_location_tx(2)
     context['north_stats']         = 0 if get_total_location_tx(3) == None else get_total_location_tx(3)
@@ -249,6 +253,10 @@ class ChartData(APIView):
             if value != None:
                 default[label] = value
        
+            # 0 if default[label].values() == None else default[label]
+            # if default[label] != None : 
+            # else :
+            #     default[label] = 0
         ###############polar###########################
         labels = ['남자','여자']
         data_list1 = ChartStat.objects.values_list('gender', flat=True).filter(store__location=location)
@@ -406,6 +414,17 @@ def get_waiting_store():
 def get_total_location_tx(location):
     return ChartStat.objects.filter(Q(store__location=location)).aggregate(Sum('amount'))['amount__sum']
 
-
-
-
+def dd(request):
+    headers = {'Content-Type': 'application/json; charset=utf-8'}
+    url = 'http://127.0.0.1:3000/' + "transfer"
+    data = {
+        'from_id' : 'yang', 
+        'to_id' : 'admin', 
+        'amount' : '500',
+        'type' : '1',
+        'date' : '2019-01-02'
+    }
+    data_json = json.dumps(data)
+    param_data = { 'param_data' : data_json }
+    response = requests.post(url, params=param_data, headers=headers)
+    print(response.text)

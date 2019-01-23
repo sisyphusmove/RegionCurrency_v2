@@ -1,15 +1,15 @@
 {% extends 'index_base.html' %}
 {% load staticfiles %}
-{% block extra_js %}
-<script type="text/javascript" src="{% static '/js/board.js' %}?ver=4"></script>
-{% endblock %}
+<script src='{% static "lib/jquery/jquery.min.js" %}'></script>
+<link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/myinfo.css' %}" rel="stylesheet">
+<link href="{% static 'css/modal.css' %}" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 {% block content %}
-  <!-- editor -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-  <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
-  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
 <style>
     .btn{
         border: 1px solid rgb(113, 197, 93);
@@ -19,63 +19,143 @@
         font-size: 11px;
         font-weight: 800;
         padding: 6px 21px;
-        margin: 5px;
+        margin: 22px;
     }
-    .note-toolbar{
-        display: none;
-        height: 0px;
+    .page-item.active .page-link{
+        background-color: rgb(113, 197, 93) !important;
+        border-color: rgb(113, 197, 93) !important;
     }
-    .note-statusbar{
-        display: none;
+    /*    --------------------------------------------------
+	:: General
+	-------------------------------------------------- */
+    .submitbox{
+    margin-top: 10%;
+    border-top: 6px solid #7ac55d;
+    background-color:#fff;
+    /* padding: 20px; */
+    padding-top: 20px;
+    padding-bottom: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: 0 10px 10px -2px rgba(0,0,0,0.12),0 -2px 10px -2px rgba(0,0,0,0.12);    
     }
-    .note-editor.note-frame .note-editing-area .note-editable[contenteditable="false"]{
-        background-color: white;
+    .boxtitle {
+        font-size: 28px;
+        color: #7ac55d;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+    .nav-tabs .nav-link {
+        border: 1px soild #dee2e6;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        border-left: 1px solid #dee2e6;
+        border-right: 1px solid #dee2e6;
+        border-top: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    @media (max-width: 700px) {
+        thead {
+            visibility: hidden;
+        }
+    } 
+    .tag_text, thead {
+        padding: 5px;
+        text-align: center;
+        white-space: nowrap;
     }
 </style>
-<div class="side_bar" style="float: left; border-top: 1px solid #71c55d; border-bottom: 1px solid #71c55d; margin-left: 40px; background-color: white">
-    <div style="padding: 20px; background-color: #71c55d;"><div class="" href="{% url 'board:list' %}" style="text-align: center; color: white; font-weight: bold;"> 게 시 판</div></div>
-    <div style="border: 1px solid white;"></div>
-    <div style="padding: 20px;" value="1" id="btn_board_type_1"><a class="btn_board_type_1" onclick="back_to_list()" href="{% url 'board:list' %}" style="text-align: center; font-weight: bold;">가맹 게시판</a></div>
-    <input type="hidden" id="board_type_1" value="1">
-    <div style="border: 1px solid white;"></div>
-    <div style="padding: 20px;" value="2" id="btn_board_type_2"><a class="btn_board_type_2" onclick="back_to_list()" href="{% url 'board:list' %}" style="text-align: center; font-weight: bold;">회원 게시판</a></div>
-    <input type="hidden" id="board_type_2" value="2">
-</div>
-<div class="content board_content" style="margin-left: 20%;margin-top: 10%;margin-right: 20%;margin-bottom: 30%">
-    <h4 class="mt-4 mb-5 border-bottom">detail page</h4>
-    <h1>{{ object.title }}</h1>
-    <p class="date">
-        {{ object.modify_date|date:"j F Y" }}
-    </p>
-    </br>
-    <div class="body" id="summernote">
-        {{ object.content|safe }}
 
+<section id="content" style="margin-top: 50px; margin-bottom: 50px">
+	<input type="text" id="from" value="{{ user.username }}" hidden />
+	<input type="text" id="u_id" value="{{ user.id }}" hidden />
+ 
+	<div class="container">
+        <div class="submitbox">
+            <div style="margin-left:1px">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="row nav-item" style="margin-left: 1px; margin-right: 1px; margin-bottom: 10px; width: 100%">
+                        <a class="nav-link btn_board_type_1"  style="min-width: 75px" onclick="back_to_list()"  href="{% url 'board:list' %}">가맹 게시판</a>
+                        <input type="hidden" id="board_type_1" value="1">&nbsp;
+                        <a class="nav-link btn_board_type_2"  style="min-width: 75px" onclick="back_to_list()"  href="{% url 'board:list' %}">회원 게시판</a>
+                        <input type="hidden" id="board_type_2" value="2">
+                    </li>
+                </ul>
+            </div>
+            <div class="content board_content" style="">
+                <div class="row" style="margin-left:3px;">
+                    <h1 class="mt-4">{{ object.title }}</h1>
+                </div>
+                <br>
+                <tr>
+                    <text class="date" style="display: inline-block; margin-left:5px;">
+                        <th style="border-right:1px solid #dee2e6">
+                            {{object.writer}}
+                        </th>&nbsp;&nbsp;&nbsp;
+                        <th>
+                            {{ object.modify_date|date:"Y F d" }}일
+                        </th>&nbsp;&nbsp;&nbsp;
+                        <th class="like" style="margin-right:50px;">
+                            <a><img src="{% static 'img/people.png' %}"></a>
+                            <span>{{ object.count }}</span>
+                            &nbsp;&nbsp;&nbsp;
+                            <a href="#" onclick="add_like({{ object.id }})"><img src="{% static 'img/heart.png' %}"></a>
+                            <span class="recommed_cnt">{{ object.recommend }}</span>
+                        </th>
+                    </text>
+    
+                    <hr>
+                    </br>
+                    <div class="body" id="summernote">
+                        {{ object.content|safe }}
+                    </div>
+                </tr>
+                <div>
+                    {% if user.pk == object.writer.profile.pk %}
+                    <a class="btn  btn_modify" href="{% url 'board:edit' object.id %}">수정</a>
+                    <a class="btn btn_delete" href="{% url 'board:delete' object.id %}">삭제</a>
+                    {% endif %}
+                    <a class="btn" href="{% url 'board:list' %}">돌아가기</a>
+                    <a class="btn btn_comment" onclick="comment.spread_comment({{ object.id }})">댓글 보기</a>
+                </div>
+                <div>
+                    <a><img src="{% static 'img/comment.png' %}"></a>
+                    <span>{{ comment_cnt }}</span>
+                </div>
+                <input class="input_comment" type='text' value='' style='width: 80%'>
+                <button class='btn btn-primary btn_comment_write' onclick="comment.write_comment({{ object.id }})">등록</button>
+                <div class="comment_area" id="comment_area" style="display: table; width: 100%;">
+                    <ul class="comment_list" style="list-style:none; overflow: auto; max-height: 300px;"></ul>
+                </div>
+            </div>    
+        </div>
     </div>
-    <div class="like">
-        <a><img src="{% static 'img/people.png' %}"></a>
-        <span>{{ object.count }}</span>
-        <a href="#" onclick="add_like({{ object.id }})"><img src="{% static 'img/heart.png' %}"></a>
-        <span class="recommed_cnt">{{ object.recommend }}</span>
-    </div>
-    <div>
-        {% if user.pk == object.writer.profile.pk %}
-        <a class="btn  btn_modify" href="{% url 'board:edit' object.id %}">수정</a>
-        <a class="btn btn_delete" href="{% url 'board:delete' object.id %}">삭제</a>
-        {% endif %}
-        <a class="btn" href="{% url 'board:list' %}">돌아가기</a>
-        <a class="btn btn_comment" onclick="comment.spread_comment({{ object.id }})">댓글 보기</a>
-    </div>
-    <div>
-        <a><img src="{% static 'img/comment.png' %}"></a>
-        <span>{{ comment_cnt }}</span>
-    </div>
-    <input class="input_comment" type='text' value='' style='width: 80%'>
-    <button class='btn btn-primary btn_comment_write' onclick="comment.write_comment({{ object.id }})">제출</button>
-    <div class="comment_area" id="comment_area" style="display: table; width: 100%;">
-        <ul class="comment_list" style="list-style:none; overflow: auto; max-height: 300px;"></ul>
-    </div>
-</div>
+    
+</section>
+<br>
+
+
+<script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} -------------------------------------------------------- {% endcomment %}
+
+
+<input type="hidden" id="user_type" name="user_type" value="{{ user.profile.type }}">
+<input type="hidden" id="board_type" name="board_type" value="">
+
+
 <input id="hdn_board_val" type="hidden" value="{{ object.id }}" >
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function(){
@@ -194,5 +274,17 @@ function add_like(board_id){
 $('#summernote').summernote();
 $('.note-editable').attr('contenteditable', 'false');
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 {% endblock content %}

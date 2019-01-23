@@ -128,12 +128,13 @@
                         <div class="ct-chart" id="dailySalesChart"></div>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">전체 거래량</h4></p>
+                        <h4 class="card-title">전체 거래량</h4>
+                        </p>
                         <p class="card-category">
-                            
+
                             <span class="text-success"><i class="material-icons">trending_up</i>
                                 전년대비 증가율 <h4 class="section-data-result"></h4>
-                            </span> 
+                            </span>
 
 
                     </div>
@@ -274,34 +275,32 @@
     </div>
 </div>
 <script>
-        $(document).ready(function () {
-            var endpoint = '{% url "operate:chartdata" %}'
-            var defaultData = []
-            var labels_second = []
-            var labels = []
+    $(document).ready(function () {
+        var endpoint = '{% url "operate:chartdata" %}'
+        var defaultData = []
+        var labels_second = []
+        var labels = []
 
 
-            $.ajax({
-                method: "GET",
-                url: endpoint,
-                success: function (data) {
+        $.ajax({
+            method: "GET",
+            url: endpoint,
+            success: function (data) {
 
-                    all_labels = data.all_labels
-                    all_default = data.all_default
+                all_labels = data.all_labels
+                all_default = data.all_default
 
-                    
-                    var result = ((all_default[4]-1000)/1000 * 100)+'%'
-                   
-
-                    $('.section-data-result').text(result)
-
-
+                var all = ((all_default[4] - all_default[3]) / (all_default[3] + 1) * 100) + '%'
+                var result = all.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                
+                $('.section-data-result').text(result)
+                
                 },
-                error: function (error_data) {
-                    console.log("error")
-                    console.log(error_data)
-                }
-            })
+            error: function (error_data) {
+                console.log("error")
+                console.log(error_data)
+            }
         })
-    </script>
+    })
+</script>
 {% endblock content %}
