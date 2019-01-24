@@ -241,6 +241,7 @@ def add_canceled_payment(request):
     key = request.POST.get('username', None)
     amount = request.POST.get('amount', None)
     tx = request.POST.get('tx', None)
+    comment = request.POST.get('comment', None)
     today = (datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')
 
     headers = {'Content-Type': 'application/json; charset=utf-8'}
@@ -256,12 +257,15 @@ def add_canceled_payment(request):
     param_data = { 'param_data' : data_json }
     response = requests.post(url, params=param_data, headers=headers)
     msg = response.json()
+    
     if msg['result'] == 'success':
         canceled = Cancellation()
         canceled.s_id = Store.objects.filter(Q(representative=request.user.pk))[0]
         canceled.txHash = tx
+        canceled.comment = comment
+        canceled.removed_date = today
         canceled.save()
-    
+
         chart = ChartStat.objects.get(tx_id = tx)
         chart.delete()
 
