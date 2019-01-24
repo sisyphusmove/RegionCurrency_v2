@@ -51,15 +51,25 @@
         padding-right: 20px;
     }
     
-
+.submitbox{
+    
+    border-top: 6px solid #7ac55d;
+    background-color:#fff;
+    /* padding: 20px; */
+    align:center;
+    padding-bottom: 1px;
+    padding-top: 3%;
+    width: 70%;
+    box-shadow: 0 10px 10px -2px rgba(0,0,0,0.12),0 -2px 10px -2px rgba(0,0,0,0.12);    
+    }
 
 
 </style>
-<br><br>
+<br><br><br><br>
+<div class="row justify-content-center">
+<div class="submitbox">
 <section id="contract">
 
-<!DOCTYPE html>
-<html>
     <body>
         <div class="container">
         	<div class="row justify-content-center">
@@ -76,29 +86,29 @@
 
                     <div class="section" style="padding-bottom:20px;" >
                         <h4 class="title-attr" ><i class="glyphicon glyphicon-map-marker" style="color:#71c55d;"></i></h4>
-                        <h4 class="title-attr"><small>{{ store.address }}</small></h4>               
+                        <h4 class="title-attr"><bold>{{ store.address }}</bold></h4>               
                     </div>   
                     <div class="section" style="padding-bottom:20px;">
                         <h4 class="title-attr"><i class="glyphicon glyphicon-phone" style="color:#71c55d;"></i></h4>                    
-                        <h4 class="title-attr"><small>{{ store.phone_number }}</small></h4> 
+                        <h4 class="title-attr"><bold>{{ store.phone_number }}</bold></h4> 
                     </div>
                     <div class="section" style="padding-bottom:20px;">
                         <h4 class="title-attr"><i class="glyphicon glyphicon-home" style="color:#71c55d;"></i></h4>
-                        <h4 class="title-attr"><small>{{ store.url }}</small></h4>               
+                        <h4 class="title-attr"><bold>{{ store.url }}</bold></h4>               
                     </div>
                     <div class="section" style="padding-bottom:20px;">
                         <h4 class="title-attr"><i class="glyphicon glyphicon-time" style="color:#71c55d;"></i></h4>
-                        <h4 class="title-attr"><small>{{ store.opening_hour }}:{{ store.opening_minute }} ~ {{ store.closing_hour }}:{{ store.closing_minute }}</small></h4>               
+                        <h4 class="title-attr"><bold>{{ store.opening_hour }}:{{ store.opening_minute }} ~ {{ store.closing_hour }}:{{ store.closing_minute }}</bold></h4>               
                     </div>                                   
                 </div>                              
             </div>
 
             <div class="row inner">
                 <ul class="menu-items">
-                    <li class="active">상세 정보</li>
+                    <li class="active" style="font-size:20px;">상세 정보</li>
                 </ul>
                 <div style="width:100%;border-top:1px solid #71c55d;">
-                    <p style="padding:15px;">
+                    <p style="padding:15px; font-size:20px;">
                         
                     {{ store.description}}
                         
@@ -106,8 +116,10 @@
                 </div>
             </div>	
         </div>        
-    </body>
-</html>
+
 
 </section>
+</div>
+</div>
+<br>
 {% endblock %}

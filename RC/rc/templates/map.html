@@ -8,13 +8,29 @@
 
 {% block content %}
 
+<style>
+.submitbox{
+    
+    border-top: 6px solid #7ac55d;
+    background-color:#fff;
+    /* padding: 20px; */
+    align:center;
+    padding-bottom: 1px;
+    width: 70%;
+    margin-left: 15%;
+    box-shadow: 0 10px 10px -2px rgba(0,0,0,0.12),0 -2px 10px -2px rgba(0,0,0,0.12);    
+    }
+    
+</style>
+<br><br><br><br>
+<div class="submitbox">
 <section id="blog" class="padd-section fadeInUp">
 
     <div class="container">
       <div class="section-title text-center">
 
         <h2>오시는 길</h2>
-        <p class="separator">당신을 울릉도로 안내합니다.</p>
+        <p style="font-size:20px;"class="separator"><h3>당신을 울릉도로 안내합니다.</h3></p>
       </div>
     </div>
 
@@ -105,9 +121,9 @@
 
             </div>
           </div>
-  </section>
+</section>
 
-  <section id="testimonials" class="padd-section text-center fadeInUp">
+{% comment %} <section id="testimonials" class="padd-section text-center fadeInUp">
 
     <div class="container">
         <div class="section-title text-center">
@@ -187,9 +203,9 @@
         </div>
       </div>
     </div>
-  </section>
-
-
+</section> {% endcomment %}
+</div>
+<br>
 
 {% endblock content %}
 

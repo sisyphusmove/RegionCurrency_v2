@@ -100,9 +100,14 @@
               <p>발행 이력 관리</p>
             </a>
           </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'operate:cancel' %}">
+              <i class="material-icons">content_paste</i>
+              <p>거래 취소 관리</p>
+            </a>
+          </li>
           <li class="nav-item dropdown">
-            <a class="nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="material-icons">trending_up</i>
               <p>통계 <span class="caret"></span></p>
             </a>
@@ -113,7 +118,7 @@
               <a class="dropdown-item" href="{% url 'operate:wooleung_stats'%}">울릉읍</a>
             </div>
           </li>
-          
+
           {% endif %}
           {% if request.session.admin_name == "admin_server" %}
           <li class="nav-item ">

@@ -8,6 +8,7 @@ from info.models import Notice
 from board.models import Comment, BoardLiker
 from store.models import Photo, Store
 from operate.models import ChartStat
+from payment.models import Cancellation
 from django.db.models import Q, Sum
 
 from django.contrib.auth import authenticate, login, logout
@@ -205,9 +206,28 @@ def publish(request):
     context = {}
     publish_list = []
     publish_list = list(get_publish_amount()['publish_list'])
+    total_publish = get_publish_amount()['total_publish']
+    context['total_publish'] = total_publish
     context['publish_list'] = publish_list
     return render(request, 'operate/manage_publish.html', (context))
-
+#--------------------------------------거래취소관리-----------------------------------------------#
+@login_required
+def cancel(request):
+    canceled_data = Cancellation.objects.all().order_by('-removed_date')
+    cancel_data = {}
+    data_list = []
+    
+    for datas in canceled_data:
+        data = {}
+        data['s_id'] = str(datas.s_id)
+        data['txHash'] = datas.txHash
+        data['amount'] = datas.amount
+        data['comment'] = datas.comment
+        data['removed_date'] = datas.removed_date
+        data_list.append(data)
+        
+    cancel_data['cancel_data'] = data_list
+    return render(request, 'operate/manage_cancel.html', (cancel_data))
 #--------------------------------------네트워크 관리-----------------------------------------------#
 @login_required
 def network(request):
@@ -355,10 +375,11 @@ def get_publish_amount():
     try:
         response = requests.get(get_publish_url)
         json_format = json.loads(response.text)
+        json_format.reverse()
         data_list = []
         for datas in json_format:
             data = {}
-            publish_amount = datas['balance']
+            publish_amount += datas['balance']
             data['tx_id'] = str(datas['tx_id'])
             data['amount'] = datas['amount']
             data['person'] = datas['trader']
@@ -369,8 +390,10 @@ def get_publish_amount():
         publish_data['publish_list'] = data_list
     except Exception as e:
         print(e)
+        publish_data['total_publish'] = 0
         publish_data['publish_list'] = ""
     return publish_data
+
 
 def get_account_cnt():
     users = User.objects.all()
