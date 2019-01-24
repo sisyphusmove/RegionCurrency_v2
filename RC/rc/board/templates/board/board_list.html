@@ -71,7 +71,9 @@
 	<input type="text" id="u_id" value="{{ user.id }}" hidden />
  
 	<div class="container">
+    
         <div class="submitbox">
+        <h2 align="center" style="color:#71c55d;">커뮤니티</h2><br>
             <div style="margin-left:1px">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="row nav-item" style="margin-left: 1px; margin-right: 1px; margin-bottom: 10px; width: 100%">
@@ -84,9 +86,9 @@
             </div>
 
             <div class="tab-content profile-tab" id="myTabContent">
-
+                    
 	                <div class="content board_content">
-
+                        
                         <div class="btn_write_area row" style="background-color: white; background-color:67px;">
                             <select id="search_categoty" class="category" name="search_categoty" style="height: 30px; border: 1px solid #CCC;color:#777">
                                 <option value="">전체</option>
@@ -114,12 +116,72 @@
                                 {% if boards %}
                                     {% for text in boards %}
                                     <tr class="tag_text">
-                                        <td>{{ text.id }}</td>
-                                        <td><a href="{{ text.get_absolute_url }}">{{ text.title }}</a></td>
-                                        <td>{{ text.writer }}</td>
-                                        <td>{{ text.modify_date|date:"Y-n-d" }}</td>
-                                        <td style="text-align: center">{{ text.count }}</td>
-                                        <td style="text-align: center">{{ text.recommend }}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: center"></td>
+                                        <td style="text-align: center"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: center"></td>
+                                        <td style="text-align: center"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: center"></td>
+                                        <td style="text-align: center"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: center"></td>
+                                        <td style="text-align: center"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: center"></td>
+                                        <td style="text-align: center"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: center"></td>
+                                        <td style="text-align: center"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: center"></td>
+                                        <td style="text-align: center"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: center"></td>
+                                        <td style="text-align: center"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: center"></td>
+                                        <td style="text-align: center"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: center"></td>
+                                        <td style="text-align: center"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: center"></td>
+                                        <td style="text-align: center"></td>
                                     </tr>
                                     {% endfor %}
                                 {% else %}
