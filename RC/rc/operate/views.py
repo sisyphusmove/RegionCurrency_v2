@@ -10,6 +10,7 @@ from store.models import Photo, Store
 from operate.models import ChartStat
 from payment.models import Cancellation
 from django.db.models import Q, Sum
+from .views import *
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -95,7 +96,8 @@ def dashboard(request):
     context['tx_cnt']              = get_tx_cnt()
     context['store_cnt']           = get_store_cnt()
     context['account_cnt']         = get_account_cnt()
-    context['publish']             = 0 if get_publish_amount() == None else get_publish_amount() 
+    context['publish']             = 0 if get_publish_amount() == None else get_publish_amount()
+
     context['west_stats']          = 0 if get_total_location_tx(1) == None else get_total_location_tx(1)
     context['north_stats']         = 0 if get_total_location_tx(2) == None else get_total_location_tx(2)
     context['wooleung_stats']      = 0 if get_total_location_tx(3) == None else get_total_location_tx(3)
@@ -208,7 +210,10 @@ def publish(request):
     publish_list = []
     publish_list = list(get_publish_amount()['publish_list'])
     total_publish = get_publish_amount()['total_publish']
-    context['total_publish'] = total_publish
+    val = total_publish
+    str(val)
+    number = format(val,',')
+    context['total_publish'] = number
     context['publish_list'] = publish_list
     return render(request, 'operate/manage_publish.html', (context))
 #--------------------------------------거래취소관리-----------------------------------------------#
