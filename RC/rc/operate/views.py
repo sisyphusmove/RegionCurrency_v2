@@ -111,9 +111,10 @@ def dashboard(request):
 @login_required
 def manageUser(request):
     context = {}
+    data_list = []
     username = request.GET.get('keyword', '')
-    context['users'] = User.objects.filter(Q(username__icontains=username) & ~Q(profile__type=0)).order_by('id')
-
+    context['users'] = User.objects.filter(Q(username__icontains=username) & ~Q(profile__type=0) & ~Q(profile__type=3)).order_by('id')
+    
     return render(request, 'operate/manage_users.html', (context))
 
 def get_like(request):
