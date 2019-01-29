@@ -15,3 +15,7 @@ class ChartStat(models.Model):
     time = models.DateTimeField(auto_now=True, null=True)
     tx_id = models.CharField(max_length=100, null=True)
     amount = models.IntegerField(null=True)
+
+class Comments(models.Model):
+    text = models.CharField(max_length=100)
+

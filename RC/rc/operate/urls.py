@@ -52,5 +52,5 @@ urlpatterns = [
     path('login_required/', login_required, name='login_required'),
     path('admin_logout/', admin_logout, name='admin_logout'),
 
-    path('dd/', dd, name='dd'),
+    path('socket_test/', socket_test, name='socket_test'),
 ]

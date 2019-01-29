@@ -1,7 +1,7 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-  
+
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon.png' %}">
@@ -12,7 +12,8 @@
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
   <!-- <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"> -->
   <!-- Material Design Bootstrap -->
   <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
@@ -24,13 +25,62 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{% static 'demo/demo.css' %}" rel="stylesheet" />
   <!-- font awsome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+    crossorigin="anonymous">
+
   <!--   Core JS Files   -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="{% static 'js/jquery.custombox.js' %}"></script> 
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="{% static 'js/jquery.custombox.js' %}"></script>
+  <script src="http://210.107.78.166:4000/socket.io/socket.io.js"></script>
+  <script>
+    $(document).ready(function () {
+      var socket = io.connect('210.107.78.166:4000');
+      socket['io']['opts'] = {
+        'hostname': "210.107.78.166",
+        'path': "/socket.io",
+        'port': "4000",
+        'secure': false
+      }
+      socket['nsp'] = "/";
+      socket['io']['uri'] = "http://127.0.0.1:4000";
+      socket['io']['engine']['hostname'] = '127.0.0.1';
+      socket['io']['engine']['port'] = '4000';
+      
+      var cnt = 1;
+      socket.on('message', function (data) {
+        if( cnt < 2 ){
+          $( "#node_each" ).empty();
+          cnt ++;
+        }else if(cnt > 10 ){
+          $( "#node_each" ).empty();
+          cnt = 2;
+        }else{
+          cnt ++;
+        }
+        var block_number = data['block_num'];
+        var tx_id = data['tx_id'];
+        var tx_data_toggle = 'data-toggle="tooltip" data-html="true" data-placement="top" title="tx_id: ' + tx_id + '"';
+        var html_block = '';
+        html_block += '<li>';
+        html_block += '<button style="background-color: white; border:0px;">'
+        html_block += '<i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"' + tx_data_toggle + '></i>'
+        html_block += '<span class="badge badge-pill badge-danger">' + block_number + '</span>';
+        html_block += '</button>';
+        html_block += '</li>';
+        $('#node_each').append(html_block);
+      });
+
+    });
+  </script>
   <style>
-      .scrollbar {
+    .node_row {
+        min-height: 200px;
+    }
+    .block_list ul li{
+      display:inline;
+    }
+    .scrollbar {
         margin-left: 30px;
         float: left;
         height: 400px;
@@ -54,13 +104,8 @@
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="azure" data-background-color="white" data-image="{% static 'img/sidebar-1.jpg' %}">
-      <!--
-        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-        Tip 2: you can also add an image using data-image tag
-    -->
       <div class="logo">
-        <a href="{% url 'operate:dashboard' %}" class="simple-text logo-normal">
+        <a href="{% url 'operate:main' %}" class="simple-text logo-normal">
           RC COIN
         </a>
       </div>
@@ -122,7 +167,8 @@
           <div class="navbar-wrapper">
             <a class="navbar-brand" href="#pablo"></a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+            aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
@@ -131,7 +177,7 @@
           <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="#pablo">
+                <a class="nav-link" href="{% url 'operate:dashboard' %}">
                   <i class="material-icons">dashboard</i>
                   <p class="d-lg-none d-md-block">
                     Stats
@@ -139,7 +185,8 @@
                 </a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">notifications</i>
                   <span class="notification">5</span>
                   <p class="d-lg-none d-md-block">
@@ -155,16 +202,17 @@
                 </div>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link" href="#" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="#" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
                     Account
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                    <a class="dropdown-item"><strong>{{ request.session.admin_name }}</strong></a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{% url 'operate:admin_logout' %}">Log out</a>
+                  <a class="dropdown-item"><strong>{{ request.session.admin_name }}</strong></a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'operate:admin_logout' %}">Log out</a>
                 </div>
               </li>
             </ul>
@@ -179,7 +227,7 @@
             &copy;
             <script>
               document.write(new Date().getFullYear())
-            </script>, RGB all rights reserved 
+            </script>, RGB all rights reserved
           </div>
         </div>
       </footer>
@@ -189,11 +237,11 @@
   <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
   <!-- Bootstrap tooltips -->
   {% if main %}
-    <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
-    <script src="{% static 'js/core/popper.min.js' %}"></script>
+  <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
+  <script src="{% static 'js/core/popper.min.js' %}"></script>
   {% else %}
   <script src="{% static 'js/core/popper.min.js' %}"></script>
-    <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
+  <script src="{% static 'js/core/bootstrap-material-design.min.js' %}"></script>
   {% endif %}
   <script src="{% static 'js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
   <!-- Plugin for the momentJs  -->
@@ -233,9 +281,9 @@
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="{% static 'demo/demo.js' %}"></script>
   <script>
-    
-    $(document).ready(function() {
-      $().ready(function() {
+
+    $(document).ready(function () {
+      $().ready(function () {
         $sidebar = $('.sidebar');
 
         $sidebar_img_container = $sidebar.find('.sidebar-background');
@@ -255,7 +303,7 @@
 
         }
 
-        $('.fixed-plugin a').click(function(event) {
+        $('.fixed-plugin a').click(function (event) {
           // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
           if ($(this).hasClass('switch-trigger')) {
             if (event.stopPropagation) {
@@ -266,7 +314,7 @@
           }
         });
 
-        $('.fixed-plugin .active-color span').click(function() {
+        $('.fixed-plugin .active-color span').click(function () {
           $full_page_background = $('.full-page-background');
 
           $(this).siblings().removeClass('active');
@@ -287,7 +335,7 @@
           }
         });
 
-        $('.fixed-plugin .background-color .badge').click(function() {
+        $('.fixed-plugin .background-color .badge').click(function () {
           $(this).siblings().removeClass('active');
           $(this).addClass('active');
 
@@ -298,7 +346,7 @@
           }
         });
 
-        $('.fixed-plugin .img-holder').click(function() {
+        $('.fixed-plugin .img-holder').click(function () {
           $full_page_background = $('.full-page-background');
 
           $(this).parent('li').siblings().removeClass('active');
@@ -308,7 +356,7 @@
           var new_image = $(this).find("img").attr('src');
 
           if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-            $sidebar_img_container.fadeOut('fast', function() {
+            $sidebar_img_container.fadeOut('fast', function () {
               $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
               $sidebar_img_container.fadeIn('fast');
             });
@@ -317,7 +365,7 @@
           if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
             var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
 
-            $full_page_background.fadeOut('fast', function() {
+            $full_page_background.fadeOut('fast', function () {
               $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
               $full_page_background.fadeIn('fast');
             });
@@ -336,7 +384,7 @@
           }
         });
 
-        $('.switch-sidebar-image input').change(function() {
+        $('.switch-sidebar-image input').change(function () {
           $full_page_background = $('.full-page-background');
 
           $input = $(this);
@@ -368,7 +416,7 @@
           }
         });
 
-        $('.switch-sidebar-mini input').change(function() {
+        $('.switch-sidebar-mini input').change(function () {
           $body = $('body');
 
           $input = $(this);
@@ -383,7 +431,7 @@
 
             $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
 
-            setTimeout(function() {
+            setTimeout(function () {
               $('body').addClass('sidebar-mini');
 
               md.misc.sidebar_mini_active = true;
@@ -391,12 +439,12 @@
           }
 
           // we simulate the window Resize so the charts will get updated in realtime.
-          var simulateWindowResize = setInterval(function() {
+          var simulateWindowResize = setInterval(function () {
             window.dispatchEvent(new Event('resize'));
           }, 180);
 
           // we stop the simulation of Window Resize after the animations are completed
-          setTimeout(function() {
+          setTimeout(function () {
             clearInterval(simulateWindowResize);
           }, 1000);
 
@@ -405,7 +453,7 @@
     });
   </script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       // Javascript method's body can be found in assets/js/demos.js
       md.initDashboardPageCharts();
 
