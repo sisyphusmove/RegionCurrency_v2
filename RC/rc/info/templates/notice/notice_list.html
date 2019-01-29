@@ -27,67 +27,116 @@
     .note-editor.note-frame .note-editing-area .note-editable[contenteditable="false"]{
         background-color: white;
     }
+    /*    --------------------------------------------------
+	:: General
+	-------------------------------------------------- */
+    .submitbox{
+    
+    border-top: 6px solid #7ac55d;
+    background-color:#fff;
+    /* padding: 20px; */
+    
+    padding-bottom: 1px;
+    
+    box-shadow: 0 10px 10px -2px rgba(0,0,0,0.12),0 -2px 10px -2px rgba(0,0,0,0.12);    
+    }
+    .boxtitle {
+        font-size: 28px;
+        color: #7ac55d;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+    .nav-tabs .nav-link {
+        border: 1px soild #dee2e6;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        border-left: 1px solid #dee2e6;
+        border-right: 1px solid #dee2e6;
+        border-top: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    @media (max-width: 700px) {
+        thead {
+            visibility: hidden;
+        }
+    } 
+    .tag_text, thead {
+        padding: 5px;
+        text-align: center;
+        white-space: nowrap;
+    }
 </style>
-<div class="side_bar" style="float: left; border-top: 1px solid #71c55d; border-bottom: 1px solid #71c55d; margin-left: 40px; background-color: white">
-    <div style="padding: 20px; background-color: #71c55d;"><div class="" href="{% url 'board:list' %}" style="text-align: center; color: white; font-weight: bold;"> 정 보 마 당 </div></div>
-</div>
-<input type="hidden" id="user_type" name="user_type" value="{{ user.profile.type }}">
-<input type="hidden" id="board_type" name="board_type" value="">
-<div class="content board_content" style="margin-left: 20%;margin-top: 10%;margin-right: 20%;margin-bottom: 30%">
-    <table class="table">
-        <thead class="thead-dark">
-            <colgroup>
-                <th scope="col" width="40%">번호</th>
-                <th scope="col" width="40%">제목</th>
-                <th scope="col" width="20%">날짜</th>
-            </colgroup>
-        </thead>
-        <tbody>
-            {% for text in notice_list %}
-                <tr class="tag_title">
-                    <td>{{ text.id }}</td>
-                    <td>{{ text.title }}</td>
-                    <td>{{ text.modify_date}}</td>
-                </tr>
-                <tr class="tag_content" style="display:none">
-                    <td colspan="3">
-                        <div align="center" class="body" id="summernote" style="min-height: 5em">{{ text.content|safe }}</div>
-                    </td>
-                </tr>
-            {% endfor %}
-            {% for li in remain_of_page %}
-                <tr><td colspan="6">&nbsp;</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <nav aria-label="Page navigation" style="margin-left: 50%">
-      <ul class="pagination">
-        {% if has_prev %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ prev_page }}" aria-label="Previous">
-                <span aria-hidden="true">«</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-        {% endif %}
-        {% for i in num_pages %}
-            {% if page_obj.number == i %}
-                <li class="active page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-            {% else %}
-                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-            {% endif %}
-        {% endfor %}
-        {% if has_next %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ next_page }}" aria-label="Next">
-                <span aria-hidden="true">»</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-        {% endif %}
-      </ul>
-    </nav>
-</div>
+<br><br>
+<section id="content" style="margin-top: 50px; margin-bottom: 50px">
+
+    <input type="hidden" id="user_type" name="user_type" value="{{ user.profile.type }}">
+    <input type="hidden" id="board_type" name="board_type" value="">
+
+    <div class="container">
+            <div class="submitbox">
+            <br>
+            <h2 style="color:#71c55d" align="center">공지사항</h2>
+            <br>
+                <div class="content board_content">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <colgroup>
+                                <th scope="col" width="40%">번호</th>
+                                <th scope="col" width="40%">제목</th>
+                                <th scope="col" width="20%">날짜</th>
+                            </colgroup>
+                        </thead>
+                        <tbody>
+                            {% for text in notice_list %}
+                                <tr class="tag_title">
+                                    <td>{{ text.id }}</td>
+                                    <td>{{ text.title }}</td>
+                                    <td>{{ text.modify_date}}</td>
+                                </tr>
+                                <tr class="tag_content" style="display:none">
+                                    <td colspan="3">
+                                        <div align="center" class="body" id="summernote" style="min-height: 5em">{{ text.content|safe }}</div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            {% for li in remain_of_page %}
+                                <tr><td colspan="6">&nbsp;</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <nav aria-label="Page navigation" style="margin-left: 50%">
+                    <ul class="pagination">
+                        {% if has_prev %}
+                            <li class="page-item">
+                            <a class="page-link" href="?page={{ prev_page }}" aria-label="Previous">
+                                <span aria-hidden="true">«</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            </li>
+                        {% endif %}
+                        {% for i in num_pages %}
+                            {% if page_obj.number == i %}
+                                <li class="active page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if has_next %}
+                            <li class="page-item">
+                            <a class="page-link" href="?page={{ next_page }}" aria-label="Next">
+                                <span aria-hidden="true">»</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>   
+</section>
+
 <script type="text/javascript">
     // function toggle_content(id){
     //     var title_class = '.tag_title' + id;

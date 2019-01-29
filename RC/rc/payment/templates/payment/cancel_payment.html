@@ -17,39 +17,32 @@
 	<div class="container" align="center">
         <div class="submitbox" style="max-width:400px">
             <div class="col-sm">
-                <span class="boxtitle" >거래 취소</span>   
+                <span class="boxtitle text-danger">결제 취소</span>   
             </div>
             <br/>
-            <div class="row col-sm justify-content-center text-danger">
-                <div><strong>{{ trader }}</strong>님이&nbsp;</div>
-                <div>가맹점&nbsp;</div>
-                <div><strong>"{{ store }}"</strong>에서&nbsp;결제한</div>
+            <div style="text-align: left; padding-left: 30px; padding-right: 30px; font-size: 20px;">
+                <strong>
+                    결제자 : {{ trader }}
+                    <br/>
+                    결제금액 : {{ amount }}
+                </strong>
             </div>
-            <div class="row col-sm justify-content-center text-danger">
-                <div><strong>{{ amount }}</strong>RC를&nbsp;</div>
-                <div><strong>"결제취소"</strong>합니다.</div>
-            </div>
-            
-            <br/>
-            
-            <div class="row col-sm justify-content-center">
-                <div><input type="password"  id="password" name="password" class="form-control" placeholder="비밀번호" required autofocus autocomplete="off"></div>
-            </div>
-            
-            <br/>
-            
-            <div class="row col-sm">
-                <button type="submit" id="btn_submit" onClick="cancel()" class="col-sm btn submitButton">결제취소</button>
-                <a href="{% url 'profile:account_myInfo' user.id %}" class="col-sm btn cancelButton">취소</a>
-            </div>
-        
             <form id="cancel_payment" action="{% url 'payment:add_canceled_payment'%}" method="POST">
                 {% csrf_token %}
                 <input type="text" name="trader" value="{{ trader }}" hidden />
                 <input type="text" name="username" value="{{ username }}" hidden />
                 <input type="text" name="amount" value="{{ amount }}" hidden />
                 <input type="text" name="tx" value="{{ tx }}" hidden />
+                <div style="padding-left: 20px; padding-right: 20px;">
+                    <input type="text" id="comment" name="comment" class="form-control" required autofocus placeholder="취소사유">    
+                    <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호" required autocomplete="off">
+                </div>
             </form>
+            
+            <div class="row col-sm">
+                <button type="submit" id="btn_submit" onClick="cancel()" class="col-sm btn submitButton">결제취소</button>
+                <a href="{% url 'profile:account_myInfo' user.id %}" class="col-sm btn cancelButton">취소</a>
+            </div>
         </div>
     </div>
 <br>

@@ -83,16 +83,16 @@ WSGI_APPLICATION = 'rc.wsgi.application'
 DATABASES = {
     'default': {
         # Sqlite3
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         
         # MariaDB
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'rcdb',
-        # 'USER': 'root',
-        # 'PASSWORD': 'rcadmin',
-        # 'HOST': 'localhost',
-        # 'PORT': '3306'
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'rcdb',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': '222.239.231.245',
+        'PORT': '3306'
     }
 }
 
@@ -136,6 +136,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_ROOT = ''
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = ( os.path.join('static'), )
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]

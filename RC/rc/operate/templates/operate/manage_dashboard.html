@@ -60,12 +60,12 @@
                         <div class="card-icon">
                             <i class="material-icons">compare_arrows</i>
                         </div>
-                        <p class="card-category">Transactions</p>
+                        <p class="card-category">트랜잭션</p>
                         <h3 class="card-title">{{ tx_cnt }}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">date_range</i> Last 24 Hours
+                            <i class="material-icons">date_range</i>총 트랜잭션 수 입니다.
                         </div>
                     </div>
                 </div>
@@ -76,14 +76,13 @@
                         <div class="card-icon">
                             <i class="material-icons">content_paste</i>
                         </div>
-                        <p class="card-category">Stores</p>
+                        <p class="card-category">가맹점</p>
                         <h3 class="card-title">{{ store_cnt }}
                         </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons text-danger">warning</i>
-                            <a href="#pablo">Get More Space...</a>
+                            <i class="material-icons">store</i>총 가맹점 수 입니다.
                         </div>
                     </div>
                 </div>
@@ -94,12 +93,12 @@
                         <div class="card-icon">
                             <i class="material-icons">account_balance_wallet</i>
                         </div>
-                        <p class="card-category">Accounts</p>
+                        <p class="card-category">계좌</p>
                         <h3 class="card-title">{{ account_cnt }}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">local_offer</i> Tracked from Github
+                            <i class="material-icons">local_offer</i>총 계좌수입니다.
                         </div>
                     </div>
                 </div>
@@ -110,12 +109,14 @@
                         <div class="card-icon">
                             <i class="material-icons">local_atm</i>
                         </div>
-                        <p class="card-category">Publish</p>
-                        <h3 class="card-title">{{ publish.total_publish }}RC</h3>
+                        <p class="card-category">발행량</p>
+                        <h3 class="card-title">{{ publish.total_publish }}RC</h3>;
+                        <h3 class="result"></h3>
+                        
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">local_atm</i> Just Updated
+                            <i class="material-icons">local_atm</i>총 발행량 입니다.
                         </div>
                     </div>
                 </div>
@@ -129,12 +130,19 @@
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">전체 거래량</h4>
+                        </p>
                         <p class="card-category">
-                        <span class="text-success"><i class="material-icons">trending_up</i> 55% </span> increase in today sales.</p>
+
+                            <span class="text-success"><i class="material-icons">trending_up</i>
+                                전년대비 증가율 <h4 class="section-data-result"></h4>
+                            </span>
+
+
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                                <i class="material-icons">local_offer</i><a href="{% url 'operate:stats' %}">통계보기</a><i class="material-icons">subdirectory_arrow_left</i>
+                            <i class="material-icons">local_offer</i><a href="{% url 'operate:stats' %}">통계보기</a><i
+                                class="material-icons">subdirectory_arrow_left</i>
                         </div>
                     </div>
                 </div>
@@ -166,7 +174,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">local_offer</i><a href="{% url 'operate:north_stats' %}">통계보기</a><i class="material-icons">subdirectory_arrow_left</i>
+                            <i class="material-icons">local_offer</i><a href="{% url 'operate:north_stats' %}">통계보기</a><i
+                                class="material-icons">subdirectory_arrow_left</i>
                         </div>
                     </div>
                 </div>
@@ -196,7 +205,7 @@
                                 <ul class="nav nav-tabs" data-tabs="tabs">
                                     <li class="nav-item">
                                         <a class="nav-link" href="#settings" data-toggle="tab">
-                                            <i class="material-icons">cloud</i> Waiting Stores
+                                            <i class="material-icons">cloud</i> 승인대기 가맹점
                                             <div class="ripple-container"></div>
                                         </a>
                                     </li>
@@ -234,8 +243,8 @@
             <div class="col-lg-6 col-md-12">
                 <div class="card">
                     <div class="card-header card-header-warning">
-                        <h4 class="card-title">Manage notice</h4>
-                        <p class="card-category">Four latest notices</p>
+                        <h4 class="card-title">공지사항</h4>
+                        <p class="card-category">공지사항 미리보기</p>
                     </div>
                     <div class="card-body table-responsive">
                         <table class="table table-hover table-border">
@@ -266,4 +275,33 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        var endpoint = '{% url "operate:chartdata" %}'
+        var defaultData = []
+        var labels_second = []
+        var labels = []
+
+
+        $.ajax({
+            method: "GET",
+            url: endpoint,
+            success: function (data) {
+
+                all_labels = data.all_labels
+                all_default = data.all_default
+
+                var all = ((all_default[4] - all_default[3]) / (all_default[3] + 1) * 100) + '%'
+                var result = all.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                
+                $('.section-data-result').text(result)
+                
+                },
+            error: function (error_data) {
+                console.log("error")
+                console.log(error_data)
+            }
+        })
+    })
+</script>
 {% endblock content %}

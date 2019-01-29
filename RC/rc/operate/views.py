@@ -8,7 +8,9 @@ from info.models import Notice
 from board.models import Comment, BoardLiker
 from store.models import Photo, Store
 from operate.models import ChartStat
+from payment.models import Cancellation
 from django.db.models import Q, Sum
+from .views import *
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -94,7 +96,11 @@ def dashboard(request):
     context['tx_cnt']              = get_tx_cnt()
     context['store_cnt']           = get_store_cnt()
     context['account_cnt']         = get_account_cnt()
-    context['publish']             = get_publish_amount()
+    context['publish']             = 0 if get_publish_amount() == None else get_publish_amount()
+
+    context['west_stats']          = 0 if get_total_location_tx(1) == None else get_total_location_tx(1)
+    context['north_stats']         = 0 if get_total_location_tx(2) == None else get_total_location_tx(2)
+    context['wooleung_stats']      = 0 if get_total_location_tx(3) == None else get_total_location_tx(3)
     context['west_stats']          = 0 if get_total_location_tx(2) == None else get_total_location_tx(2)
     context['north_stats']         = 0 if get_total_location_tx(3) == None else get_total_location_tx(3)
     context['wooleung_stats']      = 0 if get_total_location_tx(1) == None else get_total_location_tx(1)
@@ -106,9 +112,10 @@ def dashboard(request):
 @login_required
 def manageUser(request):
     context = {}
+    data_list = []
     username = request.GET.get('keyword', '')
-    context['users'] = User.objects.filter(Q(username__icontains=username) & ~Q(profile__type=0)).order_by('id')
-
+    context['users'] = User.objects.filter(Q(username__icontains=username) & ~Q(profile__type=0) & ~Q(profile__type=3)).order_by('id')
+    
     return render(request, 'operate/manage_users.html', (context))
 
 def get_like(request):
@@ -201,9 +208,31 @@ def publish(request):
     context = {}
     publish_list = []
     publish_list = list(get_publish_amount()['publish_list'])
+    total_publish = get_publish_amount()['total_publish']
+    val = total_publish
+    str(val)
+    number = format(val,',')
+    context['total_publish'] = number
     context['publish_list'] = publish_list
     return render(request, 'operate/manage_publish.html', (context))
-
+#--------------------------------------거래취소관리-----------------------------------------------#
+@login_required
+def cancel(request):
+    canceled_data = Cancellation.objects.all().order_by('-removed_date')
+    cancel_data = {}
+    data_list = []
+    
+    for datas in canceled_data:
+        data = {}
+        data['s_id'] = str(datas.s_id)
+        data['txHash'] = datas.txHash
+        data['amount'] = datas.amount
+        data['comment'] = datas.comment
+        data['removed_date'] = datas.removed_date
+        data_list.append(data)
+        
+    cancel_data['cancel_data'] = data_list
+    return render(request, 'operate/manage_cancel.html', (cancel_data))
 #--------------------------------------네트워크 관리-----------------------------------------------#
 @login_required
 def network(request):
@@ -242,12 +271,15 @@ class ChartData(APIView):
         ################울릉도 전체#####################
         all_labels = ['2015','2016','2017','2018','2019']
         # data_list = ChartStat.objects.values_list('time', flat=True)
+        # data_list = ChartStat.objects.values_list('time', flat=True)
         default = {}
+        default = [0,0,0,0,0]
+        i = -1
         for label in all_labels:
-            default[label] = 0
+            i += 1
             value = ChartStat.objects.filter(time__icontains=label).aggregate(Sum('amount'))['amount__sum']
-            if value != None:
-                default[label] = value
+            if value:
+                default[i] = value
        
             # 0 if default[label].values() == None else default[label]
             # if default[label] != None : 
@@ -258,7 +290,7 @@ class ChartData(APIView):
         data_list1 = ChartStat.objects.values_list('gender', flat=True).filter(store__location=location)
         default_items = [0, 0]
         for data in data_list1:
-            if data == '남':
+            if data == 'm':
                 default_items[0] += 1
             else : default_items[1] += 1
 
@@ -300,7 +332,7 @@ class ChartData(APIView):
         data = {
 
                 "all_labels" : all_labels,
-                "all_default" : default.values(),
+                "all_default" : default,
                
                 "labels": labels,
                 "default": default_items,
@@ -350,10 +382,11 @@ def get_publish_amount():
     try:
         response = requests.get(get_publish_url)
         json_format = json.loads(response.text)
+        json_format.reverse()
         data_list = []
         for datas in json_format:
             data = {}
-            publish_amount = datas['balance']
+            publish_amount += datas['balance']
             data['tx_id'] = str(datas['tx_id'])
             data['amount'] = datas['amount']
             data['person'] = datas['trader']
@@ -364,8 +397,10 @@ def get_publish_amount():
         publish_data['publish_list'] = data_list
     except Exception as e:
         print(e)
+        publish_data['total_publish'] = 0
         publish_data['publish_list'] = ""
     return publish_data
+
 
 def get_account_cnt():
     users = User.objects.all()

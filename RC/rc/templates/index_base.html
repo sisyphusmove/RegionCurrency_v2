@@ -64,12 +64,13 @@
                 </li>
                 <li><a href="{% url 'map' %}">오시는 길</a>
                 </li>
-                <li class="menu-has-children"><a href="#features">정보마당</a>
+                <li class="menu-has-children"><a href="{% url 'info:list' %}">정보마당</a>
                     <ul>
                         <li><a href="{% url 'info:list' %}">공지사항</a></li>
                     </ul>
                 </li>
-                <li class="menu-has-children"><a href="#community">커뮤니티</a>
+                <li class="menu-has-children"><a href="{% url 'board:list' %}">커뮤니티</a>
+                <input type="hidden" id="board_type_1" value="1">
                     <ul>
                         <li><a class="btn_board_type_1" href="{% url 'board:list' %}">가맹게시판</a></li>
                         <input type="hidden" id="board_type_1" value="1">
@@ -113,7 +114,7 @@ Footer
                 <div class="col-md-12 col-lg-4">
                     <div class="footer-logo">
                         <a class="navbar-brand" href="{% url 'index' %}">RC COIN</a>
-                        <p>RC코인은 울릉도의 지역경제를 활성화시키기 위하여 만들어진 친환경 코인입니다. 자전거를 타는 활동을 통하여 RC코인을 분배받을 수 있습니다.</p>
+                        <p style="font-size:17px;">RC코인은 울릉도의 지역경제를 활성화시키기 위하여 만들어진 친환경 코인입니다. 자전거를 타는 활동을 통하여 RC코인을 분배받을 수 있습니다.</p>
                     </div>
                 </div>
 

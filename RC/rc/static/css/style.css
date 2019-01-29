@@ -24,7 +24,7 @@ h2 {
 
 h4 {
   color: #000;
-  font-size: 13px;
+  
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -180,7 +180,7 @@ span {
 
 @media (pointer: coarse) and (hover: none) {
   #video {
-    background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
+    background: url('../img/대문.png') black no-repeat center center scroll;
   }
   #video .A {
     display: none;
@@ -419,15 +419,15 @@ span {
 
 /* Nav Meu Styling */
 .nav-menu a {
-  padding: 8px 8px;
+  padding: 8px 20px;
   text-decoration: none;
   display: inline-block;
   color: #555;
   font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 14px;
+  font-weight: bold;
+  font-size: 18px;
   outline: none;
-  letter-spacing: 0;
+  letter-spacing: 1px;
   transition: 0.3s;
 }
 
@@ -621,7 +621,7 @@ body.mobile-nav-active #mobile-nav-toggle i {
 .separator {
   color: #626262;
   font-family: "Roboto", sans-serif;
-  font-size: 15px;
+  /* font-size: 15px; */
   font-weight: 300;
   margin-bottom: 30px;
   text-transform: capitalize;
@@ -702,7 +702,7 @@ margin: 0 0 10px 0;
   color: #71c55d;
 }
 #about-us img {
-  max-width: 100%;
+  max-width: 290px;
 }
 
 #about-us .about-content {
@@ -1159,8 +1159,6 @@ margin: 0 0 10px 0;
 
 #blog h2 {
   margin: 0 0 10px 0;
-  font-size: 48px;
-  font-weight: 700;
   line-height: 56px;
   font-family: "Philosopher", sans-serif;
   color: #71c55d;
@@ -1190,7 +1188,7 @@ margin: 0 0 10px 0;
   text-transform: capitalize;
   font-weight: normal;
   letter-spacing: 0;
-  font-size: 16px;
+  
 }
 
 #blog .block-blog .content-blog h4 a {
@@ -1441,11 +1439,12 @@ margin: 0 0 10px 0;
 .footer .list-menu > h4 {
   color: #fff;
   padding-bottom: 20px;
+  font-size: 25px;
 }
 
 .footer .list-menu ul li a {
   color: #fff;
-  font-size: 12px;
+  font-size: 17px;
   padding-left: 5px;
   text-decoration: none;
   letter-spacing: 0;

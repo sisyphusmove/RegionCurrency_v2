@@ -33,6 +33,8 @@ urlpatterns = [
     path('notice/notice_activate/', notice_activate, name='notice_activate'),
 #### 발행 관리 URL #######################################################    
     path('publish/', publish, name='publish'),
+#### 거래 취소 관리 URL#######################################################
+    path('cancel/', cancel, name='cancel'),
 #### 네트워크 관리 URL ###################################################
     path('network/', network, name='network'),
 #### 유저관리 URL ########################################################

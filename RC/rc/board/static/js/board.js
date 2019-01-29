@@ -1,3 +1,5 @@
+
+
 function ctl_cookie(board_type){
     var getCookie = function(name) {
       var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
@@ -47,6 +49,7 @@ function btn_click_ctl(){
 }
 
 function chg_board(board_type, page){
+
         ctl_cookie(board_type)
 
         var category = ''
@@ -72,6 +75,7 @@ function chg_board(board_type, page){
             success: function(data) {
 
                 html = ''
+                html += '<section id="contact">'
                 html += '    <div class="btn_write_area" style="background-color: white; background-color:67px;">'
                 html += '     <select id="search_categoty" class="category" name="search_categoty" style="height: 30px; border: 1px solid #CCC;color:#777">'
                 html += '       <option value="">전체</option>'
@@ -80,7 +84,8 @@ function chg_board(board_type, page){
                 html += '       <option value="content">게시글</option>'
                 html += '     </select>'
                 html += '    <input class="keyword" type="text" placeholder="검색어를 입력하세요. "'
-                html += '    style="width: 340px;background-image:url(../../static/img/search.png);background-position-x: 2px; background-position-y: 1px; background-repeat: no-repeat;border:#CCC solid 1px;padding-left: 30px;">'
+                html += '    style="background-image:url(../../static/img/search.png);background-position-x: 2px; background-position-y: 1px; background-repeat: no-repeat;border:#CCC solid 1px;padding-left: 30px;">'
+                
                 html += '    <a class="btn btn_search" style="color:#fff" onclick="search_board_by_word()">찾기</a>'
                 html += '    <a class="btn btn_write" href="/board/add" style="display: none; position: absolute; margin-top: -53px; right: 20%; background-color: #71c55d;">글쓰기</a>'
                 html += '    </div>'
@@ -99,7 +104,7 @@ function chg_board(board_type, page){
                 for( var i=0; i<data.max_page; i++){
                     if( data.object[i] != null ){
                         html += "<tr class='tag_text'>"
-                        html += "<td>" + (data.start_index+i) + "</td>"
+                        html += "<th scope='row'>" + (data.start_index+i) + "</th>"
                         html += "<td><a href='" + data.object[i].get_absolute_url + "'>" + data.object[i].title + "</a></td>"
                         html += "<td>" +  data.object[i].writer + "</td>"
                         html += "<td>" + data.object[i].modify_date + "</td>"
@@ -146,7 +151,7 @@ function chg_board(board_type, page){
                 }
                 html += '        </ul>'
                 html += '        </nav>'
-
+                html += '</section>'
                 $('div.board_content').html(html)
 
                 if( $('#user_type').val() != board_type ){

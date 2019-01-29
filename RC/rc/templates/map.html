@@ -8,13 +8,29 @@
 
 {% block content %}
 
-<section id="blog" class="padd-section fadeInUp">
+<style>
+.submitbox{
+    
+    border-top: 6px solid #7ac55d;
+    background-color:#fff;
+    /* padding: 20px; */
+    align:center;
+    padding-bottom: 1px;
+    width: 70%;
+    margin-left: 15%;
+    box-shadow: 0 10px 10px -2px rgba(0,0,0,0.12),0 -2px 10px -2px rgba(0,0,0,0.12);    
+    }
+    
+</style>
+<br><br><br><br>
+<div class="submitbox">
+<section id="blog" class="fadeInUp" style="padding-top:25px;">
 
     <div class="container">
-      <div class="section-title text-center">
+      <div class="text-center">
 
         <h2>오시는 길</h2>
-        <p class="separator">당신을 울릉도로 안내합니다.</p>
+        <p style="font-size:20px;"class="separator"><h4>당신을 울릉도로 안내합니다.</h4></p>
       </div>
     </div>
 
@@ -27,7 +43,7 @@
 
             <div class="content-blog">
               <h4><a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2052&" target="_blank">포항에서</a></h4>
-              <span>포항 여객터미널</span>
+              <span style="font-size:16px;">포항 여객터미널</span>
               <a class="pull-right readmore" href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2052&" target="_blank">read more</a>
             </div>
           </div>
@@ -39,7 +55,7 @@
 
             <div class="content-blog">
               <h4><a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2053&" target="_blank">후포에서</a></h4>
-              <span>후포항 여객터미널</span>
+              <span style="font-size:16px;">후포항 여객터미널</span>
               <a class="pull-right readmore" href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2053&" target="_blank">read more</a>
             </div>
           </div>
@@ -51,7 +67,7 @@
 
             <div class="content-blog">
               <h4><a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2054&" target="_blank">묵호에서</a></h4>
-              <span>묵호 여객터미널</span>
+              <span style="font-size:16px;">묵호 여객터미널</span>
               <a class="pull-right readmore" href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2054&" target="_blank">read more</a>
             </div>
           </div>
@@ -71,7 +87,7 @@
 
                   <div class="content-blog">
                     <h4><a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2055&" target="_blank">강릉에서</a></h4>
-                    <span>강릉(안목)항 여객터미널</span>
+                    <span style="font-size:16px;">강릉(안목)항 여객터미널</span>
                     <a class="pull-right readmore" href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2055&" target="_blank">read more</a>
                   </div>
                 </div>
@@ -83,7 +99,7 @@
 
                   <div class="content-blog">
                     <h4><a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2067&" target="_blank">독도</a></h4>
-                    <span>여객선 이용시 유의사항</span>
+                    <span style="font-size:16px;">여객선 이용시 유의사항</span>
                     <a class="pull-right readmore" href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2067&" target="_blank">read more</a>
                   </div>
                 </div>
@@ -95,7 +111,7 @@
 
                       <div class="content-blog">
                         <h4><a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2061&" target="_blank">배시간&요금</a></h4>
-                        <span>여객선 이용시 유의사항</span>
+                        <span style="font-size:16px;">여객선 이용시 유의사항</span>
                         <a class="pull-right readmore" href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2061&" target="_blank">read more</a>
                       </div>
                     </div>
@@ -105,9 +121,10 @@
 
             </div>
           </div>
-  </section>
+          <br>
+</section>
 
-  <section id="testimonials" class="padd-section text-center fadeInUp">
+{% comment %} <section id="testimonials" class="padd-section text-center fadeInUp">
 
     <div class="container">
         <div class="section-title text-center">
@@ -187,9 +204,9 @@
         </div>
       </div>
     </div>
-  </section>
-
-
+</section> {% endcomment %}
+</div>
+<br>
 
 {% endblock content %}
 
