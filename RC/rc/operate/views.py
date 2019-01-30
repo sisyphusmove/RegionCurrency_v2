@@ -271,7 +271,6 @@ class ChartData(APIView):
         ################울릉도 전체#####################
         all_labels = ['2015','2016','2017','2018','2019']
         # data_list = ChartStat.objects.values_list('time', flat=True)
-        # data_list = ChartStat.objects.values_list('time', flat=True)
         default = {}
         default = [0,0,0,0,0]
         i = -1

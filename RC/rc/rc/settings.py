@@ -83,16 +83,16 @@ WSGI_APPLICATION = 'rc.wsgi.application'
 DATABASES = {
     'default': {
         # Sqlite3
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         
         # MariaDB
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rcdb',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '222.239.231.245',
-        'PORT': '3306'
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'rcdb',
+        # 'USER': 'root',
+        # 'PASSWORD': 'root',
+        # 'HOST': '222.239.231.245',
+        # 'PORT': '3306'
     }
 }
 
