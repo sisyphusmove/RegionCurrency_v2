@@ -1,209 +1,233 @@
 {% extends './base.html' %}
 {% load staticfiles %}
 {% block content %}
-  <div class="content" style="margin-top: 35px;">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-header card-header-success">
-              <span style="float: left">
-                <h4 class="card-title "><i class="material-icons">person</i>&nbsp;<strong>사용자 관리</strong></h4>
-                <p class="card-category">this is the page of managing users</p>
-              </span>
-              <span style="float: right">
-                <form action="." method="get" class="navbar-form">
-                  <div class="input-group no-border">
-                    <input type="text" value="" name="keyword" class="form-control" placeholder="search...">
-                    <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                      <i class="material-icons">search</i>
-                      <div class="ripple-container"></div>
-                    </button>
-                  </div>
-                </form>
-              </span>
-            </div>
-            <div class="card-body scrollbar scrollbar-primary">
-              <div class="table-responsive">
-                <table class="table">
-                  <thead class=" text-primary">
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Gender</th>
-                    <th>Birth</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                    <th></th>
-                  </thead>
-                  <tbody>
-                    {% for user in users %}
-                      <tr class="tag" id="{{user.id}}">
-                        <td>{{ user.username }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>
-                          {% if user.profile.gender == 'm' %}
-                            남자
-                          {% else %}
-                            여자
-                          {% endif %}
-                        </td>
-                        <td>{{ user.profile.birth_year }}-{{ user.profile.birth_month }}-{{ user.profile.birth_date }}</td>
-                        {% if user.profile.type == 1 %}
-                        <td>가맹점</td>
-                        {% elif user.profile.type == 2 %}
-                        <td>일반</td>
-                        {% endif %}
-                        {% if user.profile.status == 'a' %}
-                        <td>활동</td>
-                        {% else %}
-                        <td>탈퇴</td>
-                        {% endif %}
-                        <td class="status-button">
-                            <a href="#layer2" class="btn-detail" id="{{user.id}}">
-                              <button type="button" class="btn btn-primary btn-sm">상세조회</button>
-                            </a>
-                        </td>
-                      </tr>
-                    {% endfor %}
-                    {% for li in remain_of_page %}
-                        <tr><td colspan="6">&nbsp;`</td></tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+<div class="content" style="margin-top: 35px;">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header card-header-success">
+            <span style="float: left">
+              <h4 class="card-title "><i class="material-icons">person</i>&nbsp;<strong>사용자 관리</strong></h4>
+              <p class="card-category">this is the page of managing users</p>
+            </span>
+            <span style="float: right">
+              <form action="." method="get" class="navbar-form">
+                <div class="input-group no-border">
+                  <input type="text" value="" name="keyword" class="form-control" placeholder="search...">
+                  <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                    <i class="material-icons">search</i>
+                    <div class="ripple-container"></div>
+                  </button>
+                </div>
+              </form>
+            </span>
           </div>
-        </div>
-        <div class="col-md-4" style>
-          <div class="card card-profile" style="margin-top: 19%;">
-            <div class="card-avatar">
-              <a href="" class="userpic">
-                <img style="" src="{% static '/img/faces/default_face.png' %}" alt="">
-              </a>
-            </div>
-            <div class="card-body profile-usertitle">
-              <table style="margin-left: 25%">
-                <tr>
-                  <td class="profile">id</td><td class="profile-usertitle-name"></td>  
-                </tr>
-                <tr>
-                  <td class="profile">email</td><td class="profile-usertitle-email"></td>  
-                </tr>
-                <tr>
-                  <td class="profile">gender</td><td class="profile-usertitle-gender"></td>  
-                </tr>
-                <tr>
-                  <td class="profile">birth</td><td class="profile-usertitle-birth"></td>  
-                </tr>
-                <tr>
-                  <td class="profile">type</td><td class="profile-usertitle-type"></td>  
-                </tr>
-                <tr>
-                  <td class="profile">status</td><td class="profile-usertitle-status"></td>  
-                </tr>
-                <tr>
-                    <td class="profile">like</td><td class="profile-usertitle-like"></td>  
-                </tr>
-                <tr>
-                    <td class="profile">board</td><td class="profile-usertitle-board"></td>  
-                </tr>
+          <div class="card-body scrollbar scrollbar-primary">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Gender</th>
+                  <th>Birth</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  {% for user in users %}
+                  <tr class="tag" id="{{user.id}}">
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                      {% if user.profile.gender == 'm' %}
+                      남자
+                      {% else %}
+                      여자
+                      {% endif %}
+                    </td>
+                    <td>{{ user.profile.birth_year }}-{{ user.profile.birth_month }}-{{ user.profile.birth_date }}</td>
+                    {% if user.profile.type == 1 %}
+                    <td>가맹점</td>
+                    {% elif user.profile.type == 2 %}
+                    <td>일반</td>
+                    {% endif %}
+                    {% if user.profile.status == 'a' %}
+                    <td>활동</td>
+                    {% else %}
+                    <td>탈퇴</td>
+                    {% endif %}
+                    <td class="status-button">
+                      <a href="#layer2" class="btn-detail" id="{{user.id}}">
+                        <button type="button" class="btn btn-primary btn-sm">상세조회</button>
+                      </a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  {% for li in remain_of_page %}
+                  <tr>
+                    <td colspan="6">&nbsp;`</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
+      <div class="col-md-4" style>
+        <div class="card card-profile" style="margin-top: 19%;">
+          <div class="card-avatar">
+            <a href="" class="userpic">
+              <img style="" src="{% static '/img/faces/default_face.png' %}" alt="">
+            </a>
+          </div>
+          <div class="card-body profile-usertitle">
+            <table style="margin-left: 25%">
+              <tr>
+                <td class="profile">id</td>
+                <td class="profile-usertitle-name"></td>
+              </tr>
+              <tr>
+                <td class="profile">email</td>
+                <td class="profile-usertitle-email"></td>
+              </tr>
+              <tr>
+                <td class="profile">gender</td>
+                <td class="profile-usertitle-gender"></td>
+              </tr>
+              <tr>
+                <td class="profile">birth</td>
+                <td class="profile-usertitle-birth"></td>
+              </tr>
+              <tr>
+                <td class="profile">type</td>
+                <td class="profile-usertitle-type"></td>
+              </tr>
+              <tr>
+                <td class="profile">status</td>
+                <td class="profile-usertitle-status"></td>
+              </tr>
+              <tr>
+                <td class="profile">like</td>
+                <td class="profile-usertitle-like"></td>
+              </tr>
+              <tr>
+                <td class="profile">board</td>
+                <td class="profile-usertitle-board"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+</div>
 <style>
-.profile {
-  margin: 20px 0;
-}
-.profile-sidebar {
-  padding: 20px 0 10px 0;
-  background: #fff;
-}
-.profile{
-  color: #5a7391;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 7px;
-}
-.profile-usertitle {
-  text-align: center;
-  margin-top: 20px;
-}
-.profile-usertitle-name {
-  color: #5b9bd1;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 7px;
-  padding-left: 34px;
-}
-.profile-usertitle-email {
-  text-transform: uppercase;
-  color: #5b9bd1;
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 15px;
-  padding-left: 34px;
-}
-.profile-usertitle-gender {
-  text-transform: uppercase;
-  color: #5b9bd1;
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 15px;
-  padding-left: 34px;
-}
-.profile-usertitle-birth {
-  text-transform: uppercase;
-  color: #5b9bd1;
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 15px;
-  padding-left: 34px;
-}
-.profile-usertitle-type {
-  text-transform: uppercase;
-  color: #5b9bd1;
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 15px;
-  padding-left: 34px;
-}
-.profile-usertitle-status {
-  text-transform: uppercase;
-  color: #5b9bd1;
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 15px;
-  padding-left: 34px;
-}
-.profile-usertitle-like {
-  text-transform: uppercase;
-  color: #5b9bd1;
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 15px;
-  padding-left: 34px;
-}
-.profile-usertitle-board {
-  text-transform: uppercase;
-  color: #5b9bd1;
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 15px;
-  padding-left: 34px;
-}
-.profile-usertitle > table > tr{
-  text-align: center
-}
-.profile-userbuttons {
-  text-align: center;
-  margin-top: 10px;
-}
-.profile-userbuttons .btn {
-  text-transform: uppercase;
+  .profile {
+    margin: 20px 0;
+  }
+
+  .profile-sidebar {
+    padding: 20px 0 10px 0;
+    background: #fff;
+  }
+
+  .profile {
+    color: #5a7391;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+  }
+
+  .profile-usertitle {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .profile-usertitle-name {
+    color: #5b9bd1;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+    padding-left: 34px;
+  }
+
+  .profile-usertitle-email {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-left: 34px;
+  }
+
+  .profile-usertitle-gender {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-left: 34px;
+  }
+
+  .profile-usertitle-birth {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-left: 34px;
+  }
+
+  .profile-usertitle-type {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-left: 34px;
+  }
+
+  .profile-usertitle-status {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-left: 34px;
+  }
+
+  .profile-usertitle-like {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-left: 34px;
+  }
+
+  .profile-usertitle-board {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-left: 34px;
+  }
+
+  .profile-usertitle>table>tr {
+    text-align: center
+  }
+
+  .profile-userbuttons {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .profile-userbuttons .btn {
+    text-transform: uppercase;
     font-size: 13px;
     font-weight: 700;
     padding: 9px 19px;
@@ -212,56 +236,66 @@
     font-weight: 700;
     padding: 10px 19px;
     margin: -24% 20% -17% 58%;
-}
-.profile-userbuttons .btn:last-child {
-  margin-right: 0px;
-}
-    
-.profile-usermenu {
-  margin-top: 30px;
-}
-.profile-usermenu ul li {
-  border-bottom: 1px solid #f0f4f7;
-}
-.profile-usermenu ul li:last-child {
-  border-bottom: none;
-}
-.profile-usermenu ul li a {
-  color: #93a3b5;
-  font-size: 14px;
-  font-weight: 400;
-}
-.profile-usermenu ul li a i {
-  margin-right: 8px;
-  font-size: 14px;
-}
-.profile-usermenu ul li a:hover {
-  background-color: #fafcfd;
-  color: #5b9bd1;
-}
-.profile-usermenu ul li.active {
-  border-bottom: none;
-}
-.profile-usermenu ul li.active a {
-  color: #5b9bd1;
+  }
+
+  .profile-userbuttons .btn:last-child {
+    margin-right: 0px;
+  }
+
+  .profile-usermenu {
+    margin-top: 30px;
+  }
+
+  .profile-usermenu ul li {
+    border-bottom: 1px solid #f0f4f7;
+  }
+
+  .profile-usermenu ul li:last-child {
+    border-bottom: none;
+  }
+
+  .profile-usermenu ul li a {
+    color: #93a3b5;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .profile-usermenu ul li a i {
+    margin-right: 8px;
+    font-size: 14px;
+  }
+
+  .profile-usermenu ul li a:hover {
+    background-color: #fafcfd;
+    color: #5b9bd1;
+  }
+
+  .profile-usermenu ul li.active {
+    border-bottom: none;
+  }
+
+  .profile-usermenu ul li.active a {
+    color: #5b9bd1;
     background-color: #f6f9fb;
     border-left: 2px solid #5b9bd1;
     margin-left: 24px;
-}
-/* Profile Content */
-.profile-content {
-  padding: 20px;
-  background: #fff;
-  min-height: 460px;
-}
+  }
+
+  /* Profile Content */
+  .profile-content {
+    padding: 20px;
+    background: #fff;
+    min-height: 460px;
+  }
+
   * {
-  margin: 0;
-  padding: 0;
-}
+    margin: 0;
+    padding: 0;
+  }
 </style>
 <script>
-  $('.btn-detail').click(function(){
-  // $(document).ready(function(){
+  $('.btn-detail').click(function () {
+    // $(document).ready(function(){
     var $href = $(this).attr('href');
     var user_id = $(this).attr('id');
     var tag_name = ""
@@ -270,35 +304,35 @@
     alltag = $(tag_name)
     var like = ''
     var board = ''
-    
+
     $.ajax({
-        type: 'GET',
-        url: '/operate/get_like',
-        data: {
-            user_id : user_id
-        },
-        dataType : 'json',
-        success: function(data) {
-            
-            like = data.like_cnt
-            board = data.board_cnt
-            $('.profile-usertitle-like').text(like)
-            $('.profile-usertitle-board').text(board)
-        }, 
-        error: function( jqXHR, textStatus, errorThrown ){
-                alert('status: ' + textStatus + '\nerror: ' + jqXHR.error )
-        }
+      type: 'GET',
+      url: '/operate/get_like',
+      data: {
+        user_id: user_id
+      },
+      dataType: 'json',
+      success: function (data) {
+
+        like = data.like_cnt
+        board = data.board_cnt
+        $('.profile-usertitle-like').text(like)
+        $('.profile-usertitle-board').text(board)
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert('status: ' + textStatus + '\nerror: ' + jqXHR.error)
+      }
     })
-    
+
     var username = alltag[0].innerHTML
     var email = alltag[1].innerHTML
     var gender = alltag[2].innerHTML
     var birth = alltag[3].innerHTML
     var type = alltag[4].innerHTML
     var status = alltag[5].innerHTML
-    if( gender.trim() == '남자' ){
+    if (gender.trim() == '남자') {
       $('.userpic > img').attr('src', "{% static '/img/faces/male.jpg' %}")
-    }else if( gender.trim() == '여자' ){
+    } else if (gender.trim() == '여자') {
       $('.userpic > img').attr('src', "{% static '/img/faces/female.jpg' %}")
     }
     $('.profile-usertitle-name').text(username)
@@ -307,7 +341,7 @@
     $('.profile-usertitle-birth').text(birth)
     $('.profile-usertitle-type').text(type)
     $('.profile-usertitle-status').text(status)
-        
+
   });
 </script>
 {% endblock content %}

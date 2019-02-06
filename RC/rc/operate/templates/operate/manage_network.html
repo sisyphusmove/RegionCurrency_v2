@@ -3,7 +3,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="card">
                     <div class="card-header card-header-info">
                         <h4 class="card-title "><i class="material-icons">cloud_queue</i>&nbsp;<strong>네트워크 관리</strong></h4>
@@ -11,39 +11,136 @@
                         <p class="card-category"> </p>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive block_list" style="height: 100%;">
-                            <div class="node_row node_row_1">node 1
-                                <ul id="node_each" style="list-style:none;">
-                                    <li>
-                                        <button style="background-color: white; border:0px;">
-                                            <i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"></i>
-                                        </button>
-                                    </li>
+                        <div class="table-responsive block_list" style="min-height: 100%;">
+                            <div class="node_row node_row_1"><strong>사용자 조합 | 7051</strong>
+                                <ul id="node_ul_1" style="list-style:none;">
                                 </ul>
                             </div>
-                            <div class="node_row node_row_2">node 2
-                                <ul style="list-style:none;">
-                                    <li>
-                                        <button style="background-color: white; border:0px;">
-                                            <i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"></i>
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="node_row node_row_3">node 3
-                                <ul style="list-style:none;">
-                                    <li>
-                                        <button style="background-color: white; border:0px;">
-                                            <i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"></i>
-                                        </button>
-                                    </li>
+                            <div class="node_row node_row_2"><strong>행정기관 | 8051</strong>
+                                <ul id="node_ul_2" style="list-style:none;">
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-md-4" style>
+                <div class="card card-profile" style="margin-top: 19%;">
+                    <div class="card-avatar block_title">
+                        <i class="fas fa-cubes fa-5x" style="margin-bottom: 5px;"></i>
+                    </div>
+                    <div class="card-body">
+                        <table style="">
+                            <tr>
+                                <td class="node">node name</td>
+                                <td class="title-text name"></td>
+                            </tr>
+                            <tr>
+                                <td class="node">blodk number</td>
+                                <td class="title-text number"></td>
+                            </tr>
+                            <tr>
+                                <td class="node">prev hash</td>
+                                <td class="title-text prev"></td>
+                            </tr>
+                            <tr>
+                                <td class="node">data hash</td>
+                                <td class="title-text hash"></td>
+                            </tr>
+                            <tr>
+                                <td class="node">Creator</td>
+                                <td class="title-text msp"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<style>
+    .node {
+        margin: 20px 0;
+    }
+
+    .node-sidebar {
+        padding: 20px 0 10px 0;
+        background: #fff;
+    }
+
+    .node {
+        color: #5a7391;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 7px;
+        float: left;
+    }
+
+    .title-text {
+        color: #5b9bd1;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 7px;
+        padding-left: 34px;
+    }
+
+    .node-userbuttons .btn {
+        text-transform: uppercase;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 9px 19px;
+        text-transform: uppercase;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 10px 19px;
+        margin: -24% 20% -17% 58%;
+    }
+
+    .node-info ul li {
+        border-bottom: 1px solid #f0f4f7;
+    }
+
+    .node-usermenu ul li:last-child {
+        border-bottom: none;
+    }
+
+    .node-usermenu ul li a {
+        color: #93a3b5;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .node-usermenu ul li a i {
+        margin-right: 8px;
+        font-size: 14px;
+    }
+
+    .node-usermenu ul li a:hover {
+        background-color: #fafcfd;
+        color: #5b9bd1;
+    }
+
+    .node-usermenu ul li.active {
+        border-bottom: none;
+    }
+
+    .node-usermenu ul li.active a {
+        color: #5b9bd1;
+        background-color: #f6f9fb;
+        border-left: 2px solid #5b9bd1;
+        margin-left: 24px;
+    }
+
+    /* node Content */
+    .node-content {
+        padding: 20px;
+        background: #fff;
+        min-height: 460px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+</style>
 {% endblock content %}

@@ -32,13 +32,13 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
   <script src="{% static 'js/jquery.custombox.js' %}"></script>
-<<<<<<< HEAD
-  <script src="http://210.107.78.166:4000/socket.io/socket.io.js"></script>
+  <script src="http://127.0.0.1:4000/socket.io/socket.io.js"></script>
   <script>
+
     $(document).ready(function () {
-      var socket = io.connect('210.107.78.166:4000');
+      var socket = io.connect('127.0.0.1:4000');
       socket['io']['opts'] = {
-        'hostname': "210.107.78.166",
+        'hostname': "127.0.0.1",
         'path': "/socket.io",
         'port': "4000",
         'secure': false
@@ -47,43 +47,109 @@
       socket['io']['uri'] = "http://127.0.0.1:4000";
       socket['io']['engine']['hostname'] = '127.0.0.1';
       socket['io']['engine']['port'] = '4000';
-      
+
       var cnt = 1;
       socket.on('message', function (data) {
-        if( cnt < 2 ){
-          $( "#node_each" ).empty();
-          cnt ++;
-        }else if(cnt > 10 ){
-          $( "#node_each" ).empty();
-          cnt = 2;
-        }else{
-          cnt ++;
-        }
+        // if (cnt < 2) {
+        //   $("#node_each").empty();
+        //   cnt++;
+        // } else if (cnt > 10) {
+        //   $("#node_each").empty();
+        //   cnt = 2;
+        // } else {
+        //   cnt++;
+        // }
         var block_number = data['block_num'];
         var tx_id = data['tx_id'];
         var tx_data_toggle = 'data-toggle="tooltip" data-html="true" data-placement="top" title="tx_id: ' + tx_id + '"';
         var html_block = '';
-        html_block += '<li>';
-        html_block += '<button style="background-color: white; border:0px;">'
-        html_block += '<i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"' + tx_data_toggle + '></i>'
-        html_block += '<span class="badge badge-pill badge-danger">' + block_number + '</span>';
-        html_block += '</button>';
-        html_block += '</li>';
-        $('#node_each').append(html_block);
+
+        if (data.length == 1) {
+          var ip = data[0]['peer_name'].substring(0, data[0]['peer_name'].length - 5).toString();
+          var port = data[0]['peer_name'].substring(data[0]['peer_name'].length - 4).toString();
+          var param_str = data[0]['num'] + ',' + ip + ',' + port;
+          html_block += '<li>';
+          html_block += '<a id="' + param_str + '" style="background-color: white; border:0px;" class="search_block">';
+          html_block += '<i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"></i>';
+          html_block += '<span class="badge badge-pill badge-danger">' + data[0]['num'] + '</span>';
+          html_block += '</a>';
+          html_block += '</li>';
+          if (port == "7051") {
+            $('#node_ul_1').append(html_block);
+          } else if (port == "8051") {
+            $('#node_ul_2').append(html_block);
+          }
+        } else if (data.length > 1) {
+          for (var i = 0; i < data.length; i++) {
+            var ip = data[i]['peer_name'].substring(0, data[i]['peer_name'].length - 5).toString();
+            var port = data[i]['peer_name'].substring(data[i]['peer_name'].length - 4).toString();
+            var param_str = data[0]['num'] + ',' + ip + ',' + port;
+            html_block += '<li>';
+            html_block += '<a id="' + param_str + '" style="background-color: white; border:0px;" class="search_block">';
+            html_block += '<i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"></i>';
+            html_block += '<span class="badge badge-pill badge-danger">' + data[i]['num'] + '</span>';
+            html_block += '</a>';
+            html_block += '</li>';
+            if (port == "7051") {
+              $('#node_ul_1').append(html_block);
+              html_block = "";
+            } else if (port == "8051") {
+              $('#node_ul_2').append(html_block);
+              html_block = "";
+            }
+          }
+        }
+
+        $(".search_block").on('click', function () {
+          var param_list = [];
+          param_list = $(this).attr('id').split(',');
+          var block_num = param_list[0];
+          var ip = param_list[1];
+          var port = param_list[2];
+          var node_name = ip + ":" + port;
+          var host = "http://127.0.0.1:3000/";
+
+          $.ajax({
+            type: 'GET',
+            url: host + "get_block_info",
+            data: {
+              block_num: block_num,
+              target: node_name
+            },
+            dataType: 'json',
+            success: function (data) {
+              var timestamp = data['block_info']['timestamp'];
+              var number = data['block_info']['number'];
+              var previous_hash = data['block_info']['previous_hash']
+              previous_hash = previous_hash.substring(0, 20) + '...';
+              var data_hash = data['block_info']['data_hash'];
+              data_hash = data_hash.substring(0, 20) + '...';
+              var mspid = data['block_info']['mspid'];
+              
+              $('.time').text(timestamp);
+              $('.name').text(node_name);
+              $('.number').text(number);
+              $('.prev').text(previous_hash);
+              $('.hash').text(data_hash);
+              $('.msp').text(mspid);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              alert('status: ' + textStatus + '\nerror: ' + jqXHR.error);
+            }
+          });
+        });
+
       });
 
     });
   </script>
   <style>
     .node_row {
-        min-height: 200px;
+        min-height: 175px;
     }
     .block_list ul li{
       display:inline;
     }
-=======
-  <style>
->>>>>>> 212d270df83dc8c295d154bf8ab4484a64fb5ae1
     .scrollbar {
         margin-left: 30px;
         float: left;
@@ -168,8 +234,7 @@
           {% endif %}
           {% if request.session.admin_name == "admin_server" %}
           <li class="nav-item ">
-            <a class="nav-link" href="{% url 'operate:network' %}" data-toggle="dropdown" ria-haspopup="true" role="button"
-              aria-expanded="false">
+            <a class="nav-link" href="{% url 'operate:network' %}">
               <i class="material-icons">cloud_queue</i>
               <p>네트워크 관리</p>
             </a>
