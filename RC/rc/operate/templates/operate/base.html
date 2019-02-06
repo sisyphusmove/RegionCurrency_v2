@@ -50,15 +50,6 @@
 
       var cnt = 1;
       socket.on('message', function (data) {
-        // if (cnt < 2) {
-        //   $("#node_each").empty();
-        //   cnt++;
-        // } else if (cnt > 10) {
-        //   $("#node_each").empty();
-        //   cnt = 2;
-        // } else {
-        //   cnt++;
-        // }
         var block_number = data['block_num'];
         var tx_id = data['tx_id'];
         var tx_data_toggle = 'data-toggle="tooltip" data-html="true" data-placement="top" title="tx_id: ' + tx_id + '"';
@@ -266,23 +257,6 @@
                     Stats
                   </p>
                 </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
-                  <p class="d-lg-none d-md-block">
-                    Some Actions
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                  <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                  <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                  <a class="dropdown-item" href="#">Another Notification</a>
-                  <a class="dropdown-item" href="#">Another One</a>
-                </div>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true"
