@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% load staticfiles %}
+{% endblock head %}
+
+{% block css %}
+.bg-overlay {
+    background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url("{% static 'img/ug.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    color: #fff;
+    height: 450px;
+}
+.text-head {
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.text-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.text-point {
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+strong.text-green {
+    color: #00c746;
+}
+
+@media(max-width: 767px) {
+    .text-head {
+        font-size: 1.2rem;
+    }
+    .text-text {
+        font-size: 1rem;
+    }
+    .text-point {
+        font-size: 1.2rem;
+    }
+}
+{% endblock css %}
+{% block body %}
+
+
+    <!-- Title -->
+    <div id="contents" class="page-header">
+        <div class="container">
+            <div class="row page-title">
+                <a>소개</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Filter button -->
+    <div id="contents">
+        <div class="container">
+            
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+                        <!-- Subtitle -->
+                        <h5 class="card-subtitle"><a style="color:#00c746;">|</a> RC코인이란?</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+                        <!-- Intro -->
+                        <div class="row bg-overlay justify-content-center align-items-center page">
+                            <div class="text-center">
+                                <div class="text-head">
+                                    "<strong class="text-green">RC</strong>란 지역화폐를 뜻하는 <strong class="text-green">REGION CURRENCY</strong>의 약자로<br>
+                                    지역공동체를 실현하는 지역화폐 기본 통화 단위입니다."
+                                </div>
+                                <div class="text-text">
+                                    <br>
+                                    <strong class="text-point text-green">1RC = 1원</strong><br>
+                                    <br>
+                                    사회적 가치 - 자전거 트래킹<br>
+                                    울릉지역화폐 - 사회적 가치 실현을 통한 지역화폐의 적립<br>
+                                    가맹점 - 음식점, 레저스포츠 시설, 숙박시설
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block js %}
+{% endblock js %}

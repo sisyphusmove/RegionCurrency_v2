@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% load staticfiles %}
+{% endblock head %}
+
+{% block css %}
+.card{float: left; width:100%;}
+.title-small { color: #495057; font-size: 1rem; font-weight: 600; line-height: 23px; padding: 10px; margin-bottom: 10px; border: 1px solid #0000001a; border-radius: 0px 0px 5px 5px;}
+.title-large a, .title-small a, .title-x-small a{color: inherit}
+.banner-sec{float: left; width: 100%; background: #EBEBEB}
+.card-block{padding:0 10px 10px;}
+.card-text{margin: 0}
+.text-time{color: #ff0000; font-weight: 600;}
+.banner-sec .card-img-overlay{padding: 0; top: 3px; left: 7px; height: 20%}
+.card-img-overlay{padding: 0.5rem 1.5rem;}
+
+#search {float: right; margin-top: 9px; width: 250px;}
+.search {padding: 5px 0; width: 230px; height: 30px; position: relative; left: 10px; float: left; line-height: 22px;}
+.search input {background: #d0d0d0; border: medium none; border-radius: 3px 0 0 3px; float: left; height: 36px; line-height: 18px; margin-left: 210px; padding: 0 9px; position: absolute; top: -3px; width: 0; -webkit-transition: all 0.7s ease-in-out; -moz-transition: all 0.7s ease-in-out;
+-o-transition: all 0.7s ease-in-out; transition: all 0.7s ease-in-out;}
+.search:hover input, .search input:focus { width: 200px; margin-left: 0px; background: #d0d0d0;}
+.top-nav .btn {position: absolute;right: 0;top: -3px;border-radius:3px;}
+.action-sec{width:100%; float:left; background:#222}
+.action-box{float:left; width:100%; text-align:center;}
+.action-box h2{color:#fff; font-size:20px;}
+
+.img-fluid {
+    border-radius: 5px 5px 0px 0px;
+}
+.badge1 {
+    color: #fff;
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+.badge2 {
+    color: #212529;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+.badge3 {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+@media (max-width: 992px) {
+    .margin-top {
+        margin-top: 10px;
+    }
+}
+{% endblock css %}
+{% block body %}
+
+
+    <!-- Title -->
+    <div id="contents" class="page-header">
+        <div class="container">
+            <div class="row page-title">
+                <a>가맹점</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Filter button -->
+    <div id="contents">
+        <div class="container">
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="col-lg-4 col-md-12 col-sm-12 card-subtitle"><a style="color:#00c746;">|</a> 가맹점 목록</h5>
+                            
+                            <div class="col-lg-4 col-md-12 col-sm-12 margin-top" style="text-align: right;">
+                                <form id="searchform" action="{% url 'store:filteredStores' 4 %}" method="GET" class="row" style="margin: 0;">
+                                    <input type="text" id="keyword" name="keyword" class="form-control" style="width: 75%;" required placeholder="검색어" />
+                                    <input type="submit" value="검색" class="btn btn-primary form-control" style="width: 25%;" />
+                                </form>
+                            </div>
+
+                            <div class="col-lg-4 col-md-12 col-sm-12 btn-group margin-top">
+                                <a href="{% url 'store:store_list' %}?page=1" class="btn btn-primary">전체지역</a>
+                                <a href="{% url 'store:filteredStores' 3 %}?page=1" class="btn btn-success" />북면</a>
+                                <a href="{% url 'store:filteredStores' 2 %}?page=1" class="btn btn-warning" />서면</a>
+                                <a href="{% url 'store:filteredStores' 1 %}?page=1" class="btn btn-danger" />울릉읍</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+                        <div class="row">
+                            {% for photo in photos %}
+                            <a href="{% url 'store:filteredStoresDetail' photo.store_id %}">
+                                <div class="col-lg-4 col-md-6 col-sm-12 card"> <img class="img-fluid" src="/media/{{ photo.image }}" alt="">
+                                    <div class="card-img-overlay"><span class="badge badge-pill badge{{ photo.store.location.id }}">{{ photo.store.location }}</span> </div>
+                                    <div class="card-body">
+                                        <div class="news-title">
+                                            <h2 class=" title-small"><a href="#"><img src="{% static 'img/store.png' %}"> {{ photo.store }}</a> <sup class="text-primary">{{ photo.store.category }}</sup></h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            {% endfor %}
+                        </div>
+                            
+                        <div class="row justify-content-center">
+                            {% if is_paginated %}
+                            <nav>
+                                <ul class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <li>
+                                    {% if request.session.keyword %}
+                                    <a class="page-item" href="?keyword={{ request.session.keyword }}&page={{ page_obj.previous_page_number }}">
+                                    {% else %}
+                                    <a class="page-item" href="?page={{ page_obj.previous_page_number }}">
+                                    {% endif %}
+                                        <span class="page-link">Prev</span>
+                                    </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                    <a href="">
+                                        <span class="page-link">Prev</span>
+                                    </a>
+                                    </li>
+                                {% endif %}
+
+                                {% for page in page_range %}
+                                    <li {% if page == page_obj.number %} class="page-item active"{% endif %}>
+                                    {% if request.session.keyword %}
+                                    <a href="?keyword={{ request.session.keyword }}&page={{ page }}" class="page-link">{{ page }}</a>
+                                    {% else %}
+                                    <a href="?page={{ page }}" class="page-link">{{ page }}</a>
+                                    {% endif %}
+                                    </li>
+                                {% endfor %}
+
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                    {% if request.session.keyword %}
+                                    <a href="?keyword={{ request.session.keyword }}&page={{ page_obj.next_page_number }}" class="page-link">
+                                    {% else %}
+                                    <a href="?page={{ page_obj.next_page_number }}" class="page-link">
+                                    {% endif %}
+                                        <span>Next</span>
+                                    </a>
+                                    </li>
+                                {% else %}
+                                    <li {% if not page_obj.has_next %}class="page-item disabled"{% endif %}>
+                                    <a href="#">
+                                        <span class="page-link">Next</span>
+                                    </a>
+                                    </li>
+                                {% endif %}
+                                </ul>
+                            </nav>
+                            {% endif %}
+                        </div>        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block js %}
+<script src="{% static 'js/search.js' %}"></script>
+{% endblock js %}

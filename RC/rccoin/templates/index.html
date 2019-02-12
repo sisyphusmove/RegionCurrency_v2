@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% load staticfiles %}
+{% endblock head %}
+
+{% block css %}
+    #video {
+        position: relative;
+        overflow: hidden;
+        height: 68vh;
+        min-height: 35rem;
+        width: 100%;
+    }
+    #video .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 86%;
+        width: 100%;
+        opacity: 0.5;
+        z-index: 0;
+    }
+    #video .A {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: 1;
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+    }
+    
+
+    @media (pointer: coarse) and (hover: none) {
+        #video {
+            background: url("{% static '/img/대문.png'%}") black no-repeat center center scroll;
+            background-size: cover;
+        }
+        #video .A {
+            display: none;
+        }
+    }
+
+{% endblock css %}
+
+{% block body %}
+
+    <!-- Intro movie -->
+    <section id="video">
+        <div class="overlay"></div>
+        <video class="A" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+            <source src="{% static 'video/movieopti.mp4'%}" type="video/mp4">
+        </video>
+    </section>
+  
+{% endblock body %}
+
+{% block js %}
+{% endblock js %}

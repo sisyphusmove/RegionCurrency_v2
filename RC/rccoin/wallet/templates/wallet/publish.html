@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% load staticfiles %}
+{% endblock head %}
+
+{% block css %}
+.abox{
+    width: 100%;
+    height: 250px;
+    max-height: 300px;
+    background-image: url("{% static 'img/background.png' %}");
+}
+#box3{ background-repeat: no-repeat }
+		
+body {font-family: Arial, Helvetica, sans-serif;}
+
+	/* The Modal (background) */
+	.modal1 {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+	.modal2 {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+	.modal3 {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+	.modal4 {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+
+	/* Modal Content */
+	.modal-content1 {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	width: 450px;
+	}
+	.modal-content2 {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	width: 450px;
+	}
+	.modal-content3 {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	width: 450px;
+	}
+	.modal-content4 {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	width: 450px;
+	}
+
+	/* The Close Button */
+	.close1 {
+	color: #aaaaaa;
+	float: center;
+	font-size: 28px;
+	font-weight: bold;
+	}
+	.close2 {
+	color: #aaaaaa;
+	float: center;
+	font-size: 28px;
+	font-weight: bold;
+	}
+	.close3 {
+	color: #aaaaaa;
+	float: center;
+	font-size: 28px;
+	font-weight: bold;
+	}
+	.close4 {
+	color: #aaaaaa;
+	float: center;
+	font-size: 28px;
+	font-weight: bold;
+	}
+
+
+	.close:hover,
+	.close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+	}
+
+@media(max-width: 460px) {
+	.modal-content1 {
+	    width: 100%;
+	}
+	.modal-content2 {
+	    width: 100%;
+	}
+	.modal-content3 {
+	    width: 100%;
+	}
+	.modal-content4 {
+	    width: 100%;
+	}
+}
+{% endblock css %}
+{% block body %}
+
+
+    <!-- Title -->
+    <div id="contents" class="page-header">
+        <div class="container">
+            <div class="row page-title">
+                <a>자전거 타기</a>
+            </div>
+        </div>
+    </div>
+    
+    <div id="contents">
+        <div class="container">
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body justify-content-center">
+
+                        <object type="application/x-shockwave-flash" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://fpdownload2.macromedia.com/get/shockwave/cabs/flash/swflash.cab#version=7,0,19,0"
+                        width="100%" height="100%" title="">
+                            <param name="movie" value="http://www.ulleung.go.kr/tour/flash/map/map_v6.swf">
+                            <param name="quality" value="high">
+                            <param name="wmode" value="opaque">
+                            <!--[if !IE]> <-->
+                            <object type="application/x-shockwave-flash" data="http://www.ulleung.go.kr/tour/flash/map/map_v6.swf" width="100%"
+                            height="500px" title="">
+                                <param name="wmode" value="opaque">
+                                <param name="quality" value="high">
+                                <!-- 이미지 넣기 -->
+                                <img src="http://www.ulleung.go.kr/tour/images/common/tour_map.jpg" alt="신비의 섬, 울릉도에 오신것을 환영합니다.">
+                                <h3>이 콘텐츠를 보실려면 <a href="http://www.macromedia.com/go/getflashplayer">Abode Flash Player</a>(무료)가 필요합니다.</h3>
+                            </object>
+                        </object>
+
+                        <hr>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Button -->
+    <div id="contents">
+        <div class="container">
+            <div class="row justify-content-center page">
+                <div class="col-md-12 btn-group">
+                    <input type="text" name="to" id="to" value="{{ user.username }}" hidden />
+                    <button id='myBtn' class="btn btn-success" onclick="myFunction1()" >행남코스</button> 
+                    <button id='myBtn2' class="btn btn-success" onclick="myFunction2()" >내수전-석포코스</button> 
+                    <button id='myBtn3' class="btn btn-success" onclick="myFunction3()" >남양-태하코스</button>
+                    <button id='myBtn4' class="btn btn-success" onclick="myFunction4()" >대풍감코스</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <div id="contents">
+        <div class="container">
+            <div class="row justify-content-center page">
+                <div id="box3" class="abox">
+                    <div class="col-sm" id="myDIV" style="padding-top:110px">
+                        <ol > <!-- marquee --> </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal1" class="modal1">
+        <!-- Modal content -->
+        <div class="modal-content1">
+            <img src={% static 'img/mario.gif'%}><br><br>
+            <h2>행남코스 완주 성공!</h2><br>
+            <h2>900 RC가 발행되었습니다.</h2>
+            <span class="close1">&times;</span>
+        </div>
+    </div>
+    <div id="myModal2" class="modal2">
+        <!-- Modal content -->
+        <div class="modal-content2">
+            <img src={% static 'img/mario.gif'%}><br><br>
+            <h2>내수전-석포코스 완주 성공!</h2><br>
+            <h2>1100 RC가 발행되었습니다.</h2>
+            <span class="close2">&times;</span>
+        </div>
+    </div>
+    <div id="myModal3" class="modal3">
+        <!-- Modal content -->
+        <div class="modal-content3">
+            <img src={% static 'img/mario.gif'%}><br><br>
+            <h2>남양-태하코스 완주 성공!</h2><br>
+            <h2>1200 RC가 발행되었습니다.</h2>
+            <span class="close3">&times;</span>
+        </div>
+    </div>
+    <div id="myModal4" class="modal4">
+        <!-- Modal content -->
+        <div class="modal-content4">
+            <img src={% static 'img/mario.gif'%}><br><br>
+            <h2>대풍감코스 완주 성공!</h2><br>
+            <h2>300 RC가 발행되었습니다.</h2>
+            <span class="close4">&times;</span>
+        </div>
+    </div>
+        
+
+{% endblock body %}
+
+{% block js %}
+<script src="{% static 'js/publish.js' %}"></script>
+{% endblock js %}

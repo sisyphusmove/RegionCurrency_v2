@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% load staticfiles %}
+{% endblock head %}
+
+{% block css %}
+@media (max-width: 765px) {
+    .btn-group {
+        margin-top: 10px;
+    }
+}
+{% endblock css %}
+{% block body %}
+
+
+    <!-- Title -->
+    <div id="contents" class="page-header">
+        <div class="container">
+            <div class="row page-title">
+                <a>계좌관리</a>
+            </div>
+        </div>
+    </div>
+    
+    <div id="contents">
+        <div class="container">
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+                        <h5 class="card-subtitle"><a style="color:#00c746;">|</a> 계좌정보</h5>
+                    </div>
+                </div>
+            </div>
+                  
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+
+                        <!-- Extra data -->
+                        <data id="from" value="{{ user.username }}" hidden></data>
+                        
+                        <!-- My balance -->
+                        <div class="row justify-content-center wallet">
+                            <img src="{% static 'img/wallet.png' %}" class="margin-left amount" alt="보유잔액">
+                            <div class="top-right">보유 금액</div>
+                            <div class="centered-right">{{ balance }}&nbsp;RC</div>
+                            <div class="bottom-right">
+                                <label class="qrcode-text-btn" style="width: 160px; text-align: right;"><input type=file accept="image/*" capture=environment onchange="openQRCamera(this);">결제하기</label>
+                                &nbsp;/&nbsp;<a href="{% url 'wallet:remittance' %}" class="font-white">송금하기</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Filter button -->
+    <div id="contents">
+        <div class="container">
+            <div class="row justify-content-center page">
+                <h5 class="col-md-7 card-subtitle"><a style="color:#00c746;">|</a> 거래 이력</h5>
+                
+                <div class="col-md-5 btn-group">
+                    <button type="button" class="btn btn-primary" onclick="get_history(1, 0)">전체</button>
+                    <button type="button" class="btn btn-success" onclick="get_history(1, 1)">발행</button>
+                    <button type="button" class="btn btn-warning" onclick="get_history(1, 2)">송금</button>
+                    <button type="button" class="btn btn-danger" onclick="get_history(1, 3)">결제</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- History -->
+    <div id="contents">
+        <div class="container">
+            <div class="row justify-content-center page">
+                <table class="table table-filter">
+                    <tbody id="history"></tbody>                            
+                </table>
+                <div class="justify-content-center">
+                    <nav aria-label="page navigation">
+                        <ul id="page-area" class="pagination"></ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+
+{% endblock body %}
+
+{% block js %}
+<script src="{% static 'js/qr_package.js' %}"></script>
+<script src="{% static 'js/qrcode.js'%}"></script>
+<script src="{% static 'js/history.js'%}"></script>
+{% endblock js %}

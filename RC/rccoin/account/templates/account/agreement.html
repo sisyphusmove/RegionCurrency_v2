@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% load staticfiles %}
+{% endblock head %}
+
+{% block css %}
+{% endblock css %}
+
+{% block body %}
+
+
+    <!-- Title -->
+    <div id="contents" class="page-header">
+        <div class="container">
+            <div class="row page-title">
+                <a>회원가입</a>
+            </div>
+        </div>
+    </div>
+    
+    <div id="contents">
+        <div class="container">
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+                        <h5 class="card-subtitle"><a style="color:#00c746;">|</a> 약관동의</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+            
+                        <!-- Accept terms -->
+                        <div class="form-group">
+                            <label for="agreement1">* 개인정보 수집·이용<sup class="text-danger">(필수)</sup></label>
+                            <textarea id="agreement1" class="form-control" name="agreement1" readonly>{{ agreement1 }}</textarea>
+                        </div>
+                        <div class="text-right">
+                            <input type="checkbox" id="chk_agree1" class="chkbox" /><label for="chk_agree1" class="agreement">&nbsp;동의</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="agreement2">* 개인정보 처리 동침<sup class="text-danger">(필수)</sup></label>
+                            <textarea id="agreement2" class="form-control" name="agreement2" readonly>{{ agreement2 }}</textarea>
+                        </div>
+                        <div class="text-right">
+                            <input type="checkbox" id="chk_agree2" class="chkbox" /><label for="chk_agree2" class="agreement">&nbsp;동의</label>
+                        </div>
+                    
+                        <div class="text-right">    
+                            <input type="checkbox" id="chk_agreeAll" class="chkboxAll" /><label for="chk_agreeAll" class="agreement">&nbsp;전체 동의</label>
+                        </div>
+                        
+                        <hr>
+
+                        <div class="row2 justify-content-center">
+                            <a href="{% url 'account:signup' %}" id="btn_submit" class="btn btn-success">확인</a>&nbsp;
+                            <a href="{% url 'index' %}" class="btn btn-secondary">취소</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+
+{% endblock body %}
+
+{% block js %}
+<script src="{% static 'js/agreement.js' %}"></script>
+{% endblock js %}

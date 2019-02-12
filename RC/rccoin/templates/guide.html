@@ -1,0 +1,268 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% load staticfiles %}
+{% endblock head %}
+
+{% block css %}
+
+.profile-head .nav-tabs{
+    margin-bottom: 5%;
+}
+.profile-head .nav-tabs .nav-link{
+    font-weight:650;
+    color: #495057;
+    border: none;
+}
+.profile-head .nav-tabs .nav-link.active{
+    /* background-color: #7ac55d; */
+    border: none;
+    border-bottom:2px solid #00c746;
+}
+.profile-work p{
+    color: #818182;
+    font-weight: 650;
+}
+.profile-work a{
+    text-decoration: none;
+    color: #495057;
+    font-weight: 650;
+}
+.profile-work ul{
+    list-style: none;
+}
+.profile-tab label{
+    font-weight: 650;
+}
+.profile-tab p{
+    font-weight: 650;
+    color: #0062cc;
+}
+sup {
+    color: red;
+}
+ol.guide>li{
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+ol.guide img {
+    max-width: 800px;
+    border: 1px solid #000;
+}
+{% endblock css %}
+{% block body %}
+
+    <!-- Title -->
+    <div id="contents" class="page-header">
+        <div class="container">
+            <div class="row page-title">
+                <a>소개</a>
+            </div>
+        </div>
+    </div>
+    
+    <div id="contents">
+        <div class="container">
+            
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+                        <!-- Subtitle -->
+                        <h5 class="card-subtitle"><a style="color:#00c746;">|</a> 이용안내</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+                        <!-- Menu tab -->
+                        <div class="row profile-head">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="guide_store-tab" data-toggle="tab" href="#guide_store" role="tab" aria-controls="guide_store" aria-selected="false">가맹점 신청</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="guide_qrcode-tab" data-toggle="tab" href="#guide_qrcode" role="tab" aria-controls="guide_qrcode" aria-selected="false">QR code 생성</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="guide_remittance-tab" data-toggle="tab" href="#guide_remittance" role="tab" aria-controls="guide_remittance" aria-selected="false">송금하기</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="guide_payment-tab" data-toggle="tab" href="#guide_payment" role="tab" aria-controls="guide_payment" aria-selected="false">결제하기</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="guide_cancel_payment-tab" data-toggle="tab" href="#guide_cancel_payment" role="tab" aria-controls="guide_cancel_payment" aria-selected="false">결제취소</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Contents -->
+                        
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="guide_store" role="tabpanel" aria-labelledby="guide_store-tab">
+                                <ul class="guide" style="color: red; font-weight: 600;">
+                                    <li>로그인 후, 이용가능한 항목입니다.</li>
+                                    <li>가맹점을 보유하지 않은 사용자에 한해 신청이 가능합니다.</li>
+                                </ul>
+                                    
+                                <ol class="guide">
+                                    <img src="{% static 'img/guide/store_1.jpg' %}" style="width: 100%; margin-left: -20px;">
+                                    <li>상단 메인 메뉴에서 가맹점 신청 버튼을 선택합니다.</li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/store_2.jpg' %}" style="width: 100%; margin-left: -20px;">
+                                    <li>폼 양식에 맞춰 값을 입력 후 신청 버튼을 선택합니다.
+                                        <ul style="list-style-type: circle">
+                                            <li>상호명<sup>(필수)</sup> : 가맹점을 대표하는 이름</li>
+                                            <li>사업자등록번호<sup>(필수)</sup> : 등록된 사업자번호( ex)123-12-12345)</li>
+                                            <li>등록업종<sup>(필수)</sup> : 가맹점 업종</li>
+                                            <li>등록지역<sup>(필수)</sup> : 위치한 행정구역</li>
+                                            <li>연락처 : 연락가능한 연락처</li>
+                                            <li>홈페이지 : 가맹점 홈페이지(블로그, SNS 등)</li>
+                                            <li>주소지<sup>(필수)</sup> : 가맹점 주소</li>
+                                            <li>영업시간<sup>(필수)</sup> : 영업 가능시간</li>
+                                            <li>사진<sup>(필수)</sup> : 가맹점 사진</li>
+                                            <li>소개<sup>(필수)</sup> : 간략한 가맹점 소개</li>
+                                        </ul>
+                                    </li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/store_3.jpg' %}" style="width: 100%; margin-left: -20px;">
+                                    <li>신청된 가맹점 정보를 확인 할 수 있습니다.
+                                        <ul style="color: red;">
+                                            <li>등록된 가맹점은 관리자의 승인 후 최종 등록됩니다.</li>
+                                            <li>가맹점 정보를 수정한 경우, 관리자의 재승인을 받아야합니다.</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                            </div>
+
+                            <div class="tab-pane fade show" id="guide_qrcode" role="tabpanel" aria-labelledby="guide_qrcode-tab">
+                                <ul class="guide" style="color: red; font-weight: 600;">
+                                    <li>로그인 후, 이용가능한 항목입니다.</li>
+                                    <li>승인완료 된 가맹점을 보유한 사용자만 이용가능 합니다.</li>
+                                </ul>
+                                    
+                                <ol class="guide">
+                                    <img src="{% static 'img/guide/cancel_1.jpg' %}" style="width: 100%; margin-left: -20px;">
+                                    <li>상단 메인 메뉴에서 가맹점 관리 버튼을 선택합니다.</li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/store_5.jpg' %}" style="width: 100%; margin-left: -20px;">
+                                    <li>QR코드 버튼을 선택합니다.</li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/store_6.jpg' %}" style="width: 100%; margin-left: -20px;">
+                                    <li>가맹점 QR코드를 새창에서 확인할 수 있습니다.
+                                        <ul style="color: red;">
+                                            <li>QR코드는 결제 수단으로 이용됩니다.</li>
+                                            <li>QR코드를 출력하여 이용할 수 있습니다.</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                            </div>
+
+                            <div class="tab-pane fade show" id="guide_remittance" role="tabpanel" aria-labelledby="guide_remittance-tab">
+                                <ul class="guide" style="color: red; font-weight: 600;">
+                                    <li>로그인 후, 이용가능한 항목입니다.</li>
+                                </ul>
+                                    
+                                <ol class="guide">
+                                    <img src="{% static 'img/guide/remittance_1.jpg' %}" style="width: 100%; margin-left: -20px;">
+                                    <li>상단 메인 메뉴에서 계좌관리 버튼을 선택합니다.</li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/remittance_2.jpg' %}" style="width: 100%; margin-left: -20px;">
+                                    <li>화면에서 송금하기를 선택합니다.</li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/remittance_3.jpg' %}" style="width: 100%; margin-left: -20px;">
+                                    <li>폼 양식에 맞춰 값을 입력 후 송금 버튼을 선택합니다.
+                                        <ul style="list-style-type: circle">
+                                            <li>받는계정<sup>(필수)</sup> : 송금받을 사용자(가입된 사용자 아이디)</li>
+                                            <li>비밀번호<sup>(필수)</sup> : 본인 계정 비밀번호</li>
+                                            <li>송금액<sup>(필수)</sup> : 보낼 금액
+                                                <ul style="color: red;">
+                                                    <li>송금액은 본인이 보유한 RC를 초과할 수 없습니다.</li>
+                                                </ul>
+                                            </li>
+                                            <li>약관동의<sup>(필수)</sup> : 송금 책임 동의</li>
+                                        </ul>
+                                    </li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/remittance_4.jpg' %}" style="width: 100%; margin-left: -20px;">
+                                    <li>송금 완료 메시지 확인 할 수 있습니다.</li>
+                                </ol>
+                            </div>
+
+                            <div class="tab-pane fade show" id="guide_payment" role="tabpanel" aria-labelledby="guide_payment-tab">
+                                <ul class="guide" style="color: red; font-weight: 600;">
+                                    <li>로그인 후, 이용가능한 항목입니다.</li>
+                                    <li>결제는 모바일/태블릿 환경에 최적화 되어있습니다.</li>
+                                    <li>결제는 QR코드와 카메라 기능이 이용됩니다.</li>
+                                </ul>
+                                    
+                                <ol class="guide">
+                                    <img src="{% static 'img/guide/payment_1.jpg' %}" style="width: 100%; max-width: 400px; margin-left: -20px;">
+                                    <li>상단 메인 메뉴에서 계좌관리 버튼을 선택합니다.</li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/payment_2.jpg' %}" style="width: 100%; max-width: 400px; margin-left: -20px;">
+                                    <li>화면에서 결제하기를 선택합니다.</li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/payment_3.jpg' %}" style="width: 100%; max-width: 400px; margin-left: -20px;">
+                                    <li>카메라가 열리면 가맹점의 QR코드를 촬영합니다.</li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/payment_4.jpg' %}" style="width: 100%; max-width: 400px; margin-left: -20px;">
+                                    <li>촬영 후, 사용하기를 선택합니다.
+                                        <ul style="color: red;">
+                                            <li>QR코드 인식 실패시 다시 촬영을 시도해 주세요.</li>
+                                        </ul>
+                                    </li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/payment_5.jpg' %}" style="width: 100%; max-width: 400px; margin-left: -20px;">
+                                    <li>폼 양식에 맞춰 값을 입력 후 결제 버튼을 선택합니다.
+                                        <ul style="list-style-type: circle">
+                                            <li>결제금액<sup>(필수)</sup> : 결제할 금액</li>
+                                            <li>비밀번호<sup>(필수)</sup> : 본인 계정 비밀번호</li>
+                                            <li>약관동의<sup>(필수)</sup> : 결제 책임 동의</li>
+                                        </ul>
+                                    </li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/payment_6.jpg' %}" style="width: 100%; max-width: 400px; max-witdh:margin-left: -20px;">
+                                    <li>결제 완료 메시지 확인 할 수 있습니다.</li>
+                                </ol>
+                            </div>
+
+                            <div class="tab-pane fade show" id="guide_cancel_payment" role="tabpanel" aria-labelledby="guide_cancel_payment-tab">
+                                <ul class="guide" style="color: red; font-weight: 600;">
+                                    <li>로그인 후, 이용가능한 항목입니다.</li>
+                                    <li>결제기록이 있는 가맹점을 보유한 사용자만 이용가능합니다.</li>
+                                </ul>
+                                    
+                                <ol class="guide">
+                                    <img src="{% static 'img/guide/cancel_1.jpg' %}" style="width: 100%; margin-left: -20px;">
+                                    <li>상단 메인 메뉴에서 가맹점관리 버튼을 선택합니다.</li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/cancel_2.jpg' %}" style="width: 100%; margin-left: -20px;">
+                                    <li>거래 이력 중 취소할 결제의 취소 버튼을 선택합니다.</li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/cancel_3.jpg' %}" style="width: 100%; margin-left: -20px;">
+                                    <li>폼 양식에 맞춰 값을 입력 후 확인 버튼을 선택합니다.
+                                        <ul style="list-style-type: circle">
+                                            <li>사유<sup>(필수)</sup> : 취소사유</li>
+                                            <li>비밀번호<sup>(필수)</sup> : 본인 계정 비밀번호</li>
+                                            <li>약관동의<sup>(필수)</sup> : 결제취소 책임 동의</li>
+                                        </ul>
+                                    </li>
+                                    <hr style="margin-left: -20px; margin-right: 20px; border-top: 1px solid #ddd;">
+                                    <img src="{% static 'img/guide/cancel_4.jpg' %}" style="width: 100%; margin-left: -20px;">
+                                    <li>결제취소 완료 메시지 확인 할 수 있습니다.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block js %}
+{% endblock js %}

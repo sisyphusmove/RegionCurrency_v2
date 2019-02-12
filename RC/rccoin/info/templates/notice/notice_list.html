@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% load staticfiles %}
+{% endblock head %}
+
+{% block css %}
+.card {
+    -moz-box-direction: normal;
+    -moz-box-orient: vertical;
+    background-color: #fff;
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom:1px;
+    border-top: none;
+}
+.card-header:first-child {
+    border-radius: 0;
+}
+.card-header {
+    margin-bottom: 0;
+    padding: 20px 1.25rem;
+    border:none;
+    
+}
+.card-header a i{
+    float:left;
+    font-size: 1rem;
+    margin:0 25px 0 0px;
+}
+.card-header i{
+    float:right;        
+    font-size:1rem;
+    width:1%;
+    margin-top:8px;
+    margin-right:10px;
+}
+.card-header a{
+    width:97%;
+    float:left;
+}
+.card-header p{
+    margin:0;
+}
+
+.card-header h3{
+    margin:0 0 0px;
+    font-size:1rem;
+    font-weight: 600;
+    color:#212529;
+}
+.card-header h7{
+    font-size:0.8rem;
+    color:#999;
+}
+.card-block {
+    -moz-box-flex: 1;
+    flex: 1 1 auto;
+    padding: 20px;
+    color:#232323;
+    font-size: 1rem;
+    box-shadow:inset 0px 4px 5px rgba(0,0,0,0.1);
+    border-top:1px soild #000;
+    border-radius:0;
+}
+{% endblock css %}
+{% block body %}
+
+
+    <!-- Title -->
+    <div id="contents" class="page-header">
+        <div class="container">
+            <div class="row page-title">
+                <a>정보광장</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Filter button -->
+    <div id="contents">
+        <div class="container">
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+                        <!-- Subtitle -->
+                        <h5 class="card-subtitle"><a style="color:#00c746;">|</a> 공지사항</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+
+                        <!-- Notice -->
+                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                            
+                            {% for text in notice_list %}
+                            <div class="card" style="border-top: 3px solid #17a2b8;">
+                                <div class="card-header" role="tab" id="heading{{ text.id }}">
+                                    <div class="mb-0">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ text.id }}" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
+                                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                        <h3><img src="{% static 'img/writing.png' %}" />&nbsp;&nbsp;{{ text.title }}</h3>
+                                        <h7 style="float: right;">{{ text.modify_date }}</h7>
+                                        </a>
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+
+                                <div id="collapse{{ text.id }}" class="collapse" role="tabpanel" aria-labelledby="heading{{ text.id }}" aria-expanded="false" style="">
+                                    <div class="card-block">
+                                        {{ text.content|safe }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                            <div class="row justify-content-center">
+                                <nav aria-label="Page navigation" style="margin-top: 10px;">
+                                    <ul class="pagination">
+                                        {% if has_prev %}
+                                            <li class="page-item">
+                                            <a class="page-link" href="?page={{ prev_page }}" aria-label="Previous">
+                                                <span aria-hidden="true">«</span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            </li>
+                                        {% endif %}
+                                        {% for i in num_pages %}
+                                            {% if page_obj.number == i %}
+                                                <li class="active page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                            {% else %}
+                                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if has_next %}
+                                            <li class="page-item">
+                                            <a class="page-link" href="?page={{ next_page }}" aria-label="Next">
+                                                <span aria-hidden="true">»</span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block js %}
+{% endblock js %}

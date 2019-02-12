@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% load staticfiles %}
+{% endblock head %}
+
+{% block css %}
+.card-title {
+    color: #212529;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.card-sub {
+    color: #212529;
+    font-weight: 400;
+    float: left;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.card-link {
+    color: #212529;
+    font-weight: 400;
+    float: right;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.box {
+    border: 1px solid #0000001a;
+    border-radius: 5px;
+}
+{% endblock css %}
+{% block body %}
+
+
+    <!-- Title -->
+    <div id="contents" class="page-header">
+        <div class="container">
+            <div class="row page-title">
+                <a>오시는 길</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Filter button -->
+    <div id="contents">
+        <div class="container">
+            
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+                        <!-- Subtitle -->
+                        <h5 class="card-subtitle"><a style="color:#00c746;">|</a> 당신을 울릉도로 안내합니다</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+                        
+                        <!-- Map guide -->
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-sm-12 card text-center" style="margin-bottom: 10px;">
+                                <a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2052&" target="_blank" class="box">
+                                <img class="card-img-top" src="{% static 'img/map/포항.gif' %}" alt="포항에서 오시는 길">
+                                <div class="card-body" id="card">
+                                    <div class="card-title">포항에서 오시는 길</div>
+                                    <div class="card-sub">포항 여객터미널</div>
+                                    <div class="card-link">상세보기</div>
+                                </div>
+                                </a>
+                            </div>
+                            
+                            <div class="col-lg-4 col-md-6 col-sm-12 card text-center" style="margin-bottom: 10px;">
+                                <a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2053&" target="_blank" class="box">
+                                <img class="card-img-top" src="{% static 'img/map/후포.gif' %}" alt="후포에서 오시는 길">
+                                <div class="card-body" id="card">
+                                    <div class="card-title">후포에서 오시는 길</div>
+                                    <div class="card-sub">후포항 여객터미널</div>
+                                    <div class="card-link">상세보기</div>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-sm-12 card text-center" style="margin-bottom: 10px;">
+                                <a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2054&" target="_blank" class="box">
+                                <img class="card-img-top" src="{% static 'img/map/목포.gif' %}" alt="묵호에서 오시는 길">
+                                <div class="card-body" id="card">
+                                    <div class="card-title">묵호에서 오시는 길</div>
+                                    <div class="card-sub">묵포 여객터미널</div>
+                                    <div class="card-link">상세보기</div>
+                                </div>
+                                </a>
+                            </div>
+                            
+                            
+                            <div class="col-lg-4 col-md-6 col-sm-12 card text-center" style="margin-bottom: 10px;">
+                                <a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2055&" target="_blank" class="box">
+                                <img class="card-img-top" src="{% static 'img/map/강릉.gif' %}" alt="강릉에서 오시는 길">
+                                <div class="card-body" id="card">
+                                    <div class="card-title">강릉에서 오시는 길</div>
+                                    <div class="card-sub">강릉(안목)항 여객터미널</div>
+                                    <div class="card-link">상세보기</div>
+                                </div>
+                                </a>
+                            </div>
+                            
+                            <div class="col-lg-4 col-md-6 col-sm-12 card text-center" style="margin-bottom: 10px;">
+                                <a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2067&" target="_blank" class="box">
+                                <img class="card-img-top" src="{% static 'img/map/독도.gif' %}" alt="독도 가는 길">
+                                <div class="card-body" id="card">
+                                    <div class="card-title">독도 가는 길</div>
+                                    <div class="card-sub">여객선 이용시 유의사항</div>
+                                    <div class="card-link">상세보기</div>
+                                </div>
+                                </a>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-sm-12 card text-center" style="margin-bottom: 10px;">
+                                <a href="http://www.ulleung.go.kr/tour/page.htm?mnu_uid=2061&" target="_blank" class="box">
+                                <img class="card-img-top" src="{% static 'img/map/배.jpg' %}" alt="배시간&요금">
+                                <div class="card-body" id="card">
+                                    <div class="card-title">배시간 & 요금</div>
+                                    <div class="card-sub">여객선 이용시 유의사항</div>
+                                    <div class="card-link">상세보기</div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block js %}
+{% endblock js %}
