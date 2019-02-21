@@ -62,22 +62,22 @@ function chk_username() {
 function chk_password() {
     var msg = ""
     var pattern = /^.*(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$]).*$/
-    // if ( $("#password1").val().length < 8 )  {
-    //     msg = "비밀번호는 8자 이상의 길이이어야 합니다."
-    // } else if (! pattern.test($("#password1").val()) ) {
-    //     msg = "비밀번호는 알파벳 대소문자, 숫자, 특수문자(!@#$)를 최소 하나씩 포함해야합니다."
-    // } else if ( ( $("#username").val().length != 0 ) &&
-    //         ( $("#password1").val().includes($("#username").val()) || $("#username").val().includes($("#password1").val()) ) ) {
-    //     msg = "아이디와 유사한 비밀번호는 사용할 수 없습니다."
-    // } else if ( $("#password1").val() != $("#password2").val() ) {
-    //     msg = "비밀번호가 일치하지 않습니다."
-    // } else {
-    //     return true
-    // }
-    // $("#password1").focus()
-    // alert(msg)
-    // return false
-    return true
+    if ( $("#password1").val().length < 8 )  {
+        msg = "비밀번호는 8자 이상의 길이이어야 합니다."
+    } else if (! pattern.test($("#password1").val()) ) {
+        msg = "비밀번호는 알파벳 대소문자, 숫자, 특수문자(!@#$)를 최소 하나씩 포함해야합니다."
+    } else if ( ( $("#username").val().length != 0 ) &&
+            ( $("#password1").val().includes($("#username").val()) || $("#username").val().includes($("#password1").val()) ) ) {
+        msg = "아이디와 유사한 비밀번호는 사용할 수 없습니다."
+    } else if ( $("#password1").val() != $("#password2").val() ) {
+        msg = "비밀번호가 일치하지 않습니다."
+    } else {
+        return true
+    }
+    $("#password1").focus()
+    alert(msg)
+    return false
+    // return true
 }
 
 function chk_email() {

@@ -235,7 +235,11 @@ def cancel(request):
 #--------------------------------------네트워크 관리-----------------------------------------------#
 @login_required
 def network(request):
-    return render(request, 'operate/manage_network.html', ({}))
+    data_list = []
+    context = {}
+    data_list = get_default_block()
+    context['default_block'] = data_list
+    return render(request, 'operate/manage_network.html', (context))
 
 ##----------------------차트관리------------------------------------------------#
 
@@ -357,6 +361,7 @@ def check_length(string, max_len):
     return result
 
 host = "http://210.107.78.166:3000/"
+# host2 = "http://210.107.78.167:3000/"
 
 ## query
 def get_notices():
@@ -376,7 +381,12 @@ def get_notices():
 def get_publish_amount():
     get_publish_url = host + "get_total_publish"
     publish_data = {}
-    publish_amount = 0
+
+    publish_amout_url = host + "get_account"
+    params = {'user_id' : "admin"}
+    response = requests.get(publish_amout_url, params=params)
+    res = response.json()
+    publish_amount = (int(res['value']))
 
     try:
         response = requests.get(get_publish_url)
@@ -385,7 +395,6 @@ def get_publish_amount():
         data_list = []
         for datas in json_format:
             data = {}
-            publish_amount += datas['balance']
             data['tx_id'] = str(datas['tx_id'])
             data['amount'] = datas['amount']
             data['person'] = datas['trader']
@@ -444,8 +453,9 @@ def get_waiting_store():
 def get_total_location_tx(location):
     return ChartStat.objects.filter(Q(store__location=location)).aggregate(Sum('amount'))['amount__sum']
 
-def socket_test(request):
-    message = request.GET.get('message')
-    print("socket_test#############")
-    print(message)
-    msg = json.loads(request.body.decode('utf-8'))
+def get_default_block():
+    get_block_url = host + "get_default_block"
+    response = requests.get(get_block_url)
+    json_format = json.loads(response.text)
+    return json_format
+    

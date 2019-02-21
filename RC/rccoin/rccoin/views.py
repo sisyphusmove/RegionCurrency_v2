@@ -90,6 +90,30 @@ def map(request):
     }
     return HttpResponse(template.render(context, request))
 
+# 400 에러 처리
+def error_400(request):
+    response = render(request, 'error.html', dict(code=400, title='Bad request', msg='요청 헤더가 너무 깁니다.'))
+    response.status_code = 400
+    return response
+
+# 403 에러 처리 
+def error_403(request):
+    response = render(request, 'error.html', dict(code=403, title='Forbidden', msg='웹페이지 접근이 거부되었습니다'))
+    response.status_code = 403
+    return response
+
+# 404 에러 처리
+def error_404(request):
+    response = render(request, 'error.html', dict(code=404, title='Page not found', msg='페이지를 찾을 수 없습니다.'))
+    response.status_code = 404
+    return response
+
+# 500 에러 처리
+def error_500(request):
+    response = render(request, 'error.html', dict(code=500, title='Internal Server Error', msg='서버에 문제가 있습니다. 관리자에게 문의하세요.'))
+    response.status_code = 500
+    return response
+
 # check logged user
 class LoginRequiredMixin(object):
     @classmethod

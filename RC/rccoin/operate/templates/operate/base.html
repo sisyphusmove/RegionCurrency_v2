@@ -10,52 +10,60 @@
   <title>
     RC Coin Dash Board
   </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+    name='viewport' />
   <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <!-- <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"> -->
   <!-- Material Design Bootstrap -->
   <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
   <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="{% static 'css/material-dashboard.css' %}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{% static 'demo/demo.css' %}" rel="stylesheet" />
   <!-- font awsome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
   <!--   Core JS Files   -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="{% static 'js/jquery.custombox.js' %}"></script>
+  <!-- <script src="http://210.107.78.166:4000/socket.io/socket.io.js"></script> -->
   <script src="http://210.107.78.166:4000/socket.io/socket.io.js"></script>
+  <script src="http://210.107.78.166:5050/socket.io/socket.io.js"></script>
   <script>
     var protocol = "http://";
-    var cloud_host = '210.107.78.166:4000';
-    var local_host = '127.0.0.1';
+    // var host = '210.107.78.166';
+    var host = '210.107.78.166';
     var seperator = ":";
     var api_port = '3000';
     var socket_port = '4000';
     var slash = "/";
 
     $(document).ready(function () {
-      var socket = io.connect(cloud_host);
+      var socket = io.connect(host + seperator + socket_port);
       socket['io']['opts'] = {
-        'hostname': cloud_host,
+        'hostname': host,
         'path': "/socket.io",
         'port': socket_port,
         'secure': false
       }
       socket['nsp'] = "/";
-      socket['io']['uri'] = protocol + cloud_host + seperator + socket_port;
-      socket['io']['engine']['hostname'] = cloud_host;
+      socket['io']['uri'] = protocol + host + seperator + socket_port;
+      socket['io']['engine']['hostname'] = host;
+
       socket['io']['engine']['port'] = socket_port;
 
       var cnt = 1;
+
+      // block check
       socket.on('message', function (data) {
         var block_number = data['block_num'];
         var tx_id = data['tx_id'];
@@ -63,8 +71,8 @@
         var html_block = '';
 
         if (data.length == 1) {
-          var ip = data[0]['peer_name'].substring(0, data[0]['peer_name'].length - 5).toString();
-          var port = data[0]['peer_name'].substring(data[0]['peer_name'].length - 4).toString();
+          var ip = data[i]['peer_name'].substr(0, data[i]['peer_name'].indexOf(":"));
+          var port = data[i]['peer_name'].substr(data[i]['peer_name'].indexOf(":") + 1);
           var param_str = data[0]['num'] + ',' + ip + ',' + port;
           html_block += '<li>';
           html_block += '<a id="' + param_str + '" style="background-color: white; border:0px;" class="search_block">';
@@ -76,11 +84,17 @@
             $('#node_ul_1').append(html_block);
           } else if (port == "8051") {
             $('#node_ul_2').append(html_block);
+          } else if (port == "9051") {
+            $('#node_ul_3').append(html_block);
+            html_block = "";
+          } else if (port == "10051") {
+            $('#node_ul_4').append(html_block);
+            html_block = "";
           }
         } else if (data.length > 1) {
           for (var i = 0; i < data.length; i++) {
-            var ip = data[i]['peer_name'].substring(0, data[i]['peer_name'].length - 5).toString();
-            var port = data[i]['peer_name'].substring(data[i]['peer_name'].length - 4).toString();
+            var ip = data[i]['peer_name'].substr(0, data[i]['peer_name'].indexOf(":"));
+            var port = data[i]['peer_name'].substr(data[i]['peer_name'].indexOf(":") + 1);
             var param_str = data[0]['num'] + ',' + ip + ',' + port;
             html_block += '<li>';
             html_block += '<a id="' + param_str + '" style="background-color: white; border:0px;" class="search_block">';
@@ -94,6 +108,12 @@
             } else if (port == "8051") {
               $('#node_ul_2').append(html_block);
               html_block = "";
+            } else if (port == "9051") {
+              $('#node_ul_3').append(html_block);
+              html_block = "";
+            } else if (port == "10051") {
+              $('#node_ul_4').append(html_block);
+              html_block = "";
             }
           }
         }
@@ -105,11 +125,10 @@
           var ip = param_list[1];
           var port = param_list[2];
           var node_name = ip + ":" + port;
-          // var host = "http://210.107.78.166:3000/";
 
           $.ajax({
             type: 'GET',
-            url: protocol + cloud_host + seperator + api_port + slash + "get_block_info",
+            url: protocol + host + seperator + api_port + slash + "get_block_info",
             data: {
               block_num: block_num,
               target: node_name
@@ -123,7 +142,7 @@
               var data_hash = data['block_info']['data_hash'];
               data_hash = data_hash.substring(0, 20) + '...';
               var mspid = data['block_info']['mspid'];
-              
+
               $('.time').text(timestamp);
               $('.name').text(node_name);
               $('.number').text(number);
@@ -139,33 +158,96 @@
 
       });
 
+      /////////////////////////////////////////////////////////////////////////////////////
+      var server_socket_port = '5050';
+      var server_socket = io.connect(host + seperator + server_socket_port);
+      server_socket['io']['opts'] = {
+        'hostname': host,
+        'path': "/socket.io",
+        'port': server_socket_port,
+        'secure': false
+      }
+      server_socket['nsp'] = "/";
+      server_socket['io']['uri'] = protocol + host + seperator + server_socket_port;
+      server_socket['io']['engine']['hostname'] = host;
+      server_socket['io']['engine']['port'] = server_socket_port;
+
+      server_socket.on('server_status', function (data) {
+        if (data['peer'] == "7051") {
+          if (data['status'] == true) {
+            console.log("data");
+            $(".row1_btn").removeClass("btn-danger");
+            $(".row1_btn").addClass("btn-default");
+          } else if (data['status'] == false) {
+            $(".row1_btn").removeClass("btn-default");
+            $(".row1_btn").addClass("btn-danger");
+          }
+        }
+
+        if (data['peer'] == "8051") {
+          if (data['status'] == true) {
+            $(".row2_btn").removeClass("btn-danger");
+            $(".row2_btn").addClass("btn-default");
+          } else if (data['status'] == false) {
+            $(".row2_btn").removeClass("btn-default");
+            $(".row2_btn").addClass("btn-danger");
+          }
+        }
+
+        if (data['peer'] == "9051") {
+          if (data['status'] == true) {
+            $(".row3_btn").removeClass("btn-danger");
+            $(".row3_btn").addClass("btn-default");
+          } else if (data['status'] == false) {
+            $(".row3_btn").removeClass("btn-default");
+            $(".row3_btn").addClass("btn-danger");
+          }
+        }
+
+        if (data['peer'] == "10051") {
+          if (data['status'] == true) {
+            $(".row4_btn").removeClass("btn-danger");
+            $(".row4_btn").addClass("btn-default");
+          } else if (data['status'] == false) {
+            $(".row4_btn").removeClass("btn-default");
+            $(".row4_btn").addClass("btn-danger");
+          }
+        }
+
+      });
+      /////////////////////////////////////////////////////////////////////////////////////
+
     });
   </script>
   <style>
     .node_row {
-        min-height: 175px;
+      min-height: 175px;
     }
-    .block_list ul li{
-      display:inline;
+
+    .block_list ul li {
+      display: inline;
     }
+
     .scrollbar {
-        margin-left: 30px;
-        float: left;
-        height: 400px;
-        width: 96%;
-        background: #fff;
-        overflow-y: scroll;
-        margin-bottom: 35px;
-      }
-      .scrollbar-primary::-webkit-scrollbar {
-        width: 12px;
-        background-color: #F5F5F5; 
-      }
-      .scrollbar-primary::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-        background-color: #4285F4; 
-      }
+      margin-left: 30px;
+      float: left;
+      height: 400px;
+      width: 96%;
+      background: #fff;
+      overflow-y: scroll;
+      margin-bottom: 35px;
+    }
+
+    .scrollbar-primary::-webkit-scrollbar {
+      width: 12px;
+      background-color: #F5F5F5;
+    }
+
+    .scrollbar-primary::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+      background-color: #4285F4;
+    }
   </style>
 </head>
 
@@ -217,7 +299,8 @@
             </a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
               <i class="material-icons">trending_up</i>
               <p>통계 <span class="caret"></span></p>
             </a>

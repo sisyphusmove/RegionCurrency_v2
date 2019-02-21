@@ -154,8 +154,14 @@
                         <div class="card-title">
                             <h5><strong>커뮤니티</strong></h5>
                             <ul class="card-text">
-                                <li><a href="#">가맹게시판</a></li>
-                                <li><a href="#">자유게시판</a></li>
+                                <li>
+                                    <a onclick="back_to_list(1)" href="{% url 'board:list' %}">가맹게시판</a>
+                                    <input type="hidden" id="board_type_1" value="1">
+                                </li>
+                                <li>
+                                    <a onclick="back_to_list(2)" href="{% url 'board:list' %}">가맹게시판</a>
+                                    <input type="hidden" id="board_type_2" value="2">
+                                </li>
                             </ul>
                             <br class="d-block d-md-none">
                         </div>
