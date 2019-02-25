@@ -35,27 +35,18 @@
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="{% static 'js/jquery.custombox.js' %}"></script>
-  <script src="http://127.0.0.1:4000/socket.io/socket.io.js"></script>
-  <script src="http://127.0.0.1:5050/socket.io/socket.io.js"></script>
-  <!-- <script src="http://210.107.78.166:4000/socket.io/socket.io.js"></script>
-  <script src="http://210.107.78.166:5050/socket.io/socket.io.js"></script> -->
+  <!-- <script src="http://127.0.0.1:4000/socket.io/socket.io.js"></script> -->
+  <!-- <script src="http://127.0.0.1:5050/socket.io/socket.io.js"></script> -->
+  <script src="http://210.107.78.166:4000/socket.io/socket.io.js"></script>
+  <script src="http://210.107.78.166:5050/socket.io/socket.io.js"></script>
   <script>
     var protocol = "http://";
-    // var host = '210.107.78.166';
-    var host = '127.0.0.1';
+    var host = '210.107.78.166';
+    // var host = '127.0.0.1';
     var seperator = ":";
     var api_port = '3000';
     var socket_port = '4000';
     var slash = "/";
-
-    function sleep(milliseconds) {
-      var start = new Date().getTime();
-      for (var i = 0; i < 1e7; i++) {
-        if ((new Date().getTime() - start) > milliseconds) {
-          break;
-        }
-      }
-    }
 
     $(document).ready(function () {
       var socket = io.connect(host + seperator + socket_port);

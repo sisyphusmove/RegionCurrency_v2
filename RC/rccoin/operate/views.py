@@ -358,8 +358,8 @@ def check_length(string, max_len):
     else:
         result = str(string)
     return result
-host = 'http://127.0.0.1:3000/'
-# host = "http://210.107.78.166:3000/"
+# host = 'http://127.0.0.1:3000/'
+host = "http://210.107.78.166:3000/"
 
 ## query
 def get_notices():
