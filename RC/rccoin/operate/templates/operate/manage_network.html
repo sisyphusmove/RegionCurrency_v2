@@ -85,20 +85,54 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive block_list" style="min-height: 100%;">
-                            {% for data in default_block %}
-                            <div class="node_row node_row_{{data.index}}">
+                            <div class="node_row node_row_1">
                                 <a class="row1_btn btn btn-sm btn-default"><i class="material-icons">wifi</i></a>
-                                <strong>node {{ data.index }} | {{ data.port }} &nbsp;&nbsp;</strong>
-                                <ul id="node_ul_{{data.index}}" style="list-style:none;">
+                                <strong>node 1 | 7051 &nbsp;&nbsp;</strong>
+                                <ul id="node_ul_1" style="list-style:none;">
                                     <li>
-                                        <a id="{{data.num}},{{data.ip}},{{data.port}}" style="background-color: white; border:0px;" class="search_block">
+                                        <a id="127.0.0.1,7051" style="background-color: white; border:0px;" class="search_block">
                                             <i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"></i>
-                                            <span class="badge badge-pill badge-danger">{{ data.num }}</span>
+                                            <span class="badge badge-pill badge-danger">{{ default_block.num }}</span>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
-                            {% endfor %}
+                            <div class="node_row node_row_2">
+                                <a class="row2_btn btn btn-sm btn-default"><i class="material-icons">wifi</i></a>
+                                <strong>node 2 | 8051 &nbsp;&nbsp;</strong>
+                                <ul id="node_ul_2" style="list-style:none;">
+                                    <li>
+                                        <a id="127.0.0.1,8051" style="background-color: white; border:0px;" class="search_block">
+                                            <i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"></i>
+                                            <span class="badge badge-pill badge-danger">{{ default_block.num }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="node_row node_row_3">
+                                <a class="row3_btn btn btn-sm btn-default"><i class="material-icons">wifi</i></a>
+                                <strong>node 3 | 9051 &nbsp;&nbsp;</strong>
+                                <ul id="node_ul_3" style="list-style:none;">
+                                    <li>
+                                        <a id="127.0.0.1,9051" style="background-color: white; border:0px;" class="search_block">
+                                            <i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"></i>
+                                            <span class="badge badge-pill badge-danger">{{ default_block.num }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="node_row node_row_4">
+                                <a class="row4_btn btn btn-sm btn-default"><i class="material-icons">wifi</i></a>
+                                <strong>node 4 | 10051 &nbsp;&nbsp;</strong>
+                                <ul id="node_ul_4" style="list-style:none;">
+                                    <li>
+                                        <a id="127.0.0.1,10051" style="background-color: white; border:0px;" class="search_block">
+                                            <i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"></i>
+                                            <span class="badge badge-pill badge-danger">{{ default_block.num }}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -235,10 +235,9 @@ def cancel(request):
 #--------------------------------------네트워크 관리-----------------------------------------------#
 @login_required
 def network(request):
-    data_list = []
     context = {}
-    data_list = get_default_block()
-    context['default_block'] = data_list
+    context['default_block'] = get_default_block()[0]
+    print(context)
     return render(request, 'operate/manage_network.html', (context))
 
 ##----------------------차트관리------------------------------------------------#
@@ -359,9 +358,8 @@ def check_length(string, max_len):
     else:
         result = str(string)
     return result
-
-host = "http://210.107.78.166:3000/"
-# host2 = "http://210.107.78.167:3000/"
+host = 'http://127.0.0.1:3000/'
+# host = "http://210.107.78.166:3000/"
 
 ## query
 def get_notices():
@@ -457,5 +455,6 @@ def get_default_block():
     get_block_url = host + "get_default_block"
     response = requests.get(get_block_url)
     json_format = json.loads(response.text)
+    print("json_format: ", json_format[0])
     return json_format
     
