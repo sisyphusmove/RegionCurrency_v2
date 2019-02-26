@@ -70,10 +70,8 @@
         var block_number = parseInt(data[0]['num']);
         var tx_id = data[0]['tx_id'];
         var ip = data[0]['peer_name'].substr(0, data[0]['peer_name'].indexOf(":"));
-        var port = data[0]['peer_name'].substr(data[0]['peer_name'].indexOf(":") + 1);
         var html_block = '';
 
-        alert(block_number)
         $("#node_ul_1").empty("slow");
         $("#node_ul_2").empty("slow");
         $("#node_ul_3").empty("slow");
@@ -86,26 +84,45 @@
           console.log(i)
           var param_str = i + ',' + ip + ',' + port;
           html_block += '<li>';
-          html_block += '<a id="' + param_str + '" style="background-color: white; border:0px;" class="search_block">';
+          html_block += '<a blocknum="' + block_number + '" ip="7051" port="' + port + ' style="background-color: white; border:0px;" class="search_block">';
           html_block += '<i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"></i>';
           html_block += '<span class="badge badge-pill badge-danger">' + i + '</span>';
           html_block += '</a>';
           html_block += '</li>';
           $('#node_ul_1').append(html_block).delay(800).fadeIn(400);
+          html_block = "";
+          html_block += '<li>';
+          html_block += '<a blocknum="' + block_number + '" ip="8051" port="' + port + ' style="background-color: white; border:0px;" class="search_block">';
+          html_block += '<i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"></i>';
+          html_block += '<span class="badge badge-pill badge-danger">' + i + '</span>';
+          html_block += '</a>';
+          html_block += '</li>';
           $('#node_ul_2').append(html_block).delay(800).fadeIn(400);
+          html_block = "";
+          html_block += '<li>';
+          html_block += '<a blocknum="' + block_number + '" ip="9051" port="' + port + ' style="background-color: white; border:0px;" class="search_block">';
+          html_block += '<i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"></i>';
+          html_block += '<span class="badge badge-pill badge-danger">' + i + '</span>';
+          html_block += '</a>';
+          html_block += '</li>';
           $('#node_ul_3').append(html_block).delay(800).fadeIn(400);
+          html_block = "";
+          html_block += '<li>';
+          html_block += '<a blocknum="' + block_number + '" ip="10051" port="' + port + ' style="background-color: white; border:0px;" class="search_block">';
+          html_block += '<i class="fas fa-cube fa-5x" style="margin-bottom: 5px;"></i>';
+          html_block += '<span class="badge badge-pill badge-danger">' + i + '</span>';
+          html_block += '</a>';
+          html_block += '</li>';
           $('#node_ul_4').append(html_block).delay(800).fadeIn(400);
           html_block = "";
         }
 
         $(".search_block").on('click', function () {
-          var param_list = [];
-          param_list = $(this).attr('id').split(',');
-          var block_num = param_list[0];
-          var ip = param_list[1];
-          var port = param_list[2];
+          var block_num = $(this).attr('block_num');
+          var ip = $(this).attr('ip');
+          var port = $(this).attr('port');
           var node_name = ip + ":" + port;
-          console.log(ip)
+          console.log(node_name)
 
           $.ajax({
             type: 'GET',
