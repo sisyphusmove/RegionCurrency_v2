@@ -34,11 +34,9 @@
             })
         }
         $(".search_block").on('click', function () {
-          var param_list = [];
-          param_list = $(this).attr('id').split(',');
-          var block_num = param_list[0];
-          var ip = param_list[1];
-          var port = param_list[2];
+          var block_num = $(this).attr('block_number');
+          var ip = $(this).attr('ip');
+          var port = $(this).attr('port');
           var node_name = ip + ":" + port;
 
           $.ajax({
