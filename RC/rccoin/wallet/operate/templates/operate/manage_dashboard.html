@@ -1,0 +1,307 @@
+{% extends './base.html' %}
+{% load staticfiles %}
+{% block content %}
+<style>
+    .material-switch > input[type="checkbox"] {
+        display: none;   
+    }
+
+    .material-switch > label {
+        cursor: pointer;
+        height: 0px;
+        position: relative; 
+        width: 40px;  
+    }
+
+    .material-switch > label::before {
+        background: rgb(0, 0, 0);
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        content: '';
+        height: 16px;
+        margin-top: -8px;
+        position:absolute;
+        opacity: 0.3;
+        transition: all 0.4s ease-in-out;
+        width: 40px;
+    }
+    .material-switch > label::after {
+        background: rgb(255, 255, 255);
+        border-radius: 16px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+        content: '';
+        height: 24px;
+        left: -4px;
+        margin-top: -8px;
+        position: absolute;
+        top: -4px;
+        transition: all 0.3s ease-in-out;
+        width: 24px;
+    }
+    .material-switch > input[type="checkbox"]:checked + label::before {
+        background: inherit;
+        opacity: 0.5;
+    }
+    .material-switch > input[type="checkbox"]:checked + label::after {
+        background: inherit;
+        left: 20px;
+    }
+    .table-border tr > td{
+        font-family: Arial, Helvetica, sans-serif
+    }
+</style>
+<input type="hidden" id="user_id">
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">compare_arrows</i>
+                        </div>
+                        <p class="card-category">트랜잭션</p>
+                        <h3 class="card-title">{{ tx_cnt }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">date_range</i>총 트랜잭션 수 입니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">content_paste</i>
+                        </div>
+                        <p class="card-category">가맹점</p>
+                        <h3 class="card-title">{{ store_cnt }}
+                        </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">store</i>총 가맹점 수 입니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">account_balance_wallet</i>
+                        </div>
+                        <p class="card-category">계좌</p>
+                        <h3 class="card-title">{{ account_cnt }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_offer</i>총 계좌수입니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">local_atm</i>
+                        </div>
+                        <p class="card-category">발행량</p>
+                        <h3 class="card-title">{{ publish.total_publish }}RC</h3>;
+                        <h3 class="result"></h3>
+                        
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_atm</i>총 발행량 입니다.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div style="float: left; width: 46%; margin-left: 2%; margin-right: 2%">
+                <div class="card card-chart">
+                    <div class="card-header card-header-success">
+                        <div class="ct-chart" id="dailySalesChart"></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">전체 거래량</h4>
+                        </p>
+                        <p class="card-category">
+
+                            <span class="text-success"><i class="material-icons">trending_up</i>
+                                전년대비 증가율 <h4 class="section-data-result"></h4>
+                            </span>
+
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_offer</i><a href="{% url 'operate:stats' %}">통계보기</a><i
+                                class="material-icons">subdirectory_arrow_left</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="float: right; width: 46%; margin-left: 2%; margin-right: 2%">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">insert_chart</i>
+                        </div>
+                        <p class="card-category">서면</p>
+                        <h3 class="card-title"> &nbsp; {{ west_stats }}
+                        </h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_offer</i>
+                            <a href="{% url 'operate:west_stats' %}">통계보기</a><i class="material-icons">subdirectory_arrow_left</i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-stats">
+                    <div class="card-header card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">insert_chart</i>
+                        </div>
+                        <p class="card-category">북면</p>
+                        <h3 class="card-title"> &nbsp; {{ north_stats }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_offer</i><a href="{% url 'operate:north_stats' %}">통계보기</a><i
+                                class="material-icons">subdirectory_arrow_left</i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-stats">
+                    <div class="card-header card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">insert_chart</i>
+                        </div>
+                        <p class="card-category">울릉읍</p>
+                        <h3 class="card-title"> &nbsp; {{ wooleung_stats }}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">local_offer</i><a href="{% url 'operate:wooleung_stats' %}">통계보기</a><i
+                                class="material-icons">subdirectory_arrow_left</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary">
+                        <div class="nav-tabs-navigation">
+                            <div class="nav-tabs-wrapper">
+                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#settings" data-toggle="tab">
+                                            <i class="material-icons">cloud</i> 승인대기 가맹점
+                                            <div class="ripple-container"></div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="profile">
+                                <ul class="list-group" style="inline:block;">
+                                    {% for store in store_waiting_list %}
+                                    {% if store.category == 1 %}
+                                    <li class="list-group-item"><i class="material-icons">shopping_cart</i>
+                                        {% endif %}
+                                        {% if store.category == 2 %}
+                                    <li class="list-group-item"><i class="material-icons">directions_bike</i>
+                                        {% endif %}
+                                        {% if store.category == 3 %}
+                                    <li class="list-group-item"><i class="material-icons">hotel</i>
+                                        {% endif %}
+                                        {% if store.category == 4 %}
+                                    <li class="list-group-item"><i class="material-icons">local_dining</i>
+                                        {% endif %}
+                                        &nbsp;&nbsp; | &nbsp;&nbsp;{{ store.name }} &nbsp;&nbsp;|&nbsp;&nbsp;
+                                        {{store.corporate_number }} &nbsp;&nbsp;|&nbsp;&nbsp; {{ store.modified_date }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title">공지사항</h4>
+                        <p class="card-category">공지사항 미리보기</p>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover table-border">
+                            <thead class="text-warning" align="center">
+                                <th>Index</th>
+                                <th>Title</th>
+                                <th>Writer</th>
+                                <th>Create</th>
+                                <th>Modify</th>
+                                <th>Status</th>
+                            </thead>
+                            <tbody>
+                                {% for notice in notice_list %}
+                                <tr align="center">
+                                    <td>{{ notice.id }}</td>
+                                    <td>{{ notice.title }}</td>
+                                    <td>{{ notice.writer }}</td>
+                                    <td>{{ notice.create_date }}</td>
+                                    <td>{{ notice.modify_date }}</td>
+                                    <td>{{ notice.status }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var endpoint = '{% url "operate:chartdata" %}'
+        var defaultData = []
+        var labels_second = []
+        var labels = []
+
+
+        $.ajax({
+            method: "GET",
+            url: endpoint,
+            success: function (data) {
+
+                all_labels = data.all_labels
+                all_default = data.all_default
+
+                var all = ((all_default[4] - all_default[3]) / (all_default[3] + 1) * 100) + '%'
+                var result = all.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                
+                $('.section-data-result').text(result)
+                
+                },
+            error: function (error_data) {
+                console.log("error")
+                console.log(error_data)
+            }
+        })
+    })
+</script>
+{% endblock content %}

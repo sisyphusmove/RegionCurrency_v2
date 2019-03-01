@@ -1,0 +1,44 @@
+{% extends './base.html' %}
+{% block content %}
+<div class="content" style="margin-top: 35px;">
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+            <div class="card-header card-header-info">
+                <h4 class="card-title "><i class="material-icons">content_paste</i>&nbsp;<strong>발행 이력 관리</strong></h4>
+                <p class="card-category">this is the page of managing publish amount</p>
+                <p class="card-category"> </p>
+            </div>
+            <div class="card-body scrollbar scrollbar-primary">
+                <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                        <th>트랜잭션 아이디</th>
+                        <th>발행량</th>
+                        <th>피 발행인</th>
+                        <th>발행일</th>
+                    </thead>
+                    <tbody>
+                        {% for data in publish_list %}
+                        <tr class="tag">
+                            <td>{{ data.tx_id }}</td>
+                            <td>{{ data.amount }}</td>
+                            <td>{{ data.person }}</td>
+                            <td>{{ data.date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            <div style="text-align: right; margin-right: 5%; margin-bottom: 2%">
+                <strong style="font-size: 20px">총 발행량 : {{ total_publish }}&nbsp;RC</strong>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock content %}  

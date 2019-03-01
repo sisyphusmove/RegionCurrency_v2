@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% load staticfiles %}
+{% endblock head %}
+
+{% block css %}
+{% endblock css %}
+
+{% block body %}
+
+
+    <!-- Title -->
+    <div id="contents" class="page-header">
+        <div class="container">
+            <div class="row page-title">
+                <a>로그인</a>
+            </div>
+        </div>
+    </div>
+    
+    <div id="contents">
+        <div class="container">
+            <div class="row justify-content-center page">
+                <div class="row w-700">
+                    <div class="col-md d-none d-md-block">
+                        <img src="{% static 'img/rccoin-img2.png' %}" style="border-radius: 5px;">
+                    </div>
+
+                    <div class="col-md card">
+                        <div class="card-body">
+                            <h5 class="card-subtitle"><a style="color:#00c746;">|</a> 비밀번호 초기화</h5>
+                            
+                            <hr>
+
+                            <!-- PWD search form -->
+                            <form action="{% url 'account:forget_pwd' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="username">아이디</label>
+                                    <input id="username" type="text" class="form-control" name="username" required  autofocus />
+                                    <a href="{% url 'account:forget_id' %}" class="float-right">아이디 찾기</a>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">이메일주소</label>
+                                    <div style="position:relative" id="eye-password-0">
+                                        <input id="email" type="email" class="form-control" name="email" required autocomplete="off" style="padding-right: 60px;" />
+                                    </div>
+                                    <div class="float-left text-primary">
+                                        이메일로 임시 비밀번호를 전송합니다.
+                                    </div>
+                                </div>
+                                
+                                <br>
+
+                                <div class="form-group m-0">
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            {% if message.tags == "error" %}
+                                                <div class="alert alert-danger">
+                                                    <img src="{% static 'img/exclamation-mark.png' %}" style="width: 18px">&nbsp;{{ message }}
+                                                </div>
+                                            {% elif message.tags == "info" %}
+                                                <div class="alert alert-success">
+                                                    <img src="{% static 'img/mail.png' %}" style="width: 18px">&nbsp;{{ message }}
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+
+                                    <hr style="margin-top: 15px;">
+                                    
+                                    <button type="submit" class="btn btn-success btn-block">
+                                        확인
+                                    </button>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    <a href="{% url 'account:login' %}" class="font-black">로그인</a>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+
+{% endblock body %}
+
+{% block js %}
+{% endblock js %}

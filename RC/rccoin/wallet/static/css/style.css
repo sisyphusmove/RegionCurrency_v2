@@ -1,0 +1,528 @@
+/* @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800'); */
+/* nanum-gothic-regular - latin_korean */
+@font-face {
+    font-family: 'Nanum Gothic';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/nanum-gothic-v13-latin_korean-regular.eot'); /* IE9 Compat Modes */
+    src: local('NanumGothic'),
+         url('../fonts/nanum-gothic-v13-latin_korean-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/nanum-gothic-v13-latin_korean-regular.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/nanum-gothic-v13-latin_korean-regular.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/nanum-gothic-v13-latin_korean-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/nanum-gothic-v13-latin_korean-regular.svg#NanumGothic') format('svg'); /* Legacy iOS */
+}
+/* nanum-gothic-700 - latin_korean */
+@font-face {
+    font-family: 'Nanum Gothic';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/nanum-gothic-v13-latin_korean-700.eot'); /* IE9 Compat Modes */
+    src: local('NanumGothic Bold'), local('NanumGothic-Bold'),
+         url('../fonts/nanum-gothic-v13-latin_korean-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/nanum-gothic-v13-latin_korean-700.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/nanum-gothic-v13-latin_korean-700.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/nanum-gothic-v13-latin_korean-700.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/nanum-gothic-v13-latin_korean-700.svg#NanumGothic') format('svg'); /* Legacy iOS */
+}
+/* nanum-gothic-800 - latin_korean */
+@font-face {
+    font-family: 'Nanum Gothic';
+    font-style: normal;
+    font-weight: 800;
+    src: url('../fonts/nanum-gothic-v13-latin_korean-800.eot'); /* IE9 Compat Modes */
+    src: local('NanumGothic ExtraBold'), local('NanumGothic-ExtraBold'),
+         url('../fonts/nanum-gothic-v13-latin_korean-800.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/nanum-gothic-v13-latin_korean-800.woff2') format('woff2'), /* Super Modern Browsers */
+         url('../fonts/nanum-gothic-v13-latin_korean-800.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/nanum-gothic-v13-latin_korean-800.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/nanum-gothic-v13-latin_korean-800.svg#NanumGothic') format('svg'); /* Legacy iOS */
+}
+
+
+/* global CSS */
+body {
+    font-family: 'Nanum Gothic';
+    font-size: 1rem;
+    background: #edeef2;
+    height: 100vh;
+}
+.row2 {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+a {
+    text-decoration: none !important;
+}
+.w-700 {
+    width: 700px;
+}
+.page {
+    background-color: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border: 1px solid #dee2e6;
+}
+.page-header {
+    height: 75px;
+    background-color: #fff;
+    border-bottom: 1px solid #dee2e6;
+}
+.page-title {
+    padding-top: 36px;
+    padding-left: 30px;
+}
+.page-title>a {
+    font-size: 1.3rem;
+    border-bottom: 3px solid #00c746;
+    padding-bottom: 5px;
+    font-weight: 600;
+}
+
+/* Navbar CSS */
+.navbar {
+    font-size: 1.1rem;
+    padding: 0.9rem 1rem;
+}
+.navbar-collapse {
+    flex-grow: 0;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff;
+}
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #00c746;
+}
+.navbar-brand {
+    margin-right: 0;
+}
+.navbar-brand img {
+    width: 50%;
+}
+a.nav-link {
+    cursor: pointer;
+}
+.dropdown-divider {
+    color: #fff;
+}
+.dropdown-menu {
+    margin: 0 0 0 0;
+    background-color: #fff;
+}
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    background-color: #708090;
+}
+.dropdown:hover>.dropdown-menu {
+    display: block;
+}
+.dropdown>.dropdown-toggle:active {
+    pointer-events: none;
+}
+
+/* Footer CSS */
+.card {
+    border: 0;
+    border-radius: 0;
+}
+h4.card-title {
+    font-weight: 550;
+}
+.card-title > a > strong, p.card-text, .card-title > h5, .card-text > li > a {
+    color: #fff;
+}
+ul.card-text, .card-text > li {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* Account CSS */
+.card {
+    border: none;
+}
+.card-subtitle {
+    font-weight: 600;
+    margin-top: 10px;
+}
+.card-body {
+    padding: 0rem;
+    vertical-align: middle;
+}
+.form-group > label {
+    font-weight: 550;
+}
+a.float-right, a.float-left {
+    font-size: 0.8rem;
+    color: #000;
+}
+a.float-right {
+    font-size: 0.9rem;
+}
+.font-black {
+    color: #000;
+}
+textarea.form-control {
+    height: 200px;
+    resize: none;
+}
+.chkbox[type=checkbox], .chkboxAll[type=checkbox] {
+    display: none;
+}
+.chkbox[type=checkbox] + label, .chkboxAll[type=checkbox] + label {
+    background: url(../../static/img/uncheck.png) no-repeat;
+    display: inline-block;
+    height: 30px;
+    margin-right: 10px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.chkbox[type=checkbox] + label {
+    width: 55px;
+}
+.chkboxAll[type=checkbox] + label {
+    width: 90px;
+}
+.chkbox[type=checkbox]:checked + label, .chkboxAll[type=checkbox]:checked + label {
+    background: url(../../static/img/check.png) no-repeat;
+    display: inline-block;
+    height: 30px;
+    margin-right: 10px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.info {
+    font-size: 13px;
+    color: #007bff;
+}
+.profile {
+    margin: 20px 0;
+}
+.profile-sidebar {
+    padding: 7% 0 7% 0;
+    background: #fff;
+}
+.profile-userpic img {
+    float: none;
+    margin: 0 auto;
+    width: 50%;
+    height: 50%;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+}
+.profile-usertitle {
+    margin: 0 30px 0 30px;
+}
+.profile-usertitle-name {
+    color: #5a7391;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+.profile-usertitle-job {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+.profile-userbuttons {
+    text-align: center;
+    margin-top: 10px;
+}
+.profile-userbuttons .btn {
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 6px 15px;
+    margin-right: 5px;
+}
+.profile-userbuttons .btn:last-child {
+    margin-right: 0px;
+}
+ul.nav {
+    margin: 0 20px 0 20px;
+}
+.profile-usermenu {
+    display: block;
+    margin-top: 30px;
+}
+.profile-usermenu ul li {
+    color: #5b9bd1;
+    font-weight: 600;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+.profile-content {
+    padding: 20px;
+    background: #fff;
+    min-height: 460px;
+}
+
+/* Wallet CSS */
+.wallet {
+    position: relative;
+    text-align: center;
+    border: 0px;
+}
+.top-right {
+    position: absolute;
+    top: 15%;
+    right: 420px;
+    font-weight: 500;
+    color: #fff;
+}
+.centered-right {
+    position: absolute;
+    top: 45%;
+    right: 420px;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #fff;
+}
+.bottom-right {
+    position: absolute;
+    bottom: 15px;
+    right: 420px;
+    color: #fff;
+    
+}
+.qrcode-text-btn {display:inline-block; background:url(//dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg) 50% 50% no-repeat; height:1em; width:1.7em; margin-left:-2em; cursor:pointer}
+.qrcode-text-btn > input[type=file] {position:absolute; overflow:hidden; width:1px; height:1px; opacity:0}
+.font-white, .font-white:hover{
+    color: #fff;
+    cursor: pointer;
+}
+.amount {
+    width: 330px;
+}
+table {
+    border-collapse:separate; 
+    border-spacing: 5px;
+}
+.table-filter {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+.table-filter .media-photo {
+    width: 50px;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+.table-filter .media-body {
+    display: block;
+}
+.table-filter .media .title {
+    color: #2BBCDE;
+    font-weight: bold;
+    line-height: normal;
+    margin-top: 2px;
+}
+.table-filter .media {
+    font-size: 1rem;
+}
+.table-filter .media-meta {
+    font-size: 0.8rem;
+    color: #999;
+    margin-left: 10px;
+}
+.table-filter .media .summary {
+    color: #7f7f7f;
+    font-size: 1rem;
+}
+.table-filter tbody tr td {
+    padding: 10px;
+    vertical-align: middle;
+    border-top-color: #eee;
+}
+tr.init td {
+    border-radius: 5px;
+    border-left: 5px solid #007bff;
+}
+tr.publish td {
+    border-radius: 5px;
+    border-left: 5px solid #28a745;
+}
+tr.remittance td {
+    border-radius: 5px;
+    border-left: 5px solid #ffc107;
+}
+tr.payment td {
+    border-radius: 5px;
+    border-left: 5px solid #dc3545;
+}
+tr.canceled td {
+    border-radius: 5px;
+    border-left: 5px solid #6c757d;
+}
+.table-filter .media span.init {
+    color: #007bff;
+    font-weight: 600;
+    margin-right: 15px;
+}
+.table-filter .media span.publish {
+    color: #28a745;
+    font-weight: 600;
+    margin-right: 15px;
+}
+.table-filter .media span.remittance {
+    color: #ffc107;
+    font-weight: 600; 
+    margin-right: 15px;
+}
+.table-filter .media span.payment {
+    color: #dc3545;
+    font-weight: 600;
+    margin-right: 15px;
+}
+.table-filter .media span.canceled {
+    color: #6c757d;
+    font-weight: 600;
+    margin-right: 15px;
+}
+.pull-right {
+    float: right!important;
+}
+div.alert-warning {
+    border-radius: 5px;
+    text-align: center;
+}
+div.text-danger {
+    padding: 10px 20px 10px 20px;
+}
+
+/* Store CSS */
+strong {
+    font-weight: 750;
+    margin-left: 5px;
+}
+small {
+    color: #8a8a8b;
+}
+.profile-usertitle-name {
+    font-size: 1.5rem;
+}
+.personal-details {
+    color: #4d4e4f;
+    margin-top: 10px;
+}
+.profile-img {
+    text-align: center;
+}
+.carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
+    display: block;
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+}
+
+/* col-xl */
+@media (max-width: 1200px) {
+    .top-right {
+        top: 15%;
+        right: 335px;
+    }
+    .centered-right {
+        top: 45%;
+        right: 335px;
+    }
+    .bottom-right {
+        bottom: 15px;
+        right: 335px;
+    }
+}
+/* col-lg */
+@media (max-width: 990px) {
+    .top-right {
+        right: 220px;
+    }
+    .centered-right {
+        right: 220px;
+    }
+    .bottom-right {
+        right: 220px;
+    }
+}
+/* col-md */
+@media (max-width: 765px) {
+    .w-700 {
+        width: 100%;
+    }
+    .alert-danger, .alert-success, .text-primary {
+        font-size: 0.8rem;
+    }
+    .text-danger, .text-primary {
+        font-size: 0.8rem;
+    }
+    table {
+        margin-top: 10px;
+    }
+    .top-right {
+        right: 125px;
+    }
+    .centered-right {
+        right: 125px;
+    }
+    .bottom-right {
+        right: 125px;
+    }
+    .table-filter .title {
+        font-size: 0.8rem;
+    }
+    .table-filter .summary {
+        font-size: 0.8rem;
+        margin-bottom: 0;
+    }
+    .pagination {
+        font-size: 0.8rem;
+    }
+}
+/* col-sm */
+@media (max-width: 560px) {
+    .navbar {
+        font-size: 1rem;
+    }
+    .navbar-brand {
+        width: 75%;
+    }
+    .page {
+        border-left: 0px;
+        border-right: 0px;
+    }
+    .card {
+        margin-top: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    .top-right {
+        right: 20%;
+    }
+    .centered-right {
+        right: 20%;
+    }
+    .bottom-right {
+        right: 20%;
+    }
+    .amount {
+        /* width: 100%; */
+        max-width: 100%;
+    }
+}
+/* col-385 */
+@media (max-width: 385px) {
+    .top-right {
+        right: 10%;
+    }
+    .centered-right {
+        right: 10%;
+    }
+    .bottom-right {
+        right: 10%;
+    }
+}

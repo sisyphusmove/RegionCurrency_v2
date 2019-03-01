@@ -1,0 +1,66 @@
+<!DOCTYPE >
+<html>
+
+<head>
+	<title>QR Code</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+</head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+    function printDiv() {
+        window.print();
+    }
+
+	$(document).ready(function(){
+
+		// input에 입력하는 값들을 뽑아서 변수에 저장
+		var store = $('#store').val();	
+		// encodeURIComponent로 인코딩 합시당. 
+		// value = encodeURIComponent(value);
+		// buy = encodeURIComponent(buy);
+		// sell = encodeURIComponent(sell);
+
+
+		// 뒤에 코드가 길어지니까 그냥 한번 변수에 주소를 저장 
+		googleQRUrl = "https://chart.googleapis.com/chart?chs=177x177&cht=qr&chl=";
+		m_link = `http://222.239.231.245:8000/wallet/payment?s_id=${store}`;
+
+		/***************************************************************************
+		* 
+		*  URL 인코딩 문제로 파라미터가 전달되지 않아서 발생한 문제임 
+		* 
+		* 	요렇게 바꾸면 됨 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		* 
+		***************************************************************************/ 
+		m_link = encodeURIComponent(m_link);
+
+		// 이미지가 나타날 영역에 원하는 내용을 넣은 QR code의 이미지를 출력합니다.
+		// 여기 주소 부분을 변경해주면 원하는 값을 언제든 맘대로
+
+		$('#qrcode').attr('src', googleQRUrl + m_link );
+		//  "/ 개봉날짜:" + m_opening +'&choe=UTF-8'
+
+	});
+
+</script>
+
+
+
+<body>
+	<data id="store" value="{{ store.id }}" hidden></data>
+    <div style="text-align: center;">
+        <div>
+            가맹점 "{{ store.name }}"의 QR Code
+        </div>
+        
+        <div>
+            <img id="qrcode" style="width: 30%; min-width: 300px" src='' />
+        </div>
+        <form>
+            <input type="button" onclick="printDiv();" value="출력"/>
+        </form>
+    </div>
+</body> 

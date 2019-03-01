@@ -1,0 +1,97 @@
+{% extends './base.html' %}
+
+
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title "><i class="material-icons">trending_up</i>&nbsp;<strong>전체 거래량</strong></h4>
+                        <p class="card-category">this is the page of managing statistics</p>
+                        <p class="card-category"> </p>
+                    </div>
+                    <div class="card-body">
+                        <div class='row'>
+                            <div class='col-sm-12' align='center'>
+                                <table>
+                                    <tr>
+                                        <td><canvas id="myChart" width="800" height="700"></canvas></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var endpoint = '{% url "operate:chartdata" %}'
+        var defaultData = []
+        var labels_second = []
+        var labels = []
+
+
+        $.ajax({
+            method: "GET",
+            url: endpoint,
+            success: function (data) {
+
+                all_labels = data.all_labels
+                all_default = data.all_default
+
+                setChart()
+            },
+            error: function (error_data) {
+                console.log("error")
+                console.log(error_data)
+            }
+        })
+        function setChart() {
+            var ctx = document.getElementById("myChart");
+
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: all_labels,
+                    datasets: [{
+                        label: '울릉도 거래현황 ',
+                        data: all_default,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255,99,132,1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+        // var ctx = document.getElementById("myChart");
+    });
+</script>
+{% endblock content %}

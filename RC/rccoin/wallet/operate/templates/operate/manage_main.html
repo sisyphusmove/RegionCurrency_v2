@@ -1,0 +1,328 @@
+{% extends './base.html' %}
+{% load staticfiles %}
+{% block content %}
+<style>
+    .material-switch > input[type="checkbox"] {
+        display: none;   
+    }
+
+    .material-switch > label {
+        cursor: pointer;
+        height: 0px;
+        position: relative; 
+        width: 40px;  
+    }
+
+    .material-switch > label::before {
+        background: rgb(0, 0, 0);
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        content: '';
+        height: 16px;
+        margin-top: -8px;
+        position:absolute;
+        opacity: 0.3;
+        transition: all 0.4s ease-in-out;
+        width: 40px;
+    }
+    .material-switch > label::after {
+        background: rgb(255, 255, 255);
+        border-radius: 16px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+        content: '';
+        height: 24px;
+        left: -4px;
+        margin-top: -8px;
+        position: absolute;
+        top: -4px;
+        transition: all 0.3s ease-in-out;
+        width: 24px;
+    }
+    .material-switch > input[type="checkbox"]:checked + label::before {
+        background: inherit;
+        opacity: 0.5;
+    }
+    .material-switch > input[type="checkbox"]:checked + label::after {
+        background: inherit;
+        left: 20px;
+    }
+</style>
+<script src="{% static 'js/operate/login.js' %}"></script>
+<input type="hidden" id="user_id">
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon">
+                <div class="card-icon">
+                <i class="material-icons">compare_arrows</i>
+                </div>
+                <p class="card-category">Transactions</p>
+                <h3 class="card-title">{{ tx_cnt }}</h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                <i class="material-icons">date_range</i> Last 24 Hours
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+                <div class="card-icon">
+                <i class="material-icons">content_paste</i>
+                </div>
+                <p class="card-category">Stores</p>
+                <h3 class="card-title">{{ store_cnt }}
+                </h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                <i class="material-icons text-danger">warning</i>
+                <a href="#pablo">Get More Space...</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon">
+                <div class="card-icon">
+                <i class="material-icons">account_balance_wallet</i>    
+                </div>
+                <p class="card-category">Accounts</p>
+                <h3 class="card-title">{{ account_cnt }}</h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                <i class="material-icons">local_offer</i> Tracked from Github
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+            <div class="card-header card-header-info card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">local_atm</i>
+                </div>
+                <p class="card-category">Publish</p>
+                <h3 class="card-title">{{ publish.total_publish }}RC</h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                <i class="material-icons">local_atm</i> Just Updated
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-chart">
+                    <div class="card-header card-header-success">
+                        <div class="ct-chart" id="dailySalesChart"></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">북면</h4>
+                        <p class="card-category">
+                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                        <i class="material-icons">access_time</i> till now
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-chart">
+                <div class="card-header card-header-warning">
+                    <div class="ct-chart" id="websiteViewsChart"></div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">서면</h4>
+                    <p class="card-category">Last Campaign Performance</p>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                    <i class="material-icons">access_time</i> campaign sent 2 days ago
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-chart">
+                    <div class="card-header card-header-danger">
+                        <div class="ct-chart" id="completedTasksChart"></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">울릉읍</h4>
+                        <p class="card-category">Last Campaign Performance</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                        <i class="material-icons">access_time</i> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+            <div class="card-header card-header-tabs card-header-primary">
+                <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#settings" data-toggle="tab">
+                        <i class="material-icons">cloud</i> Waiting Stores
+                        <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                    </ul>
+                </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                <div class="tab-pane active" id="profile">
+                    <ul class="list-group" style="inline:block;">
+                        {% for store in store_waiting_list %}
+                            {% if store.category == 1 %}
+                                <li class="list-group-item"><i class="material-icons">shopping_cart</i>
+                            {% endif %}
+                            {% if store.category == 2 %}
+                                <li class="list-group-item"><i class="material-icons">directions_bike</i>
+                            {% endif %}
+                            {% if store.category == 3 %}
+                                <li class="list-group-item"><i class="material-icons">hotel</i>
+                            {% endif %}
+                            {% if store.category == 4 %}
+                                <li class="list-group-item"><i class="material-icons">local_dining</i>
+                            {% endif %}
+                                &nbsp;&nbsp; | &nbsp;&nbsp;{{ store.name }} &nbsp;&nbsp;|&nbsp;&nbsp; {{ store.corporate_number }} &nbsp;&nbsp;|&nbsp;&nbsp; {{ store.modified_date }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Manage notice</h4>
+                
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover table-border">
+                    <thead class="text-warning" align="center">
+                        <th>Index</th>
+                        <th>Title</th>
+                        <th>Writer</th>
+                        <th>Create</th>
+                        <th>Modify</th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody>
+                        {% for notice in notice_list %}
+                        <tr align="center">
+                            <td>{{ notice.id }}</td>
+                            <td>{{ notice.title }}</td>
+                            <td>{{ notice.writer }}</td>
+                            <td>{{ notice.create_date }}</td>
+                            <td>{{ notice.modify_date }}</td>
+                            <td>{{ notice.status }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- modal -->
+<!--Modal: Login / Register Form-->
+<div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog cascading-modal" role="document">
+    <!--Content-->
+    <div class="modal-content">
+        <!--Modal cascading tabs-->
+        <div class="modal-c-tabs">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
+            <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="" role="tab"><i class="material-icons">face</i>Login</a>
+            </li>
+        </ul>
+        <!-- Tab panels -->
+        <div class="tab-content">
+            <!--Panel 7-->
+            <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+                <form action="." method="POST" onSubmit="return check_validate();">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                        <input type="text" id="status" value="failed" hidden></input>
+                    {% endif %}
+                    <!--Body-->
+                    <div class="modal-body mb-1">
+                        <div class="md-form form-sm mb-5">
+                            <i class="fas fa-id-card-alt prefix"></i>
+                            <input name="username" type="text" id="username" class="form-control form-control-sm validate">
+                            <label id="username" data-error="wrong" data-success="right" for="username">Your id</label>
+                        </div>
+        
+                        <div class="md-form form-sm mb-4">
+                            <i class="fas fa-lock prefix"></i>
+                            <input name="password" type="password" id="password" class="form-control form-control-sm validate">
+                            <label id="password" data-error="wrong" data-success="right" for="password">Your password</label>
+                        </div>
+                        <div class="text-center mt-2">
+                            <button class="btn_login btn btn-info submitButton">Log in <i class="fas fa-sign-in-alt"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <div class="alert_bar_id alert alert-danger" style="display:none; margin-bottom: auto;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                    <span><b> Warning - </b> id required </span>
+                </div>
+                <div class="alert_bar_pass alert alert-danger" style="display:none; margin-bottom: auto;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                    <span><b> Warning - </b> password required </span>
+                </div>
+                <div class="alert_bar_id_or_pass alert alert-danger" style="display:none; margin-bottom: auto;">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                    <span><b> Warning - </b> not proper id or password </span>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!--/.Content-->
+    </div>
+</div>
+<!--Modal: Login / Register Form-->
+<script>
+    $( document ).ready(function() {
+        $("#modalLRForm").modal("show");
+        $('#modalLRForm').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    });
+</script>
+{% endblock content %}

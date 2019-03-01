@@ -1,0 +1,313 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+<script src='{% static "jquery/jquery.min.js" %}'></script>
+<link href="{% static 'bootstrap-4.2.1-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/myinfo.css' %}" rel="stylesheet">
+<link href="{% static 'css/modal.css' %}" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+{% block body %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+<script src="{% static 'js/board.js' %}"></script>
+
+<style>
+    .btn{
+        border: 1px solid rgb(113, 197, 93);
+        border-radius: 7px;
+        color: #fff;
+        background-color: rgb(113, 197, 93);
+        font-size: 11px;
+        font-weight: 800;
+        padding: 6px 21px;
+        margin: 22px;
+    }
+    .page-item.active .page-link{
+        background-color: rgb(113, 197, 93) !important;
+        border-color: rgb(113, 197, 93) !important;
+    }
+    /*    --------------------------------------------------
+	:: General
+	-------------------------------------------------- */
+    .submitbox{
+    margin-top: 10%;
+    border-top: 6px solid #7ac55d;
+    background-color:#fff;
+    /* padding: 20px; */
+    padding-top: 20px;
+    padding-bottom: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: 0 10px 10px -2px rgba(0,0,0,0.12),0 -2px 10px -2px rgba(0,0,0,0.12);    
+    }
+    .boxtitle {
+        font-size: 28px;
+        color: #7ac55d;
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+    .nav-tabs .nav-link {
+        border: 1px soild #dee2e6;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        border-left: 1px solid #dee2e6;
+        border-right: 1px solid #dee2e6;
+        border-top: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    @media (max-width: 700px) {
+        thead {
+            visibility: hidden;
+        }
+    } 
+    .tag_text, thead {
+        padding: 5px;
+        text-align: center;
+        white-space: nowrap;
+    }
+</style>
+
+
+    <!-- Title -->
+    <div id="contents" class="page-header">
+        <div class="container">
+            <div class="row page-title">
+                <a>커뮤니티</a>
+            </div>
+        </div>
+    </div>
+    
+    <div id="contents">
+        <div class="container">
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+                        <h5 class="card-subtitle"><a style="color:#00c746;">|</a> 게시판 글</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center page">
+                <div class="col-md card">
+                    <div class="card-body">
+                    
+                        <input type="text" id="from" value="{{ user.username }}" hidden />
+                        <input type="text" id="u_id" value="{{ user.id }}" hidden />
+            
+                        <div style="margin-left:1px">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="row nav-item" style="margin-left: 1px; margin-right: 1px; margin-bottom: 10px; width: 100%">
+                                    <a id="btn_board_type_1" class="nav-link btn_board_type_1"  style="min-width: 75px" onclick="back_to_list(1)"  href="{% url 'board:list' %}">가맹 게시판</a>
+                                    <input type="hidden" id="board_type_1" value="1">&nbsp;
+                                    <a id="btn_board_type_2" class="nav-link btn_board_type_2"  style="min-width: 75px" onclick="back_to_list(2)"  href="{% url 'board:list' %}">회원 게시판</a>
+                                    <input type="hidden" id="board_type_2" value="2">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="content board_content" style="">
+                            <div class="row" style="margin-left:3px;">
+                                <h1 class="mt-4">{{ object.title }}</h1>
+                            </div>
+                            <br>
+                            <tr>
+                                <text class="date" style="display: inline-block; margin-left:5px;">
+                                    <th style="border-right:1px solid #dee2e6">
+                                        {{object.writer}}
+                                    </th>&nbsp;&nbsp;&nbsp;
+                                    <th>
+                                        {{ object.modify_date|date:"Y F d" }}일
+                                    </th>&nbsp;&nbsp;&nbsp;
+                                    <th class="like" style="margin-right:50px;">
+                                        <a><img src="{% static 'img/people.png' %}"></a>
+                                        <span>{{ object.count }}</span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <a href="#" onclick="add_like({{ object.id }})"><img src="{% static 'img/heart.png' %}"></a>
+                                        <span class="recommed_cnt">{{ object.recommend }}</span>
+                                    </th>
+                                </text>
+                
+                                <hr>
+                                </br>
+                                <div class="body" id="summernote">
+                                    {{ object.content|safe }}
+                                </div>
+                            </tr>
+                            <div>
+                                {% if user.pk == object.writer.profile.pk %}
+                                <a class="btn  btn_modify" href="{% url 'board:edit' object.id %}">수정</a>
+                                <a class="btn btn_delete" href="{% url 'board:delete' object.id %}">삭제</a>
+                                {% endif %}
+                                <a class="btn" href="{% url 'board:list' %}">돌아가기</a>
+                                <a class="btn btn_comment" onclick="comment.spread_comment({{ object.id }})">댓글 보기</a>
+                            </div>
+                            <div>
+                                <a><img src="{% static 'img/comment.png' %}"></a>
+                                <span>{{ comment_cnt }}</span>
+                            </div>
+                            <input class="input_comment" type='text' value='' style='width: 80%'>
+                            <button class='btn btn-primary btn_comment_write' onclick="comment.write_comment({{ object.id }})">등록</button>
+                            <div class="comment_area" id="comment_area" style="display: table; width: 100%;">
+                                <ul class="comment_list" style="list-style:none; overflow: auto; max-height: 300px;"></ul>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+   
+        </div>
+    </div>
+    
+
+<script src="{% static 'jquery/jquery.min.js' %}"></script>
+<script src="{% static 'bootstrap-4.2.1-dist/js/bootstrap.min.js' %}"></script>
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} -------------------------------------------------------- {% endcomment %}
+
+
+<input type="hidden" id="user_type" name="user_type" value="{{ user.profile.type }}">
+<input type="hidden" id="board_type" name="board_type" value="">
+
+
+<input id="hdn_board_val" type="hidden" value="{{ object.id }}" >
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(){
+
+
+    var getCookie = function(name) {
+      var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+      return value? value[2] : null;
+    };
+
+    var board_type = getCookie('current_board')
+
+    ctl_btn_by_board_type(board_type)
+    btn_click_ctl()
+
+});
+
+var comment = {};
+comment.add_to_database = function(board_id){
+    var input_comment = $('.input_comment').val();
+    $('.input_comment').val("");
+    if( input_comment != '' ){
+        $.ajax({
+            type: 'GET',
+            url: '{% url 'board:write_comment' %}',
+            data: {
+                board_id : board_id,
+                comment : input_comment
+            },
+            dataType : 'json',
+            success: function(data) {
+            },
+            error: function( jqXHR, textStatus, errorThrown ){
+                    alert('status: ' + textStatus + '\nerror: ' + jqXHR.error )
+            }
+        });
+    }else{
+        alert("댓글을 작성세요")
+    }
+};
+comment.get_comment = function(board_id, do_spread){
+    $.ajax({
+        type: 'GET',
+        url: '{% url 'board:comment' %}',
+        data: {
+            board_id : board_id
+        },
+        dataType : 'json',
+        success: function(data) {
+            comment.spread_data(data);
+        },
+        error: function( jqXHR, textStatus, errorThrown ){
+                alert('status: ' + textStatus + '\nerror: ' + jqXHR.error )
+        }
+    });
+};
+comment.spread_comment = function(num){
+    var board_id = num;
+    $( ".comment_list" ).empty();
+    if( $('.comment_area').hasClass('on') ){
+        $('.comment_area').removeClass('on')
+        $('.comment_area').css('display', 'none');
+    }else{
+        comment.get_comment(board_id);
+        $('.comment_area').css('display', 'table');
+        $('.comment_area').addClass('on');
+    }
+};
+comment.spread_data = function(data){
+    html_str = ""
+    var result_data = []
+    result_data = data
+    $( ".comment_list" ).empty();
+    if ( data != '' ){
+        result_data.forEach(function(data){
+            html_str += "<li>" + data.writer + "&nbsp; | &nbsp;" + data.time_diff + "</li>"
+            html_str += "<li>" + data.content + "</li>"
+        });
+        $(".comment_area ul").append(html_str)
+    }
+};
+comment.write_comment = function(board_id){
+    
+    comment.add_to_database(board_id);
+    if($('.comment_area').hasClass('on')){
+        comment.get_comment(board_id);
+    }else{
+        $('.comment_area').css('display', 'table');
+        comment.get_comment(board_id);
+        $('.comment_area').addClass('on');
+    }
+};
+
+function add_like(board_id){
+    $.ajax({
+        type: 'GET',
+        url: '{% url 'board:add_like' %}',
+        data: {
+            board_id : board_id
+        },
+        dataType : 'json',
+        success: function(data) {
+            if(data[0].likes == 'notLogin'){
+                alert("로그인을 하셔야합니다.")
+            }else if(data[0].likes == 'already'){
+                alert("이미 좋아요를 누르셨습니다.")
+            }else{
+                $('.recommed_cnt').text(data[0].likes)
+            }
+        },
+        error: function( jqXHR, textStatus, errorThrown ){
+            alert("로그인을 하셔야합니다.")
+        }
+    });
+}
+$('#summernote').summernote();
+$('.note-editable').attr('contenteditable', 'false');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body %}

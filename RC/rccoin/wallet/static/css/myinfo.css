@@ -1,0 +1,507 @@
+.submitbox{
+    margin-top: 10%;
+    border-top: 6px solid #7ac55d;
+    background-color:#fff;
+    /* padding: 20px; */
+    padding-top: 20px;
+    padding-bottom: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: 0 10px 10px -2px rgba(0,0,0,0.12),0 -2px 10px -2px rgba(0,0,0,0.12);    
+}
+.boxtitle{    
+    font-size: 28px;  
+    color: #7ac55d;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+.emp-profile{
+    padding: 3%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 0.5rem;
+    background: #fff;
+}
+.profile-img{text-align: center;
+}
+.profile-head h5{
+    /* font-size: 26px; */
+    color: #7ac55d;
+    font-weight: 600;
+}
+.profile-head h6{
+    color: #0062cc;
+}
+.profile-edit-btn{
+    border: none;
+    background-color: #d8d3d3;
+    border-radius: 0.5rem;
+    /* width: 70%; */
+    margin-left: 10px;
+    padding: 1%;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(88, 88, 88);
+    outline: 0;
+    cursor: pointer;
+}
+.profile-edit-btn:hover{
+    color: rgb(88, 88, 88);
+    text-decoration: none;
+}
+.proile-rating{
+    font-size: 12px;
+    color: #818182;
+    margin-top: 5%;
+    vertical-align: middle;
+}
+.proile-rating div span{
+    color: #495057;
+    font-size: 15px;
+    font-weight: 600;
+}
+.profile-head {
+    margin-left: 3%;
+}
+.profile-head .nav-tabs{
+    margin-top: 3%;
+    margin-bottom: 5%;
+}
+.profile-head .nav-tabs .nav-link{
+    font-weight:600;
+    color: #495057;
+    border: none;
+}
+.profile-head .nav-tabs .nav-link.active{
+    /* background-color: #7ac55d; */
+    border: none;
+    color: #7ac55d;
+    border-bottom:2px solid #7ac55d;
+}
+.profile-work{
+    padding: 14%;
+    margin-top: -15%;
+}
+.profile-work p{
+    font-size: 12px;
+    color: #818182;
+    font-weight: 600;
+    margin-top: 10%;
+}
+.profile-work a{
+    text-decoration: none;
+    color: #495057;
+    font-weight: 600;
+    font-size: 14px;
+}
+.profile-work ul{
+    list-style: none;
+}
+.profile-tab label{
+    font-weight: 600;
+}
+.profile-tab p{
+    font-weight: 600;
+    color: #0062cc;
+}
+.margin-top {
+    margin-top: 2%;
+}
+.margin-left {
+    margin-left: 1%;
+}
+.margin-right {
+    margin-right: 1%;
+}
+.margin-bottom {
+    margin-right: 2%;
+}
+.icon {
+    background-size: 25px 25px;
+    width: 25px !important;
+    height: 25px !important;
+}
+.icon_txt {
+    font-size: 14px;
+    font-weight: 600;
+    color: #495057;
+    margin-left: 10px;
+}
+.card {
+    position: relative;
+    text-align: center;
+    border: 0px;   
+    margin-left: 3%;
+}
+/* Bottom left text */
+.bottom-left {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+}
+/* Top left text */
+.top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+/* Top right text */
+.top-right {
+    position: absolute;
+    top: 15%;
+    right: 10%;
+    font-weight: 500;
+    color: #fff;
+}
+/* Bottom right text */
+.bottom-right {
+    position: absolute;
+    bottom: 20px;
+    right: 10%;
+    color: #fff;
+}
+/* Centered text */
+.centered-right {
+    position: absolute;
+    top: 30%;
+    right: 10%;
+    font-size: 40px;
+    font-weight: 600;
+    color: #fff;
+}
+.font-white, .font-white:hover{
+    color: #fff;
+    cursor: pointer;
+}
+a, a:hover{
+    color: #495057;
+    text-decoration: none;    
+}
+
+/*    --------------------------------------------------
+:: General
+-------------------------------------------------- */
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #353535;
+}
+.content h1 {
+    text-align: center;
+}
+.content .content-footer p {
+    color: #6d6d6d;
+    font-size: 12px;
+    text-align: center;
+}
+.content .content-footer p a {
+    color: inherit;
+    font-weight: bold;
+}
+/*	--------------------------------------------------
+:: Table Filter
+-------------------------------------------------- */
+.panel {
+    border: 1px solid #ddd;
+    background-color: #fcfcfc;
+}
+.panel .btn-group {
+    margin: 15px 0 30px;
+}
+.panel .btn-group .btn {
+    transition: background-color .3s ease;
+}
+.table-filter {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+.table-filter tbody tr:hover {
+    cursor: pointer;
+    background-color: #eee;
+}
+.table-filter tbody tr td {
+    padding: 10px;
+    vertical-align: middle;
+    border-top-color: #eee;
+}
+.table-filter tbody tr.selected td {
+    background-color: #eee;
+}
+.table-filter tr td:first-child {
+    width: 38px;
+}
+.table-filter tr td:nth-child(2) {
+    width: 35px;
+}
+.ckbox {
+    position: relative;
+}
+.ckbox input[type="checkbox"] {
+    opacity: 0;
+}
+.ckbox label {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.ckbox label:before {
+    content: '';
+    top: 1px;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    display: block;
+    position: absolute;
+    border-radius: 2px;
+    border: 1px solid #bbb;
+    background-color: #fff;
+}
+.ckbox input[type="checkbox"]:checked + label:before {
+    border-color: #2BBCDE;
+    background-color: #2BBCDE;
+}
+.ckbox input[type="checkbox"]:checked + label:after {
+    top: 3px;
+    left: 3.5px;
+    content: '\e013';
+    color: #fff;
+    font-size: 11px;
+    font-family: 'Glyphicons Halflings';
+    position: absolute;
+}
+.table-filter .star {
+    color: #ccc;
+    text-align: center;
+    display: block;
+}
+.table-filter .star.star-checked {
+    color: #F0AD4E;
+}
+.table-filter .star:hover {
+    color: #ccc;
+}
+.table-filter .star.star-checked:hover {
+    color: #F0AD4E;
+}
+.table-filter .media-photo {
+    width: 35px;
+}
+/*	--------------------------------------------------
+:: Table Filter
+-------------------------------------------------- */
+.panel {
+    border: none;
+    background-color: #fff;
+}
+.panel .btn-group {
+    margin: 15px 0 30px;
+}
+.panel .btn-group .btn {
+    transition: background-color .3s ease;
+}
+.table-filter {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+}
+.table-filter tbody tr:hover {
+    cursor: pointer;
+    background-color: #eee;
+}
+.table-filter tbody tr td {
+    padding: 10px;
+    vertical-align: middle;
+    border-top-color: #eee;
+}
+.table-filter tbody tr.selected td {
+    background-color: #eee;
+}
+.table-filter tr td:first-child {
+    width: 38px;
+}
+.table-filter tr td:nth-child(2) {
+    width: 35px;
+}
+.ckbox {
+    position: relative;
+}
+.ckbox input[type="checkbox"] {
+    opacity: 0;
+}
+.ckbox label {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.ckbox label:before {
+    content: '';
+    top: 1px;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    display: block;
+    position: absolute;
+    border-radius: 2px;
+    border: 1px solid #bbb;
+    background-color: #fff;
+}
+.ckbox input[type="checkbox"]:checked + label:before {
+    border-color: #2BBCDE;
+    background-color: #2BBCDE;
+}
+.ckbox input[type="checkbox"]:checked + label:after {
+    top: 3px;
+    left: 3.5px;
+    content: '\e013';
+    color: #fff;
+    font-size: 11px;
+    font-family: 'Glyphicons Halflings';
+    position: absolute;
+}
+.table-filter .star {
+    color: #ccc;
+    text-align: center;
+    display: block;
+}
+.table-filter .star.star-checked {
+    color: #F0AD4E;
+}
+.table-filter .star:hover {
+    color: #ccc;
+}
+.table-filter .star.star-checked:hover {
+    color: #F0AD4E;
+}
+.table-filter .media-photo {
+    width: 35px;
+}
+.table-filter .media-body {
+    display: block;
+/* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
+}
+.table-filter .media-meta {
+    font-size: 11px;
+    color: #999;
+}
+.table-filter .media .title {
+    color: #71c55d;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: normal;
+    margin: 0;
+}
+.table-filter .media .title span {
+    font-size: .8em;
+    margin-right: 20px;
+}
+.table-filter .media .title span.pagado {
+    color: #5cb85c;
+}
+.table-filter .media .title span.pendiente {
+    color: #f0ad4e;
+}
+.table-filter .media .title span.cancelado {
+    color: #d9534f;
+}
+.table-filter .media .summary {
+    font-size: 14px;
+}
+.table-filter .media-body {
+    display: block;
+/* Had to use this style to force the div to expand (wasn't necessary with my bootstrap version 3.3.6) */
+}
+.table-filter .media-meta {
+    font-size: 11px;
+    color: #999;
+}
+.table-filter .media .title {
+    color: #2BBCDE;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: normal;
+    margin: 0;
+}
+.table-filter .media .title span {
+    font-size: .8em;
+    margin-right: 20px;
+}
+.table-filter .media .title span.pagado {
+    color: #5cb85c;
+}
+.table-filter .media .title span.pendiente {
+    color: #f0ad4e;
+}
+.table-filter .media .title span.cancelado {
+    color: #d9534f;
+}
+.table-filter .media .summary {
+    font-size: 14px;
+}
+.table-filter .media-meta {
+    font-size: 11px;
+    color: #999;
+}
+.table-filter .media .title {
+    color: #2BBCDE;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: normal;
+    margin: 0;
+}
+.table-filter .media .title span {
+    font-size: .8em;
+    margin-right: 20px;
+}
+.table-filter .media .title span.pagado {
+    color: #5cb85c;
+}
+.table-filter .media .title span.pendiente {
+    color: #f0ad4e;
+}
+.table-filter .media .title span.cancelado {
+    color: #d9534f;
+}
+.table-filter .media .summary {
+    font-size: 14px;
+}
+.btn-primary.custom-btn.btn-filter {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.qrcode-text-btn {display:inline-block; background:url(//dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1499401426qr_icon.svg) 50% 50% no-repeat; height:1em; width:1.7em; margin-left:-2em; cursor:pointer}
+.qrcode-text-btn > input[type=file] {position:absolute; overflow:hidden; width:1px; height:1px; opacity:0}
+
+
+.confirmButton, .submitButton{
+    background-color: #7ac55d;
+    color: #fff;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px 0px;
+    width: 100%;
+    margin-left: 2px;
+    font-size: 16px;
+    /* border-radius: 0px; */
+    outline: none;
+}
+.confirmButton:hover, .confirmButton:focus, .submitButton:hover,.submitButton:focus{
+    color: #000;
+    outline: none;
+}
+.cancelButton{
+    background-color: #f2f2f2;
+    color: #000;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 10px 0px;
+    width: 100%;
+    margin-left: 2px;
+    font-size: 16px;
+    /* border-radius: 0px; */
+    outline: none;
+}
+.cancelButton:hover, .cancelButton:focus{
+    color: #7ac55d;
+    outline: none;
+}

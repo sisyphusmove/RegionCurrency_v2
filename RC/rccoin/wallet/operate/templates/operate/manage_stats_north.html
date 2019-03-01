@@ -1,0 +1,305 @@
+{% extends './base.html' %}
+{% block content %}
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+<style>  
+    .mytable { border-collapse:collapse; }  
+    .mytable tr, .mytable th, .mytable td { border:5px solid grey; }
+    .nt{font-family: 'Noto Sans KR', sans-serif;}
+</style>
+
+<div class="content">
+        <div class="container-fluid">
+            <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title nt"><i class="material-icons">trending_up</i>&nbsp;<strong>북면</strong></h4>
+                    <p class="card-category nt">북면 통계 페이지 입니다.</p>
+                    <p class="card-category"> </p>
+                </div>
+                <div class="container ">
+                    <div class="card-body">
+                        <div class='row justify-content-center mytable'>
+                            <div class='col-sm ' align='center'>
+                                </br>
+                                <table>
+                                    <tr>
+                                        <td><canvas id="myChart1" width="500" height="400"></canvas></td>
+                                        <td class="col-sm-6" style="text-align: center">
+                                            <div>
+                                                <h3 class="nt">막대 차트</h3>
+                                                <h3 class="nt">북면 남/녀 이용비율</h3>
+                                                <div class="section">북면을 이용한 남녀 비율입니다.</div>
+                                                <br>
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th class="nt">남자</th>
+                                                            <th class="nt">여자</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="nt">이용비율</td>
+                                                            <td class="section-data-man nt"></td>
+                                                            <td class="section-data-woman nt"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    <tr>
+                                        <td><canvas id="myChart2" width="500" height="400"></canvas></td>
+                                        <th class="col-sm" style="text-align: center">
+                                            <h3 class="nt">막대 차트</h3>
+                                            <h4 class="nt">북면 연령대별 사용 비율</h4>
+                                            <div class="section">북면을 이용한 연령대별 사용자 수입니다.</div>
+                                            <br>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr style="font-size : 10px"> 
+                                                        <th></th>
+                                                        <th class="nt" style="font-size : 14px">10대 미만</th>
+                                                        <th class="nt" style="font-size : 14px">10대</th>
+                                                        <th class="nt" style="font-size : 14px">20대</th>
+                                                        <th class="nt" style="font-size : 14px">30대</th>
+                                                        <th class="nt" style="font-size : 14px">40대</th>
+                                                        <th class="nt" style="font-size : 14px">50대</th>
+                                                        <th class="nt" style="font-size : 14px">60대이상</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="nt">이용비율</td>
+                                                        <td class="data-10 nt"></td>
+                                                        <td class="data-20 nt"></td>
+                                                        <td class="data-30 nt"></td>
+                                                        <td class="data-40 nt"></td>
+                                                        <td class="data-50 nt"></td>
+                                                        <td class="data-60 nt"></td>
+                                                        <td class="data-70 nt"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td><canvas id="myChart3" width="500" height="400"></canvas></td>
+                                        <th class="col-sm" style="text-align: center">
+                                            <h3 class="nt">원 차트</h3>
+                                            <h4 class="nt">북면 가게 사용비율</h4>
+                                            <div class="section">북면을 이용한 사람들의 가게종류 및 이용금액입니다.</div>
+                                            <br>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th class="nt">요식업</th>
+                                                        <th class="nt">숙박업</th>
+                                                        <th class="nt">레저</th>
+                                                        <th class="nt">쇼핑</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="nt">이용비율</td>
+                                                        <td class="data-food nt"></td>
+                                                        <td class="data-sleep nt"></td>
+                                                        <td class="data-leisure nt"></td>
+                                                        <td class="data-shopping nt"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        var endpoint = '{% url "operate:chartdata" %}'
+        var defaultData = []
+        var labels_second = []
+        var labels = [];
+        $.ajax({
+            method: "GET",
+            url: endpoint,
+            data : {
+                location : 3
+            },
+            success: function(data){
+                labels = data.labels
+                labels_second = data.labels_second
+                labels_thard = data.labels_thard
+
+
+                defaultData = data.default
+                defaultData1 = data.default1
+                defaultData2 = data.default2
+                setChart()
+               
+               
+                var man = defaultData[0]
+                var woman = defaultData[1]
+                
+                $('.section-data-man').text(man)
+                $('.section-data-woman').text(woman)
+                
+                var age = [];
+                for(var i=0; i<defaultData1.length ; i++){
+                   age[i] = defaultData1[i]+'명'
+                } 
+                
+                $('.data-10').text(age[0])
+                $('.data-20').text(age[1])
+                $('.data-30').text(age[2])
+                $('.data-40').text(age[3])
+                $('.data-50').text(age[4])
+                $('.data-60').text(age[5])
+                $('.data-70').text(age[6])
+
+                var store_amount = [];
+                for(var i=0; i<defaultData2.length; i++){
+                    store_amount[i]= defaultData2[i]+'원'
+                }
+
+                $('.data-food').text(store_amount[0])
+                $('.data-sleep').text(store_amount[1])
+                $('.data-leisure').text(store_amount[2])
+                $('.data-shopping').text(store_amount[3])
+           
+           
+            },
+            error: function(error_data){
+                console.log("error")
+                console.log(error_data)
+            }
+        })
+
+        function setChart(){
+            var ctx1 = document.getElementById("myChart1");
+            var ctx2 = document.getElementById("myChart2");
+            var ctx3 = document.getElementById("myChart3");
+            
+            var myChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '남/여 이용비율',
+                    data: defaultData,
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255,99,132,1)',
+                       
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+
+            var myChart = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: labels_second,
+                datasets: [{
+                    label: '연령대별 사용현황',
+                    data: defaultData1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+            
+            var myChart = new Chart(ctx3, {
+            type: 'polarArea',
+            data: {
+                labels: labels_thard,
+                datasets: [{
+                    label: '북면 사용현황',
+                    data: defaultData2,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+        }
+    }); 
+
+
+
+       
+</script>
+{% endblock content %}
